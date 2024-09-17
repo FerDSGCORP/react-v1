@@ -1,0 +1,26 @@
+[
+  {
+    "id":1,
+    "name": "John Doe",
+    "age": 28,
+    "country": "USA"
+  },
+  {
+    "id":2,
+    "name": "Jane Smith",
+    "age": 22,
+    "country": "Canada"
+  },
+  {
+    "id":3,
+    "name": "Pedro Alonso",
+    "age": 32,
+    "country": "Mexico"
+  },
+  {
+    "id":4,
+    "name": "Fer Contreras",
+    "age": 24,
+    "country": "Mexico"
+  }
+]
