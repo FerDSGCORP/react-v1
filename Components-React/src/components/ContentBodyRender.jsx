@@ -1,8 +1,9 @@
 import React from 'react';
+import ContentRenderView from '../views/ContentRenderView'
 import {
  
     IconTema
-} from '../components/Icons'
+} from './Icons'
 
 
 function ContentBodyRender() {
@@ -17,6 +18,7 @@ function ContentBodyRender() {
                     <span>Opciones de Tema</span>
                 </div>
             </div>
+            <ContentRenderView/>
         </div>
     );
 }

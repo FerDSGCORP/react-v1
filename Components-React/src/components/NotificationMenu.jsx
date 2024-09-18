@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import {
-    IconTema,
     IconNotificationAction,
-    IconBell
-} from '../components/Icons'
+    IconBell,
+    IconcalendarMenu
+} from '../components/Icons';
 
 function MenuNotifications() {
     const [date, setDate] = useState(new Date());
@@ -16,16 +16,20 @@ function MenuNotifications() {
     ]);
 
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const [eventTitle, setEventTitle] = useState("");
+    const [eventTitle, setEventTitle] = useState(""); 
+    
+    const [isMenuHidden, setIsMenuHidden] = useState(false);
 
-    // Función para agregar un nuevo evento
+    const toggleMenu = () => {
+        setIsMenuHidden(!isMenuHidden);
+    };
+
     const addEvent = () => {
         const newEvent = { date: selectedDate, title: eventTitle };
         setEvents([...events, newEvent]);
         setEventTitle("");
     };
 
-    // Función para mostrar contenido en las celdas con eventos
     const tileContent = ({ date, view }) => {
         if (view === 'month') {
             const eventForDate = events.find(event => event.date.toDateString() === date.toDateString());
@@ -33,48 +37,71 @@ function MenuNotifications() {
         }
     };
 
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth <= 1200) {
+                setIsMenuHidden(true); 
+            } else {
+                setIsMenuHidden(false); 
+            }
+        };
+
+        handleResize();
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     return (
-        <div className='container__notificationExpand'>
+        <>
+         
+            <div className={`container__notificationExpand ${isMenuHidden ? 'hide' : ''}`}>
                 <div className="actionAside">
-                <i><IconNotificationAction /></i>
-            </div>
-            <div className="container_calendar">
-                {/* <input
-                    type="text"
-                    placeholder="Título del evento"
-                    value={eventTitle}
-                    onChange={e => setEventTitle(e.target.value)}
-                />
-                <button onClick={addEvent}>Agregar Evento</button> */}
-                <Calendar
-                    onChange={setDate}
-                    value={date}
-                    // tileContent={tileContent}
-                />
-                <ul className="calendar_list">
-                    {events.map((event, index) => (
-                        <li key={index}>
-                            &nbsp;
-                            {/* {event.date.toDateString()}: */}
-                             {event.title}
-                        </li>
-                    ))}
-                </ul>
-                <div className="container__notifications">
-                    <div className="banner">
-                        <span>NOTIFICACIONES</span>
-                    </div>
-                    <div className="list_notifications">
-                        <ul>
-                            <li className="notification">
-                                <IconBell/>
-                                <span>Envío de carta de instrucción el 08/08/2024</span>
+                    <i id='hideMenu' onClick={toggleMenu}><IconNotificationAction /></i>
+                </div>
+                <div className="container_calendar">
+                    <Calendar
+                        onChange={setDate}
+                        value={date}
+                    />
+                    <ul className="calendar_list">
+                        {events.map((event, index) => (
+                            <li key={index}>
+                                {event.title}
                             </li>
-                        </ul>
+                        ))}
+                    </ul>
+                    <div className="container__notifications">
+                        <div className="banner">
+                            <span>NOTIFICACIONES</span>
+                        </div>
+                        <div className="list_notifications">
+                            <ul>
+                                <li className="notification">
+                                    <IconBell />
+                                    <span>Envío de carta de instrucción el 08/08/2024</span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+            {/* Contenedor del menú pequeño */}
+            <div className={`container__menuSmall ${isMenuHidden ? '' : 'hide'}`} onClick={toggleMenu}>
+                <div className="bell">
+                    <IconBell />
+                </div>
+                <div className="line"></div>
+                <div className="calendar">
+                    <IconcalendarMenu />
+                </div>
+            </div>
+        </>
     );
 }
-export default MenuNotifications
+
+export default MenuNotifications;

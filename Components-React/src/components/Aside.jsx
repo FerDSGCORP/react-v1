@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clienteLogo from '../assets/img/Logotipo.png'
 import {
     IconHome,
@@ -26,6 +26,28 @@ const AsideMenu = () => {
     const handleAsideToggle = () => {
         setIsCollapsed(!isCollapsed); // Alterna entre colapsado y expandido
     };
+
+    // Detecta cambios en el tamaño de la pantalla
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth <= 1200) {
+                setIsCollapsed(true);
+            } else {
+                setIsCollapsed(false);
+            }
+        };
+
+        // Ejecutar la función en el primer render
+        handleResize();
+
+        // Agregar el event listener para cambios de tamaño
+        window.addEventListener('resize', handleResize);
+
+        // Limpiar el event listener al desmontar el componente
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     return (
         <aside className={isCollapsed ? 'collapse' : ''}>
@@ -120,6 +142,5 @@ const AsideMenu = () => {
         </aside>
     );
 };
-
 
 export default AsideMenu;
