@@ -7,6 +7,7 @@ import MenuNotifications from '../components/NotificationMenu'
 function RenderView() {
     return (
     <main className='container__render'>
+        <div className="header"></div>
         <div className="container__aside">
         <AsideMenu/>
         </div>

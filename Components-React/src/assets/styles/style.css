@@ -1,7 +1,7 @@
 :root{
   --primary-color:#007AFF;
   --secondary-color:#041E42;
-  --white-color: #FFFFFF;
+  --white: #FFFFFF;
   --body-text-color:#000;
   --aux-black-color: #242424;
   --primary-shadow:rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -49,7 +49,9 @@ th {
   font-weight: 600;
   font-size: 16px;
 }
-
+.hide, .container__notificationExpand.hide, .container__menuSmall.hide{
+  display: none;
+}
 
 .resizer {
   display: inline-block;
@@ -327,7 +329,7 @@ aside{
   flex-direction: column;
   gap: 20px;
   padding: 30px 10px;
-  background-color: var(--white-color);
+  background-color: var( --white);
   min-height: 100vh;
   box-shadow: var(--primary-shadow);
   border-radius: 20px;
@@ -336,6 +338,9 @@ aside{
   width: 100%;
   /* min-width: 180px;
   max-width: 350px; */
+}
+aside,.container__notificationExpand,.container__menuSmall{
+  margin-top: 30px;
 }
 aside.collapse{
   min-width: 185px;
@@ -478,11 +483,11 @@ max-height: 80px;
 
 
 .container__render{
+  position: relative;
   display: flex;
 }
 .container__bodyRender {
-  height: calc(100vh - 50px);
-  margin: auto 2px;
+  margin-top: 280px;
   width: 100%;
 } 
 .subHeader{
@@ -503,7 +508,7 @@ max-height: 80px;
   display: flex;
   flex-direction: column;
   padding: 30px 10px;
-  background-color: var(--white-color);
+  background-color: var( --white);
   border-radius: 20px;
   min-height: 95vh;
   box-shadow: var(--primary-shadow);
@@ -532,7 +537,7 @@ max-height: 80px;
 .banner {
   height: 40px;
   background-color: var(--primary-color);
-  color: var(--white-color);
+  color: var( --white);
   text-align: center;
   display: flex;
   justify-content: center;
@@ -544,4 +549,88 @@ max-height: 80px;
 .notification {
   display: flex;
   gap: 1rem;
+}
+.container__menuSmall {
+  width: 80px;
+  gap: 0.3rem;
+  padding: 0 .5rem;
+  background-color: var(--primary-color);
+  min-height: 130px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+}
+.bell > svg > g > path{
+  fill: #fff;
+}
+.container__menuSmall .line{
+  width: 85%;
+  background-color: var( --white);
+  height: 2px;
+}
+.header {
+  background: linear-gradient(0deg, rgba(6, 44, 98, 1) 0%, rgba(6, 44, 98, 0.8) 50%, rgba(6, 44, 98, 1) 100%);
+  height: 275px;
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+}
+.react-calendar__tile.react-calendar__tile--now.react-calendar__tile--active.react-calendar__tile--range.react-calendar__tile--rangeStart.react-calendar__tile--rangeEnd.react-calendar__tile--rangeBothEnds.react-calendar__month-view__days__day{
+  background: #006edc;
+}
+button.react-calendar__tile--now {
+  background: #f7f7f7;
+}
+
+button.react-calendar__tile--now:enabled:hover, .react-calendar__tile--now:enabled:focus{
+  background: #e4e4e4;
+}
+
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  padding: 8px;
+  border-radius: 20px;
+  color: var(--primary-color);
+  border: 3px solid var(--primary-color);
+  background: var(--white);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+}
+.btn:hover {
+  background: #007bff50;
+}
+
+.--btn-login {
+  width: 250px;
+  font-weight: 900;
+}
+
+.--btn-azul {
+  color: var(--white);
+  background: var(--primary-color);
+  border: none;
+}
+
+.--btn-gris {
+  color: var(--white);
+  background: var(--secondary-color);
+  border: none;
+}
+
+.--btn-azul:hover, .--btn-gris:hover {
+  background: var(--auxiliar-color);
+}
+
+.--btn-export {
+  width: 200px;
+  gap: 10px;
 }
