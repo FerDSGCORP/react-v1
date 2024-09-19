@@ -76,13 +76,22 @@ const AsideMenu = () => {
                 <ul className='aside_list'> {/* Clase condicional */}
                     <li className="aside_list_link">
                         <Link to="/">
-                            <i><IconHome /></i>
+                            <i><IconHome /> 
+                                <div className='tooltip'>
+                                    <h4>Home</h4>
+                                </div>
+                            </i>
                             <span>Home</span>
                         </Link>
+                        
                     </li>
                     <li className="aside_list_link">
                         <Link to="/fideicomiso-info">
-                            <i><IconInfoFideicomiso /></i>
+                            <i><IconInfoFideicomiso />
+                                <div className='tooltip'>
+                                    <h4>Información del fideicomiso</h4>
+                                </div>
+                            </i>
                             <span>Información de fideicomiso</span>
                         </Link>
                     </li>
@@ -90,7 +99,11 @@ const AsideMenu = () => {
                         onClick={() => handleDropdownClick(0)}>
                         <label className="aside_list_link_content">
                             <label className='--d-flex --align-center --gap-10'>
-                                <i><IconGestionCuentas /></i>
+                                <i><IconGestionCuentas />
+                                    <div className='tooltip'>
+                                        <h4>Gestión de cuentas e inversiones</h4>
+                                    </div>
+                                </i>
                                 <span>Gestión de Cuentas e <br />Inversiones</span>
                             </label>
                             <i><IconArrowDown /></i>
@@ -104,7 +117,11 @@ const AsideMenu = () => {
                         onClick={() => handleDropdownClick(1)}>
                         <label className="aside_list_link_content">
                             <label className='--d-flex --align-center --gap-10'>
-                                <i><IconPersonas /></i>
+                                <i><IconPersonas />
+                                    <div className='tooltip'>
+                                        <h4>Personas</h4>
+                                    </div>
+                                </i>
                                 <span>Personas</span>
                             </label>
                             <i><IconArrowDown /></i>
@@ -119,7 +136,11 @@ const AsideMenu = () => {
                         onClick={() => handleDropdownClick(2)}>
                         <label className="aside_list_link_content">
                             <label className='--d-flex --align-center --gap-10'>
-                                <i><IconInstrucciones /></i>
+                                <i><IconInstrucciones />
+                                    <div className='tooltip'>
+                                        <h4>Instrucciones</h4>
+                                    </div>
+                                </i>
                                 <span>Instrucciones</span>
                             </label>
                             <i><IconArrowDown /></i>
@@ -131,13 +152,21 @@ const AsideMenu = () => {
                     </li>
                     <li className="aside_list_link">
                         <Link to="/bienes-fideicomitidos">
-                            <i><IconBenes /></i>
+                            <i><IconBenes />
+                                <div className='tooltip'>
+                                    <h4>Bienes fideicomitidos</h4>
+                                </div>
+                            </i>
                             <span>Bienes fideicomitidos</span>
                         </Link>
                     </li>
                     <li className="aside_list_link">
                         <Link to="/edo-cuentas">
-                            <i><IconEdoCuentas /></i>
+                            <i><IconEdoCuentas />
+                                <div className='tooltip'>
+                                    <h4>Estado de situación patrimonial</h4>
+                                </div>
+                            </i>
                             <span>Estado de situación patrimonial</span>
                         </Link>
                     </li>
@@ -145,13 +174,21 @@ const AsideMenu = () => {
                 <ul className='footerList'>
                     <li className="aside_list_link">
                         <Link to="/perfil-usuario">
-                            <i><IconPerfilUsuario /></i>
+                            <i><IconPerfilUsuario />
+                                <div className='tooltip'>
+                                    <h4>Perfil de usuario</h4>
+                                </div
+                            ></i>
                             <span>Perfil de usuario</span>
                         </Link>
                     </li>
                     <li className="aside_list_link">
                         <Link to="/cerrar-sesion">
-                            <i><IconCerrarSesion /></i>
+                            <i><IconCerrarSesion />
+                                <div className='tooltip'>
+                                    <h4>Cerrar sesión</h4>
+                                </div>
+                            </i>
                             <span>Cerrar sesión</span>
                         </Link>
                     </li>

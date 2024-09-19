@@ -367,6 +367,37 @@ aside.collapse .aside_list_link.dropdown .aside_list_link_content i:last-child{
   margin-bottom: 20px;
   cursor: pointer;
 }
+
+.--menuActive {
+  background: #007AFF20;
+}
+
+.aside_list_link i:hover > .tooltip{
+  display: block;
+  transition: all .1s ease-in-out;
+
+  @starting-style {
+    scale: 0;
+  }
+}
+
+.tooltip {
+  width: 180px;
+  min-height: 50px;
+  align-content: center;
+  text-align: center;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: var(--secondary-color);
+  position: absolute;
+  color: var(--white);
+  font-size: 14px;
+  margin-top: -50px;
+  margin-left: 18px;
+  display: none;
+  scale: 1;
+}
+
 .aside_list_link a {
   display: flex;
   align-items: center;
@@ -681,7 +712,7 @@ max-height: 80px;
 .card {
   display: flex;
   width: 100%;
-  padding: 10px 30px;
+  padding: 20px 30px;
   flex-direction: column;
   align-items: flex-start;
   box-shadow: var(--secondary-shadow);
@@ -695,6 +726,7 @@ max-height: 80px;
 }
 
 .card-content {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -704,6 +736,14 @@ max-height: 80px;
 
 .--short {
   width: 50%;
+}
+
+.cardHorizontal {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .selecFideicomiso {
@@ -787,6 +827,7 @@ max-height: 80px;
   display: flex;
   align-items: flex-end;
   float: right;
+  transition: all .2s ease-in;
 }
 
 .problema-card {
@@ -812,6 +853,7 @@ max-height: 80px;
 
 .problema:hover >.problema-img {
   background-image: url(../img/problem-mascota.png);
+  width: 150px;
   height: 110px;
   transition: all .2s ease-in;
 }
@@ -822,7 +864,6 @@ max-height: 80px;
 
 .problema:hover .problema-card span:last-child  {
   display: block;
-  transition: all .2s ease-in;
 }
 
 .problema:hover .problema-card span:first-child  {
