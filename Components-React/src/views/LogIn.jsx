@@ -12,7 +12,7 @@ function LogIn() {
                         <span className="logIn-form_enc">Identifícate</span>
                         <input type="text" className="logIn-form_input" placeholder="Nombre" />
                         <input type="password" className="logIn-form_input" placeholder="Contraseña" />
-                        <Button/>
+                        <Button text="Iniciar Sesión" className="btn-login"/>
                         <span className="forgot-pass">Olvidé mi contraseña</span>
                     </div>
                 </div>

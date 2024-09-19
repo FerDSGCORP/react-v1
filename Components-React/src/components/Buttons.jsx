@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
+const Button = ({ text, className, onClick }) => {
+    const buttonClass = `btn ${className || ''}`.trim();
 
-const Button = () => {
     return (
-        <button className='btn --btn-login'> Iniciar Sesión</button>
+        <button className={buttonClass} onClick={onClick}>
+            {text}
+        </button>
     );
 };
 

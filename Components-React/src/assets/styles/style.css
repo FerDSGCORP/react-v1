@@ -51,10 +51,12 @@ th {
   font-weight: 600;
   font-size: 16px;
 } */
-.hide, .container__notificationExpand.hide, .container__menuSmall.hide{
+.hide, .container__notificationExpand.hide, .container__menuSmall.hide, .aside_list{
   display: none;
 }
-
+ul.aside_list.hide{
+  display: none;
+}
 .resizer {
   display: inline-block;
   background: #ddd;
@@ -65,6 +67,10 @@ th {
   top: 0;
   cursor: col-resize;
   user-select: none;
+}
+.asideToggle{
+  height: 43px;
+  display: block;
 }
 
 .resizer:hover,
