@@ -8,7 +8,7 @@ import DetalleFideicomiso from './DetalleFideicomiso'
 
 function ContentRenderView() {
     return (
-        <div>
+        <div className='bodyView'>
              <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/fideicomiso-info" element={<DetalleFideicomiso />} />

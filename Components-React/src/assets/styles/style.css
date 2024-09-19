@@ -690,15 +690,89 @@ max-height: 80px;
 
 .card-content {
   display: flex;
-  padding: 10px 0px;
   justify-content: center;
   align-items: center;
   align-self: stretch;
-  gap: 10px;
+  flex-direction: column;
 }
 
 .--short {
   width: 50%;
+}
+
+.selecFideicomiso {
+  width: 100%;
+  height: 100px;
+  padding: 0px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  align-self: stretch;
+}
+
+.--Fideiactive {
+  background: rgba(0, 122, 255, 0.06);
+}
+
+.FideiSVG {
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+  border: solid 1px var(--gray);
+}
+
+.FideiInfo {
+  width: clamp(60%, 400px - 2rem, 80%);;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.InfoNombre {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.InfoTipo {
+  font-size: 12px;
+  text-transform: uppercase ;
+}
+
+.InfoStatus {
+  font-size: 16px;
+  display: flex;
+  padding: 4px 26px;
+  justify-content: center;
+  align-items: center;
+}
+
+.--statusActivo {
+  border-radius: 20px;
+  border: 1px solid #00A100;
+  background: #E4FFE4;
+}
+
+.--statusExtinto {
+  border-radius: 20px;
+  border: 1px solid #D32F2F;
+  background: #FFDBDE;
+}
+
+.--statusPendiente {
+  border-radius: 20px;
+  border: 1px solid #FAC300;
+  background: #FFF4E2;
+}
+
+.IngresoFidei {
+  width: 30px;
+}
+
+.IngresoFidei:hover > svg {
+  width: 40px;
 }
 
 .problema {

@@ -1,9 +1,11 @@
 import React from 'react';
-
+import MisFIdeicomisos from '../components/MisFideicomisos';
 
 function Home() {
     return (
-        <div>soy el home</div>
+        <div className='bodyCard'>
+            <MisFIdeicomisos/>
+        </div>
     );
 }
 
