@@ -1,10 +1,12 @@
 :root{
   --primary-color:#007AFF;
   --secondary-color:#041E42;
+  --gray: #DFDEDE;
   --white: #FFFFFF;
   --body-text-color:#000;
   --aux-black-color: #242424;
   --primary-shadow:rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  --secondary-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.25);
   --primary-border: 1px solid #E4E7EB;
 }
 
@@ -685,6 +687,101 @@ max-height: 80px;
 
 .header:hover >.header-img {
   opacity: .15;
+}
+
+.container__body{
+  padding: 0px 25px;
+}
+
+.bodyView {
+  display: flex;
+  padding: 25px 0px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.bodyCard {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.card {
+  display: flex;
+  width: 100%;
+  padding: 10px 30px;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: var(--secondary-shadow);
+  border-radius: 20px;
+  border: 1px solid var(--gris);
+  gap: 10px;
+}
+
+.card-enc {
+  font-size: 16px;
+}
+
+.card-content {
+  display: flex;
+  padding: 10px 0px;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  gap: 10px;
+}
+
+.--short {
+  width: 50%;
+}
+
+.problema {
+  height: 110px;
+  padding: 20px;
+  display: flex;
+  align-items: flex-end;
+  float: right;
+}
+
+.problema-card {
+  color: var(--white);
+  display: flex;
+  padding: 10px 40px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px 20px 0px 0px;
+  background: var(--primary-color);
+  text-align: center;
+}
+
+.problema-img {
+  width: 110px;
+  height: 100px;
+  background-image: url(../img/problem-head.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  margin-left: -40px;;
+}
+
+.problema:hover >.problema-img {
+  background-image: url(../img/problem-mascota.png);
+  height: 110px;
+  transition: all .2s ease-in;
+}
+
+.problema .problema-card span:last-child {
+  display: none;
+} 
+
+.problema:hover .problema-card span:last-child  {
+  display: block;
+  transition: all .2s ease-in;
+}
+
+.problema:hover .problema-card span:first-child  {
+  display: none;
 }
 
 .footer {

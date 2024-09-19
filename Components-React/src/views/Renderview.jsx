@@ -4,6 +4,7 @@ import AsideMenu from '../components/Aside'
 import ContentBodyRender from '../components/ContentBodyRender'
 import MenuNotifications from '../components/NotificationMenu'
 import Footer from '../components/Footer'
+import ReportarProblema from '../components/reportarProblema';
 
 
 function RenderView() {
@@ -21,6 +22,7 @@ function RenderView() {
                 <MenuNotifications />
             </div>
         </main>
+        <ReportarProblema/>
         <Footer />
     </Router>
     );
