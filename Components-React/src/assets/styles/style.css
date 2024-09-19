@@ -334,7 +334,7 @@ aside{
   box-shadow: var(--primary-shadow);
   border-radius: 20px;
   max-width: 350px;
-  min-width: 320px;
+  min-width: 300px;
   width: 100%;
   /* min-width: 180px;
   max-width: 350px; */
@@ -392,6 +392,13 @@ aside.collapse .aside_list_link.dropdown .aside_list_link_content i:last-child{
   align-items: center;
   gap: 10px;
   margin-bottom: 20px;
+  cursor: pointer;
+}
+.aside_list_link a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #000;
   cursor: pointer;
 }
 .aside_list_link:last-child{

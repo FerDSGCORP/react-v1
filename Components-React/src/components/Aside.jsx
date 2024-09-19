@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import clienteLogo from '../assets/img/Logotipo.png'
+import { Link } from 'react-router-dom';
 import {
     IconHome,
     IconAsideAction,
@@ -51,95 +52,107 @@ const AsideMenu = () => {
 
     return (
         <aside className={isCollapsed ? 'collapse' : ''}>
-            <div className="actionAside" onClick={handleAsideToggle}>
-                <i><IconAsideAction /></i>
+        <div className="actionAside" onClick={handleAsideToggle}>
+            <i><IconAsideAction /></i>
+        </div>
+        <div className="head_aside">
+            <div className="head_aside_logoCliente">
+                <img src={clienteLogo} alt="Logo del cliente" />
             </div>
-            <div className="head_aside">
-                <div className="head_aside_logoCliente">
-                    <img src={clienteLogo} alt="Logo del cliente" />
-                </div>
-                <div className="head_aside_title">Portal Cliente</div>
-                <div className="head_aside_userName">
-                    <b>Usuario: <br /><span>Jesús Sebastián Anaya Vera</span></b>
-                </div>
+            <div className="head_aside_title">Portal Cliente</div>
+            <div className="head_aside_userName">
+                <b>Usuario: <br /><span>Jesús Sebastián Anaya Vera</span></b>
             </div>
-            <nav className='aside_container_list'>
-                <ul className="aside_list">
-                    <li className="aside_list_link">
+        </div>
+        <nav className='aside_container_list'>
+            <ul className="aside_list">
+                <li className="aside_list_link">
+                    <Link to="/">
                         <i><IconHome /></i>
                         <span>Home</span>
-                    </li>
-                    <li className="aside_list_link">
+                    </Link>
+                </li>
+                <li className="aside_list_link">
+                    <Link to="/fideicomiso-info">
                         <i><IconInfoFideicomiso /></i>
                         <span>Información de fideicomiso</span>
-                    </li>
-                    <li className={`aside_list_link dropdown ${activeDropdown === 0 ? 'dropdown-Active' : ''}`}
-                        onClick={() => handleDropdownClick(0)}>
-                        <label className="aside_list_link_content">
-                            <label className='--d-flex --align-center --gap-10'>
-                                <i><IconGestionCuentas /></i>
-                                <span>Gestión de Cuentas e <br />Inversiones</span>
-                            </label>
-                            <i><IconArrowDown /></i>
+                    </Link>
+                </li>
+                <li className={`aside_list_link dropdown ${activeDropdown === 0 ? 'dropdown-Active' : ''}`}
+                    onClick={() => handleDropdownClick(0)}>
+                    <label className="aside_list_link_content">
+                        <label className='--d-flex --align-center --gap-10'>
+                            <i><IconGestionCuentas /></i>
+                            <span>Gestión de Cuentas e <br />Inversiones</span>
                         </label>
+                        <i><IconArrowDown /></i>
+                    </label>
 
-                        <ul className='dropdown__container__menu'>
-                            <li>Información de cuentas</li>
-                            <li>Contrato de inversión</li>
-                        </ul>
-                    </li>
-                    <li className={`aside_list_link dropdown ${activeDropdown === 1 ? 'dropdown-Active' : ''}`}
-                        onClick={() => handleDropdownClick(1)}>
-                        <label className="aside_list_link_content">
-                            <label className='--d-flex --align-center --gap-10'>
-                                <i><IconPersonas /></i>
-                                <span>Personas</span>
-                            </label>
-                            <i><IconArrowDown /></i>
+                    <ul className='dropdown__container__menu'>
+                        <li><Link to="/cuentas-info">Información de cuentas</Link></li>
+                        <li><Link to="/contrato-inversion">Contrato de inversión</Link></li>
+                    </ul>
+                </li>
+                <li className={`aside_list_link dropdown ${activeDropdown === 1 ? 'dropdown-Active' : ''}`}
+                    onClick={() => handleDropdownClick(1)}>
+                    <label className="aside_list_link_content">
+                        <label className='--d-flex --align-center --gap-10'>
+                            <i><IconPersonas /></i>
+                            <span>Personas</span>
                         </label>
+                        <i><IconArrowDown /></i>
+                    </label>
 
-                        <ul className='dropdown__container__menu'>
-                            <li>Fideicomitentes</li>
-                            <li>Fideicomisarios</li>
-                            <li>Terceros</li>
-                        </ul>
-                    </li>
-                    <li className={`aside_list_link dropdown ${activeDropdown === 2 ? 'dropdown-Active' : ''}`}
-                        onClick={() => handleDropdownClick(2)}>
-                        <label className="aside_list_link_content">
-                            <label className='--d-flex --align-center --gap-10'>
-                                <i><IconInstrucciones /></i>
-                                <span>Instrucciones</span>
-                            </label>
-                            <i><IconArrowDown /></i>
+                    <ul className='dropdown__container__menu'>
+                        <li><Link to="/fideicomitentes">Fideicomitentes</Link></li>
+                        <li><Link to="/fideicomisarios">Fideicomisarios</Link></li>
+                        <li><Link to="/terceros">Terceros</Link></li>
+                    </ul>
+                </li>
+                <li className={`aside_list_link dropdown ${activeDropdown === 2 ? 'dropdown-Active' : ''}`}
+                    onClick={() => handleDropdownClick(2)}>
+                    <label className="aside_list_link_content">
+                        <label className='--d-flex --align-center --gap-10'>
+                            <i><IconInstrucciones /></i>
+                            <span>Instrucciones</span>
                         </label>
+                        <i><IconArrowDown /></i>
+                    </label>
 
-                        <ul className='dropdown__container__menu'>
-                            <li>Instrucciones de pago</li>
-                            <li>Carta Instrucción</li>
-                        </ul>
-                    </li>
-                    <li className="aside_list_link">
+                    <ul className='dropdown__container__menu'>
+                        <li><Link to="/instrucciones-pago">Instrucciones de pago</Link></li>
+                        <li><Link to="/carta-instruccion">Carta Instrucción</Link></li>
+                    </ul>
+                </li>
+                <li className="aside_list_link">
+                    <Link to="/bienes-fideicomitidos">
                         <i><IconBenes /></i>
                         <span>Bienes fideicomitidos</span>
-                    </li>
-                    <li className="aside_list_link">
+                    </Link>
+                </li>
+                <li className="aside_list_link">
+                    <Link to="/edo-cuentas">
                         <i><IconEdoCuentas /></i>
                         <span>Estado de situación patrimonial</span>
-                    </li>
-                </ul>
-                <ul className='footerList'>
-                    <li className="aside_list_link">
+                    </Link>
+                </li>
+            </ul>
+            <ul className='footerList'>
+                <li className="aside_list_link">
+                    <Link to="/perfil-usuario">
                         <i><IconPerfilUsuario /></i>
                         <span>Perfil de usuario</span>
-                    </li>
-                    <li className="aside_list_link">
+                    </Link>
+                </li>
+                <li className="aside_list_link">
+                    <Link to="/cerrar-sesion">
                         <i><IconCerrarSesion /></i>
                         <span>Cerrar sesión</span>
-                    </li>
-                </ul>
-            </nav>
-        </aside>
+                    </Link>
+                </li>
+            </ul>
+        </nav>
+    </aside>
     );
 };
 
