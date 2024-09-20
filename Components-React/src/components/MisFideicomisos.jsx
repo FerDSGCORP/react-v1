@@ -1,5 +1,6 @@
 import FideicomisoHome from "./FideicomisoIndividual";
 
+
 function MisFIdeicomisos() {
     return (
         <div className="card --short">
@@ -8,8 +9,6 @@ function MisFIdeicomisos() {
                 <path d="M0 1H1093" stroke="#007AFF" strokeWidth="3" />
             </svg>
             <div className="card-content">
-                <FideicomisoHome/>
-                <FideicomisoHome/>
                 <FideicomisoHome/>
             </div>
         </div>
