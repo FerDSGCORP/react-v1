@@ -316,7 +316,7 @@ aside,.container__notificationExpand,.container__menuSmall{
   margin-top: 30px;
 }
 aside.collapse{
-  min-width: 185px;
+  min-width: 165px;
 }
 aside.collapse .head_aside_title{
   font-size: 20px;
@@ -372,7 +372,7 @@ aside.collapse .aside_list_link.dropdown .aside_list_link_content i:last-child{
   background: #007AFF20;
 }
 
-.aside_list_link i:hover > .tooltip{
+.collapse .aside_container_list .aside_list_link i:hover > .tooltip {
   display: block;
   transition: all .1s ease-in-out;
 
@@ -952,4 +952,24 @@ button.react-calendar__tile--now:enabled:hover, .react-calendar__tile--now:enabl
 .--btn-export {
   width: 200px;
   gap: 10px;
+}
+
+@media (max-width:1200px) {
+  aside.collapse{
+    min-width: 90px;
+    max-width: 120px;
+  }
+
+  aside.collapse .head_aside_logoCliente img{
+    width: 100%;
+  }
+
+  .container__menuSmall {
+    width: 60px;
+    min-height: 100px;
+  }
+
+  .bell > svg, .calendar > svg {
+    width: 20px;
+  }
 }
