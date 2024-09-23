@@ -5,6 +5,7 @@ import ContentBodyRender from '../components/ContentBodyRender'
 import MenuNotifications from '../components/NotificationMenu'
 import Footer from '../components/Footer'
 import ReportarProblema from '../components/reportarProblema';
+import '../assets/styles/style.css'
 
 
 function RenderView() {

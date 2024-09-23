@@ -1,11 +1,11 @@
-:root{
-  --primary-color:#007AFF;
-  --secondary-color:#041E42;
+:root {
+  --primary-color: #007AFF;
+  --secondary-color: #041E42;
   --gray: #DFDEDE;
   --white: #FFFFFF;
-  --body-text-color:#000;
+  --body-text-color: #000;
   --aux-black-color: #242424;
-  --primary-shadow:rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  --primary-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   --secondary-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.25);
   --primary-border: 1px solid #E4E7EB;
 }
@@ -51,12 +51,17 @@ th {
   font-weight: 600;
   font-size: 16px;
 } */
-.hide, .container__notificationExpand.hide, .container__menuSmall.hide, .aside_list{
+.hide,
+.container__notificationExpand.hide,
+.container__menuSmall.hide,
+.aside_list {
   display: none;
 }
-ul.aside_list.hide{
+
+ul.aside_list.hide {
   display: none;
 }
+
 .resizer {
   display: inline-block;
   background: #ddd;
@@ -68,7 +73,8 @@ ul.aside_list.hide{
   cursor: col-resize;
   user-select: none;
 }
-.asideToggle{
+
+.asideToggle {
   height: 43px;
   display: block;
 }
@@ -81,6 +87,8 @@ ul.aside_list.hide{
 .container__menu {
   display: flex;
   width: 600px;
+  height: 400px;
+  overflow: auto;
 }
 
 .header__rowsInTable {
@@ -100,209 +108,215 @@ ul.aside_list.hide{
   font-style: normal;
   font-weight: normal;
   src: local('Arial Regular'), url('ARIAL.woff') format('woff');
-  }
-  
+}
 
-  @font-face {
+
+@font-face {
   font-family: 'Arial Narrow';
   font-style: normal;
   font-weight: normal;
   src: local('Arial Narrow'), url('ARIALN.woff') format('woff');
-  }
-  
+}
 
-  @font-face {
+
+@font-face {
   font-family: 'Arial Italic';
   font-style: normal;
   font-weight: normal;
   src: local('Arial Italic'), url('ARIALI 1.woff') format('woff');
-  }
-  
+}
 
-  @font-face {
+
+@font-face {
   font-family: 'Arial Italic';
   font-style: normal;
   font-weight: normal;
   src: local('Arial Italic'), url('ARIALI.woff') format('woff');
-  }
-  
+}
 
-  @font-face {
+
+@font-face {
   font-family: 'Arial Narrow Italic';
   font-style: normal;
   font-weight: normal;
   src: local('Arial Narrow Italic'), url('ARIALNI.woff') format('woff');
-  }
-  
+}
 
-  @font-face {
+
+@font-face {
   font-family: 'Arial Medium';
   font-style: normal;
   font-weight: normal;
   src: local('Arial Medium'), url('ArialMdm.woff') format('woff');
-  }
-  
+}
 
-  @font-face {
+
+@font-face {
   font-family: 'Arial Medium Italic';
   font-style: normal;
   font-weight: normal;
   src: local('Arial Medium Italic'), url('ArialMdmItl.woff') format('woff');
-  }
-  
+}
 
-  @font-face {
+
+@font-face {
   font-family: 'Arial Bold';
   font-style: normal;
   font-weight: normal;
   src: local('Arial Bold'), url('ARIALBD 1.woff') format('woff');
-  }
-  
+}
 
-  @font-face {
+
+@font-face {
   font-family: 'Arial Bold';
   font-style: normal;
   font-weight: normal;
   src: local('Arial Bold'), url('ARIALBD.woff') format('woff');
-  }
-  
+}
 
-  @font-face {
+
+@font-face {
   font-family: 'Arial Narrow Bold';
   font-style: normal;
   font-weight: normal;
   src: local('Arial Narrow Bold'), url('ARIALNB.woff') format('woff');
-  }
-  
+}
 
-  @font-face {
+
+@font-face {
   font-family: 'Arial Bold Italic';
   font-style: normal;
   font-weight: normal;
   src: local('Arial Bold Italic'), url('ARIALBI 1.woff') format('woff');
-  }
-  
+}
 
-  @font-face {
+
+@font-face {
   font-family: 'Arial Bold Italic';
   font-style: normal;
   font-weight: normal;
   src: local('Arial Bold Italic'), url('ARIALBI.woff') format('woff');
-  }
-  
+}
 
-  @font-face {
+
+@font-face {
   font-family: 'Arial Narrow Bold Italic';
   font-style: normal;
   font-weight: normal;
   src: local('Arial Narrow Bold Italic'), url('ARIALNBI.woff') format('woff');
-  }
-  
+}
 
-  @font-face {
+
+@font-face {
   font-family: 'Arial Black';
   font-style: normal;
   font-weight: normal;
   src: local('Arial Black'), url('ARIBLK.woff') format('woff');
-  }
-  
+}
 
-  @font-face {
+
+@font-face {
   font-family: 'Arial Black Italic';
   font-style: normal;
   font-weight: normal;
   src: local('Arial Black Italic'), url('ARIALBLACKITALIC.woff') format('woff');
-  }
-  
+}
 
-  @font-face {
+
+@font-face {
   font-family: 'Arial Light Regular';
   font-style: normal;
   font-weight: normal;
   src: local('Arial Light Regular'), url('ARIALLGT.woff') format('woff');
-  }
-  
+}
 
-  @font-face {
+
+@font-face {
   font-family: 'Arial CE Regular';
   font-style: normal;
   font-weight: normal;
   src: local('Arial CE Regular'), url('ArialCE.woff') format('woff');
-  }
-  
+}
 
-  @font-face {
+
+@font-face {
   font-family: 'Arial CE MT Black Regular';
   font-style: normal;
   font-weight: normal;
   src: local('Arial CE MT Black Regular'), url('ArialCEMTBlack.woff') format('woff');
-  }
-  
+}
 
-  @font-face {
+
+@font-face {
   font-family: 'Arial CE Bold';
   font-style: normal;
   font-weight: normal;
   src: local('Arial CE Bold'), url('arialceb.woff') format('woff');
-  }
-  
+}
 
-  @font-face {
+
+@font-face {
   font-family: 'Arial Light Italic';
   font-style: normal;
   font-weight: normal;
   src: local('Arial Light Italic'), url('ARIALLGTITL.woff') format('woff');
-  }
-  
+}
 
-  @font-face {
+
+@font-face {
   font-family: 'Arial CE Italic';
   font-style: normal;
   font-weight: normal;
   src: local('Arial CE Italic'), url('ArialCEItalic.woff') format('woff');
-  }
-  
+}
 
-  @font-face {
+
+@font-face {
   font-family: 'Arial CE Bold Italic';
   font-style: normal;
   font-weight: normal;
   src: local('Arial CE Bold Italic'), url('ArialCEBoldItalic.woff') format('woff');
-  }
+}
 
-*{
+* {
   padding: 0;
   border: 0;
   margin: 0;
   box-sizing: border-box;
 }
-li::marker{
+
+li::marker {
   content: '';
 }
-a{
+
+a {
   text-decoration: none;
 }
-body{
+
+body {
   font-size: 14px;
-  color:var(--body-text-color);
+  color: var(--body-text-color);
   font-family: 'Arial Regular';
 }
-.--d-flex{
+
+.--d-flex {
   display: flex;
 }
 
-.--align-center{
+.--align-center {
   align-items: center;
 }
-.--gap-10{
+
+.--gap-10 {
   gap: 10px;
 }
-aside{
+
+aside {
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 30px 10px;
-  background-color: var( --white);
+  background-color: var(--white);
   min-height: 100vh;
   box-shadow: var(--primary-shadow);
   border-radius: 20px;
@@ -312,54 +326,67 @@ aside{
   /* min-width: 180px;
   max-width: 350px; */
 }
-aside,.container__notificationExpand,.container__menuSmall{
+
+aside,
+.container__notificationExpand,
+.container__menuSmall {
   margin-top: 30px;
 }
 aside.collapse{
   min-width: 165px;
 }
-aside.collapse .head_aside_title{
+
+aside.collapse .head_aside_title {
   font-size: 20px;
 }
-aside.collapse .head_aside_logoCliente img{
+
+aside.collapse .head_aside_logoCliente img {
   width: 120px;
 }
-aside.collapse .aside_container_list .aside_list_link{
+
+aside.collapse .aside_container_list .aside_list_link {
   justify-content: center;
 }
 
-aside.collapse .aside_list_link_content > i.arrow{
+aside.collapse .aside_list_link_content>i.arrow {
   display: none;
 }
 
-aside.collapse .aside_container_list .aside_list_link span{
+aside.collapse .aside_container_list .aside_list_link span {
   display: none;
 }
-aside.collapse .aside_list_link.dropdown .aside_list_link_content{
+
+aside.collapse .aside_list_link.dropdown .aside_list_link_content {
   justify-content: center;
 }
-aside.collapse .aside_list_link.dropdown .aside_list_link_content i:last-child{
+
+aside.collapse .aside_list_link.dropdown .aside_list_link_content i:last-child {
   display: none;
 }
-.head_aside{
+
+.head_aside {
   text-align: center;
   display: flex;
   flex-direction: column;
   gap: 25px;
 
 }
-.head_aside_logoCliente img{
+
+.head_aside_logoCliente img {
   width: 100%;
- max-width: 250px;
+  max-width: 250px;
 }
-.head_aside_uaserName > b > span{
+
+.head_aside_uaserName>b>span {
   font-weight: 100;
 }
-.head_aside_title{
+
+.head_aside_title {
   color: var(--primary-color);
   font-weight: 600;
   font-size: 36px;
 }
+
 .aside_list_link {
   display: flex;
   align-items: center;
@@ -405,49 +432,60 @@ aside.collapse .aside_list_link.dropdown .aside_list_link_content i:last-child{
   color: #000;
   cursor: pointer;
 }
-.aside_list_link:last-child{
+
+.aside_list_link:last-child {
   margin-bottom: 0;
 }
-.aside_list_link.dropdown{
+
+.aside_list_link.dropdown {
   display: inline-block;
 }
+
 .dropdown__container__menu {
   max-height: 0;
   padding-left: 42px;
   overflow: hidden;
   transition: max-height .5s ease-in-out;
 }
-.dropdown__container__menu > li {
+
+.dropdown__container__menu>li {
   padding: 5px 0;
 }
 
-.aside_container_list{
+.aside_container_list {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   min-height: calc(100vh - 150px);
   gap: 30px;
 }
+
 .aside_list {
   display: flex;
   flex-direction: column;
 }
+
 .aside_list_link_content {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.dropdown,.dropdown-Active{
+
+.dropdown,
+.dropdown-Active {
   transition: .5s all ease-in-out;
 }
-.dropdown.dropdown-Active .aside_list_link_content > .arrow{
+
+.dropdown.dropdown-Active .aside_list_link_content>.arrow {
   transform: rotate(180deg);
   transition: .5s all ease-in-out;
 }
-.dropdown.dropdown-Active .dropdown__container__menu{
-max-height: 80px;
+
+.dropdown.dropdown-Active .dropdown__container__menu {
+  max-height: 80px;
 }
-.dropdown .aside_list_link_content > .arrow{
+
+.dropdown .aside_list_link_content>.arrow {
   transition: .5s all ease-in-out;
 }
 
@@ -493,74 +531,88 @@ max-height: 80px;
 
 
 
-.container__render{
+.container__render {
   position: relative;
   display: flex;
 }
+
 .container__bodyRender {
   margin-top: 280px;
   width: 100%;
-} 
-.subHeader{
+}
+
+.subHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 30px;
   border-bottom: 1px solid #DFDEDE;
 }
-.infoSystem, .changeColorModal{
+
+.infoSystem,
+.changeColorModal {
   display: flex;
   align-items: center;
 }
-#userName{
+
+#userName {
   color: #007AFF;
 }
-.container__notificationExpand{
+
+.container__notificationExpand {
   display: flex;
   flex-direction: column;
   padding: 30px 10px;
-  background-color: var( --white);
+  background-color: var(--white);
   border-radius: 20px;
   min-height: 95vh;
   box-shadow: var(--primary-shadow);
   max-width: 350px;
   min-width: 250px;
 }
-.container_calendar .react-calendar{
+
+.container_calendar .react-calendar {
   border: none;
   width: 100%;
   max-width: 280px;
   margin: auto;
 }
+
 .calendar_list {
   padding: 1rem;
 }
-.calendar_list > li{
+
+.calendar_list>li {
   margin-bottom: 5px;
 }
-.calendar_list > li:last-child{
+
+.calendar_list>li:last-child {
   margin-bottom: 0;
 }
-.calendar_list > li::marker{
+
+.calendar_list>li::marker {
   content: '•';
 }
 
 .banner {
   height: 40px;
   background-color: var(--primary-color);
-  color: var( --white);
+  color: var(--white);
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .list_notifications {
   margin: 2rem 0;
 }
+
 .notification {
   display: flex;
   gap: 1rem;
 }
+
 .container__menuSmall {
   width: 80px;
   gap: 0.3rem;
@@ -575,12 +627,14 @@ max-height: 80px;
   align-items: center;
   gap: 0.3rem;
 }
-.bell > svg > g > path{
+
+.bell>svg>g>path {
   fill: #fff;
 }
-.container__menuSmall .line{
+
+.container__menuSmall .line {
   width: 85%;
-  background-color: var( --white);
+  background-color: var(--white);
   height: 2px;
 }
 
@@ -592,7 +646,7 @@ max-height: 80px;
 }
 
 .bg-color {
-  background: linear-gradient(0deg, rgba(151,148,142,.5) 0%, rgba(223,222,222,.5) 100%);
+  background: linear-gradient(0deg, rgba(151, 148, 142, .5) 0%, rgba(223, 222, 222, .5) 100%);
   width: 100%;
   height: 100%;
   display: flex;
@@ -622,7 +676,7 @@ max-height: 80px;
   gap: 40px;
 }
 
-.logo-cliente{
+.logo-cliente {
   height: 50px;
 }
 
@@ -687,11 +741,11 @@ max-height: 80px;
   transition: all .3s ease-in;
 }
 
-.header:hover >.header-img {
+.header:hover>.header-img {
   opacity: .15;
 }
 
-.container__body{
+.container__body {
   padding: 0px 25px;
 }
 
@@ -769,7 +823,8 @@ max-height: 80px;
 }
 
 .FideiInfo {
-  width: clamp(60%, 400px - 2rem, 80%);;
+  width: clamp(60%, 400px - 2rem, 80%);
+  ;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -784,7 +839,7 @@ max-height: 80px;
 
 .InfoTipo {
   font-size: 12px;
-  text-transform: uppercase ;
+  text-transform: uppercase;
 }
 
 .InfoStatus {
@@ -817,7 +872,7 @@ max-height: 80px;
   width: 30px;
 }
 
-.IngresoFidei:hover > svg {
+.IngresoFidei:hover>svg {
   width: 40px;
 }
 
@@ -848,10 +903,11 @@ max-height: 80px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100% 100%;
-  margin-left: -40px;;
+  margin-left: -40px;
+  ;
 }
 
-.problema:hover >.problema-img {
+.problema:hover>.problema-img {
   background-image: url(../img/problem-mascota.png);
   width: 150px;
   height: 110px;
@@ -860,13 +916,13 @@ max-height: 80px;
 
 .problema .problema-card span:last-child {
   display: none;
-} 
+}
 
-.problema:hover .problema-card span:last-child  {
+.problema:hover .problema-card span:last-child {
   display: block;
 }
 
-.problema:hover .problema-card span:first-child  {
+.problema:hover .problema-card span:first-child {
   display: none;
 }
 
@@ -886,7 +942,9 @@ max-height: 80px;
   position: absolute;
 }
 
-.copyright, .powered, .version {
+.copyright,
+.powered,
+.version {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -894,18 +952,20 @@ max-height: 80px;
   text-align: center;
 }
 
-.powered img{
+.powered img {
   width: 20px;
 }
 
-.react-calendar__tile.react-calendar__tile--now.react-calendar__tile--active.react-calendar__tile--range.react-calendar__tile--rangeStart.react-calendar__tile--rangeEnd.react-calendar__tile--rangeBothEnds.react-calendar__month-view__days__day{
+.react-calendar__tile.react-calendar__tile--now.react-calendar__tile--active.react-calendar__tile--range.react-calendar__tile--rangeStart.react-calendar__tile--rangeEnd.react-calendar__tile--rangeBothEnds.react-calendar__month-view__days__day {
   background: #006edc;
 }
+
 button.react-calendar__tile--now {
   background: #f7f7f7;
 }
 
-button.react-calendar__tile--now:enabled:hover, .react-calendar__tile--now:enabled:focus{
+button.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
   background: #e4e4e4;
 }
 
@@ -924,6 +984,7 @@ button.react-calendar__tile--now:enabled:hover, .react-calendar__tile--now:enabl
   cursor: pointer;
   transition: all .3s ease-in-out;
 }
+
 .btn:hover {
   background: #007bff50;
 }
@@ -945,7 +1006,8 @@ button.react-calendar__tile--now:enabled:hover, .react-calendar__tile--now:enabl
   border: none;
 }
 
-.--btn-azul:hover, .--btn-gris:hover {
+.--btn-azul:hover,
+.--btn-gris:hover {
   background: var(--auxiliar-color);
 }
 
@@ -972,4 +1034,14 @@ button.react-calendar__tile--now:enabled:hover, .react-calendar__tile--now:enabl
   .bell > svg, .calendar > svg {
     width: 20px;
   }
+}
+
+.container_tblView {
+  width: 100%;
+  max-width: 1350px;
+}
+
+.container__tbl {
+  width: 100%;
+  overflow: auto;
 }

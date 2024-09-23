@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import TableComponent from '../components/TableComponent';
 import MenuColumns from '../components/MenuColumns'; // Asegúrate de importar MenuColumns
-import useFetchTableData from '../services/useFetchTableService';
+import useFetchContrato from '../services/useFetchContrato';
 
 const MainComponent = () => {
-  const { data, loading, error } = useFetchTableData();
+  const { data, loading, error } = useFetchContrato();
   const [isModalOpen, setIsModalOpen] = useState(false); // Controla el estado de la modal
   const [tableState, setTableState] = useState(null); // Aquí almacenaremos la info de las columnas
 
@@ -16,8 +16,7 @@ const MainComponent = () => {
   };
 
   return (
-    <div>
-      <button id='openModalFilters' onClick={toggleModal}>Abrir filtros</button>
+    <div className='container_tblView'>
 
       {/* Modal */}
       {isModalOpen && tableState && (
