@@ -1,32 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const MenuColumns = ({ columns, setColumnVisibility, columnVisibility, listColumnsActive = { list: [] }, setListColumnsActive }) => {
+const MenuColumns = ({ columns, setColumnVisibility, columnVisibility, listColumnsActive, setListColumnsActive }) => {
     const [filterText, setFilterText] = useState('');
 
-    // Inicializar todas las columnas como activas si columnVisibility no está inicializado correctamente
-    const allColumnsVisible = columns.reduce((acc, col) => {
-        return acc && columnVisibility[col.accessorKey];
-    }, true);
+    // Al abrir el modal, sincronizar el estado de columnas activas
+    useEffect(() => {
+        setListColumnsActive({
+            list: columns.filter(col => columnVisibility[col.accessorKey]), // Solo columnas visibles
+            draggingIndex: null,
+        });
+    }, [columnVisibility, columns, setListColumnsActive]);
 
-    // Si todas las columnas están visibles, actualizar el estado de listColumnsActive
-    if (allColumnsVisible) {
-        setListColumnsActive((prevState) => ({
-            ...prevState,
-            list: columns, // Poner todas las columnas en rowsInTable desde el inicio
-        }));
-    }
-
-    // Verificamos que listColumnsActive.list esté definido
+    // Columnas visibles en rowsInTable
     const activeColumns = (listColumnsActive.list || []).filter(
         (col) => columnVisibility[col.accessorKey]
     );
 
-    // Filtrar las columnas que no están visibles
+    // Columnas no visibles (rowsByAdd)
     const inactiveColumns = columns.filter(
         (col) => !columnVisibility[col.accessorKey]
     );
 
-    // Filtrar columnas inactivas basado en el valor del input de búsqueda
+    // Filtrar columnas inactivas basado en el input
     const filteredColumns = inactiveColumns.filter((col) =>
         col.header.toLowerCase().includes(filterText.toLowerCase())
     );

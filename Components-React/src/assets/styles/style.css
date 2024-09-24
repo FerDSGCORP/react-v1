@@ -1039,9 +1039,11 @@ button.react-calendar__tile--now:enabled:hover,
 .container_tblView {
   width: 100%;
   max-width: 1350px;
+  margin: auto;
 }
 
 .container__tbl {
   width: 100%;
   overflow: auto;
+  height: 600px;
 }

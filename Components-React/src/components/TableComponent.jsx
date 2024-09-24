@@ -20,6 +20,7 @@ const TableComponent = ({ onTableReady }) => {
 
     const { data, total, records, loading, error } = useFetchContrato(page, rowsPerPage);
 
+    // Generar columnas dinámicas basado en los datos
     const columns = useMemo(() => {
         if (data.length === 0 || !data[0]?.cell) {
             return [];
@@ -32,6 +33,7 @@ const TableComponent = ({ onTableReady }) => {
         }));
     }, [data]);
 
+    // Transformar los datos para adaptarlos a las columnas dinámicas
     const transformedData = useMemo(() => {
         return data.map(row => {
             const transformedRow = { id: row.id };
@@ -47,19 +49,20 @@ const TableComponent = ({ onTableReady }) => {
         columns.reduce((acc, col) => ({ ...acc, [col.accessorKey]: true }), {})
     );
 
-    // Estado de las columnas activas
+    // Estado de columnas activas (listColumnsActive)
     const [listColumnsActive, setListColumnsActive] = useState({
-        list: columns,
+        list: columns, // Inicializar todas las columnas como activas
         draggingIndex: null,
     });
 
     // Actualizar las columnas activas cuando cambian las columnas
     useEffect(() => {
+        setColumnVisibility(columns.reduce((acc, col) => ({ ...acc, [col.accessorKey]: true }), {})); // Forzar todas las columnas visibles
         setListColumnsActive({
-            list: columns.filter(col => columnVisibility[col.accessorKey]), // Solo columnas visibles
+            list: columns,
             draggingIndex: null,
         });
-    }, [columns, columnVisibility]);
+    }, [columns]);
 
     const table = useReactTable({
         data: transformedData,
@@ -105,7 +108,7 @@ const TableComponent = ({ onTableReady }) => {
 
     return (
         <div className='container__tbl'>
-            <button onClick={toggleModal}>Abrir filtros</button>
+            <button onClick={toggleModal}>Columnas</button>
 
             <table>
                 <thead>
