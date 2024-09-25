@@ -1,6 +1,5 @@
 
 import React, {useState, useMemo, useEffect  } from 'react';
-import '../assets/styles/tblModal.css';
 import MenuColumns from './MenuColumns.jsx';
 import SelectFilterComponent from '../hooks/Filters.jsx';
 import useFetchContrato from '../services/useFetchContrato.jsx'
@@ -11,6 +10,7 @@ import {
     getFilteredRowModel,
     flexRender,
 } from '@tanstack/react-table';
+import { IconActualizarTabla, IconColumnsSelect, IconExportarDatos, IconTableCLose, IconTableNext, IconTablePrevious } from './Icons.jsx';
 
 
 const TableComponent = ({ onTableReady }) => {
@@ -108,7 +108,11 @@ const TableComponent = ({ onTableReady }) => {
 
     return (
         <div className='container__tbl'>
-            <button onClick={toggleModal}>Columnas</button>
+            <div className='container_tbl_buttons'>
+                <button onClick={toggleModal}> <IconColumnsSelect/>Columnas</button>
+                <button><IconActualizarTabla/>Actualizar tabla</button>
+                <button><IconExportarDatos/>Exportar Datos</button>
+            </div>
 
             <table>
                 <thead>
@@ -149,18 +153,21 @@ const TableComponent = ({ onTableReady }) => {
 
             <div className="pagination">
                 <button onClick={() => handlePageChange(page - 1)} disabled={page === 1}>
-                    Anterior
+                    <IconTablePrevious/>
                 </button>
-                <span>Página {page} de {total}</span>
+                <span>Página <b>{page}</b> de <b>{total}</b></span>
                 <button onClick={() => handlePageChange(page + 1)} disabled={page === total}>
-                    Siguiente
+                     <IconTableNext/>
                 </button>
             </div>
 
             {isModalOpen && (
                 <div className="modal">
                     <div className="modal-content">
-                        <h2>Configurar Columnas</h2>
+                        <div className='modal-content-head'>
+                            <h2>Configurar Columnas</h2>
+                            <button onClick={toggleModal}><IconTableCLose/></button>
+                        </div>
                         <MenuColumns
                             columns={columns}
                             setColumnVisibility={setColumnVisibility}
@@ -168,7 +175,7 @@ const TableComponent = ({ onTableReady }) => {
                             listColumnsActive={listColumnsActive}
                             setListColumnsActive={setListColumnsActive}
                         />
-                        <button onClick={toggleModal}>Cerrar</button>
+                        
                     </div>
                 </div>
             )}
