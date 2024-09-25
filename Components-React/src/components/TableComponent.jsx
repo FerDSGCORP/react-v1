@@ -1,6 +1,7 @@
 
 import React, {useState, useMemo, useEffect  } from 'react';
 import MenuColumns from './MenuColumns.jsx';
+import ModalFiltersAdvanced from './ModalFiltersAdvanced.jsx';
 import SelectFilterComponent from '../hooks/Filters.jsx';
 import useFetchContrato from '../services/useFetchContrato.jsx'
 import {
@@ -12,52 +13,128 @@ import {
 } from '@tanstack/react-table';
 import { IconActualizarTabla, IconColumnsSelect, IconExportarDatos, IconTableCLose, IconTableNext, IconTablePrevious } from './Icons.jsx';
 
-
 const TableComponent = ({ onTableReady }) => {
     const [page, setPage] = useState(1);
     const [rowsPerPage, setRowsPerPage] = useState(80);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+    const [filters, setFilters] = useState(null);
 
-    const { data, total, records, loading, error } = useFetchContrato(page, rowsPerPage);
+    const { data, total, records, loading, error } = useFetchContrato(page, rowsPerPage, filters);
 
-    // Generar columnas dinámicas basado en los datos
-    const columns = useMemo(() => {
-        if (data.length === 0 || !data[0]?.cell) {
-            return [];
-        }
-
-        const cellLength = data[0].cell.length;
-        return Array.from({ length: cellLength }, (_, i) => ({
-            accessorKey: `col${i + 1}`,
-            header: `Columna ${i + 1}`,
-        }));
-    }, [data]);
+    // Define las columnas con los headers y accessorKeys proporcionados
+    const columns = useMemo(() => [
+        { header: "NumeroDeContrato", accessorKey: "NumeroDeContrato" },
+        { header: "NombreDeContrato", accessorKey: "NombreDeContrato" },
+        { header: "OficioExencion", accessorKey: "OficioExencion" },
+        { header: "RegSHCP", accessorKey: "RegSHCP" },
+        { header: "RegGobDF", accessorKey: "RegGobDF" },
+        { header: "TextoRegional", accessorKey: "TextoRegional" },
+        { header: "Escritura", accessorKey: "Escritura" },
+        { header: "TextoSucursal", accessorKey: "TextoSucursal" },
+        { header: "FechaDeRegistroPublico", accessorKey: "FechaDeRegistroPublico" },
+        { header: "FechaDeApertura", accessorKey: "FechaDeApertura" },
+        { header: "FechaDeCancelacion", accessorKey: "FechaDeCancelacion" },
+        { header: "FechaDeInscripcionRegNalInvEx", accessorKey: "FechaDeInscripcionRegNalInvEx" },
+        { header: "NombreDeCliente", accessorKey: "NombreDeCliente" },
+        { header: "TextoESustitucion", accessorKey: "TextoESustitucion" },
+        { header: "TextoSustitucion", accessorKey: "TextoSustitucion" },
+        { header: "TextoESustitucionEje", accessorKey: "TextoESustitucionEje" },
+        { header: "TextoNombreDeContratoEje", accessorKey: "TextoNombreDeContratoEje" },
+        { header: "TextoTipoDeNegocio", accessorKey: "TextoTipoDeNegocio" },
+        { header: "TextoClasificacionDeProducto", accessorKey: "TextoClasificacionDeProducto" },
+        { header: "TextoNombreDeProducto", accessorKey: "TextoNombreDeProducto" },
+        { header: "TextoFormaDeManejo", accessorKey: "TextoFormaDeManejo" },
+        { header: "TextoComiteTecnico", accessorKey: "TextoComiteTecnico" },
+        { header: "TextoRevocable", accessorKey: "TextoRevocable" },
+        { header: "TextoSHCP", accessorKey: "TextoSHCP" },
+        { header: "TextoGobDF", accessorKey: "TextoGobDF" },
+        { header: "TextoTipoDeCliente", accessorKey: "TextoTipoDeCliente" },
+        { header: "TextoTipoDeContratoPublico", accessorKey: "TextoTipoDeContratoPublico" },
+        { header: "TextoTipoDeContrato", accessorKey: "TextoTipoDeContrato" },
+        { header: "TextoSubContrato", accessorKey: "TextoSubContrato" },
+        { header: "TextoNombreDeNotario", accessorKey: "TextoNombreDeNotario" },
+        { header: "TextoDeTipoDeAdministracion", accessorKey: "TextoDeTipoDeAdministracion" },
+        { header: "TextoCentroDeCostos", accessorKey: "TextoCentroDeCostos" },
+        { header: "TextoActividadEmpresarial", accessorKey: "TextoActividadEmpresarial" },
+        { header: "TextoPatrimonio", accessorKey: "TextoPatrimonio" },
+        { header: "TextoRegLasDeOperacion", accessorKey: "TextoRegLasDeOperacion" },
+        { header: "TextoNombreDeActividad", accessorKey: "TextoNombreDeActividad" },
+        { header: "RFCActividadEmpresarial", accessorKey: "RFCActividadEmpresarial" },
+        { header: "TextoGerencia", accessorKey: "TextoGerencia" },
+        { header: "TextoClasificacionProducto", accessorKey: "TextoClasificacionProducto" },
+        { header: "RegistroPublicoDeLaPropiedad", accessorKey: "RegistroPublicoDeLaPropiedad" },
+        { header: "TextoRegistroPresupuestal", accessorKey: "TextoRegistroPresupuestal" },
+        { header: "TextoRenovacionRegPresupuestal", accessorKey: "TextoRenovacionRegPresupuestal" },
+        { header: "RenovacionRegPresupuestal", accessorKey: "RenovacionRegPresupuestal" },
+        { header: "TextoInformativaSAT", accessorKey: "TextoInformativaSAT" },
+    ], []);
 
     // Transformar los datos para adaptarlos a las columnas dinámicas
     const transformedData = useMemo(() => {
         return data.map(row => {
-            const transformedRow = { id: row.id };
-            row.cell.forEach((cellValue, index) => {
-                transformedRow[`col${index + 1}`] = cellValue;
-            });
-            return transformedRow;
+            const cellData = row.cell;
+
+            return {
+                NumeroDeContrato: cellData[0],
+                NombreDeContrato: cellData[1],
+                OficioExencion: cellData[2],
+                RegSHCP: cellData[3],
+                RegGobDF: cellData[4],
+                TextoRegional: cellData[5],
+                Escritura: cellData[6],
+                TextoSucursal: cellData[7],
+                FechaDeRegistroPublico: cellData[8],
+                FechaDeApertura: cellData[9],
+                FechaDeCancelacion: cellData[10],
+                FechaDeInscripcionRegNalInvEx: cellData[11],
+                NombreDeCliente: cellData[12],
+                TextoESustitucion: cellData[13],
+                TextoSustitucion: cellData[14],
+                TextoESustitucionEje: cellData[15],
+                TextoNombreDeContratoEje: cellData[16],
+                TextoTipoDeNegocio: cellData[17],
+                TextoClasificacionDeProducto: cellData[18],
+                TextoNombreDeProducto: cellData[19],
+                TextoFormaDeManejo: cellData[20],
+                TextoComiteTecnico: cellData[21],
+                TextoRevocable: cellData[22],
+                TextoSHCP: cellData[23],
+                TextoGobDF: cellData[24],
+                TextoTipoDeCliente: cellData[25],
+                TextoTipoDeContratoPublico: cellData[26],
+                TextoTipoDeContrato: cellData[27],
+                TextoSubContrato: cellData[28],
+                TextoNombreDeNotario: cellData[29],
+                TextoDeTipoDeAdministracion: cellData[30],
+                TextoCentroDeCostos: cellData[31],
+                TextoActividadEmpresarial: cellData[32],
+                TextoPatrimonio: cellData[33],
+                TextoRegLasDeOperacion: cellData[34],
+                TextoNombreDeActividad: cellData[35],
+                RFCActividadEmpresarial: cellData[36],
+                TextoGerencia: cellData[37],
+                TextoClasificacionProducto: cellData[38],
+                RegistroPublicoDeLaPropiedad: cellData[39],
+                TextoRegistroPresupuestal: cellData[40],
+                TextoRenovacionRegPresupuestal: cellData[41],
+                RenovacionRegPresupuestal: cellData[42],
+                TextoInformativaSAT: cellData[43]
+            };
         });
     }, [data]);
 
-    // Estado inicial: todas las columnas visibles
     const [columnVisibility, setColumnVisibility] = useState(() => 
         columns.reduce((acc, col) => ({ ...acc, [col.accessorKey]: true }), {})
     );
 
-    // Estado de columnas activas (listColumnsActive)
     const [listColumnsActive, setListColumnsActive] = useState({
-        list: columns, // Inicializar todas las columnas como activas
+        list: columns,
         draggingIndex: null,
     });
 
-    // Actualizar las columnas activas cuando cambian las columnas
     useEffect(() => {
-        setColumnVisibility(columns.reduce((acc, col) => ({ ...acc, [col.accessorKey]: true }), {})); // Forzar todas las columnas visibles
+        setColumnVisibility(columns.reduce((acc, col) => ({ ...acc, [col.accessorKey]: true }), {}));
         setListColumnsActive({
             list: columns,
             draggingIndex: null,
@@ -106,13 +183,19 @@ const TableComponent = ({ onTableReady }) => {
         setIsModalOpen(!isModalOpen);
     };
 
+    const toggleFilterModal = () => {
+        setIsFilterModalOpen(!isFilterModalOpen);
+    };
+
+    const handleSaveFilters = (filters) => {
+        setFilters(filters);
+        setIsFilterModalOpen(false);
+    };
+
     return (
         <div className='container__tbl'>
-            <div className='container_tbl_buttons'>
-                <button onClick={toggleModal}> <IconColumnsSelect/>Columnas</button>
-                <button><IconActualizarTabla/>Actualizar tabla</button>
-                <button><IconExportarDatos/>Exportar Datos</button>
-            </div>
+            <button onClick={toggleModal}>Abrir filtros</button>
+            <button onClick={toggleFilterModal}>Filtros Avanzados</button>
 
             <table>
                 <thead>
@@ -178,6 +261,15 @@ const TableComponent = ({ onTableReady }) => {
                         
                     </div>
                 </div>
+            )}
+
+            {isFilterModalOpen && (
+                <ModalFiltersAdvanced
+                    visibleColumns={listColumnsActive.list}
+                    isOpen={isFilterModalOpen}
+                    onClose={toggleFilterModal}
+                    onSave={handleSaveFilters}
+                />
             )}
         </div>
     );

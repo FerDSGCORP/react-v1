@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const useFetchContrato = (page = 1, rows = 80) => {
+const useFetchContrato = (page = 1, rows = 80, filters = null) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -11,14 +11,20 @@ const useFetchContrato = (page = 1, rows = 80) => {
     const fetchData = async () => {
       setLoading(true);
       try {
+        const headers = {
+          'Content-Type': 'application/json',
+        };
+
+        // Si se reciben filtros, los convertimos en JSON
+        if (filters) {
+          headers['filters'] = JSON.stringify(filters);
+        }
+
         const response = await fetch(
-          `http://win-k3v3h0qliq2:8112/api/contrato/sidx/NumeroDeContrato/sord/asc/page/${page}/rows/${rows}`, 
+          `http://win-k3v3h0qliq2:8112/api/contrato/sidx/NumeroDeContrato/sord/asc/page/${page}/rows/${rows}`,
           {
             method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              'filter': 'your-filter-value',
-            },
+            headers: headers,
           }
         );
 
@@ -38,7 +44,7 @@ const useFetchContrato = (page = 1, rows = 80) => {
     };
 
     fetchData();
-  }, [page, rows]); // Reaccionar a los cambios en page y rows
+  }, [page, rows, filters]); // Reaccionar a los cambios en page, rows o filters
 
   return { data, total, records, loading, error };
 };
