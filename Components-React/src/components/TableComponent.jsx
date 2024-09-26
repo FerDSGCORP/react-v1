@@ -11,7 +11,7 @@ import {
     getFilteredRowModel,
     flexRender,
 } from '@tanstack/react-table';
-import { IconActualizarTabla, IconColumnsSelect, IconExportarDatos, IconTableCLose, IconTableNext, IconTablePrevious } from './Icons.jsx';
+import { IconActualizarTabla, IconColumnsSelect, IconExportarDatos, IconFiltersCom, IconTableCLose, IconTableNext, IconTablePrevious } from './Icons.jsx';
 
 const TableComponent = ({ onTableReady }) => {
     const [page, setPage] = useState(1);
@@ -194,8 +194,10 @@ const TableComponent = ({ onTableReady }) => {
 
     return (
         <div className='container__tbl'>
-            <button onClick={toggleModal}>Abrir filtros</button>
-            <button onClick={toggleFilterModal}>Filtros Avanzados</button>
+            <div className='container_tbl_buttons'>
+                <button onClick={toggleModal}><IconColumnsSelect/> Abrir filtros</button>
+                <button onClick={toggleFilterModal}><IconFiltersCom/>Filtros Avanzados</button>
+            </div>
 
             <table>
                 <thead>

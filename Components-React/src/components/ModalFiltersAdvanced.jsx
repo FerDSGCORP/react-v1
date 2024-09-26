@@ -66,7 +66,10 @@ const ModalFiltersAdvanced = ({ visibleColumns, isOpen, onClose, onSave }) => {
     return (
         <div className="modal">
             <div className="modal-content">
-                <h2>Filtros Avanzados</h2>
+                <div className='modal-content-head'>
+                    <h2>Filtros Avanzados</h2>
+                    <button onClick={onClose}>X</button>
+                </div>
 
                 {/* Operador del grupo AND/OR */}
                 <div className="containerFilterdiv">
@@ -214,33 +217,8 @@ const ModalFiltersAdvanced = ({ visibleColumns, isOpen, onClose, onSave }) => {
                 </div>
 
                 <button onClick={handleSaveFilters}>Guardar Filtros</button>
-                <button onClick={onClose}>Cerrar</button>
+                
             </div>
-
-            <style>{`
-                .modal {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: rgba(0, 0, 0, 0.5);
-                }
-                .modal-content {
-                    background-color: white;
-                    padding: 20px;
-                    border-radius: 5px;
-                    position: relative;
-                    max-width: 600px;
-                    width: 100%;
-                }
-                .generalCondition, .groupCondition {
-                    margin-top: 10px;
-                }
-            `}</style>
         </div>
     );
 };

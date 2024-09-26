@@ -506,6 +506,24 @@ aside.collapse .aside_list_link.dropdown .aside_list_link_content i:last-child {
   padding: 20px;
   border-radius: 8px;
   position: relative;
+  max-width: 600px;
+  width: 100%;
+}
+
+.modal-content > button {
+  padding: 10px;
+  background-color: var(--white);
+  color: var(--primary-color);
+  border: solid 2px var(--primary-color);
+  border-radius: 20px;
+  font-weight: 700;
+  margin: 20px 0px;
+  float: right;
+  cursor: pointer;
+}
+
+.generalCondition, .groupCondition {
+  margin-top: 10px;
 }
 
 .modal-content-head {
@@ -519,9 +537,17 @@ aside.collapse .aside_list_link.dropdown .aside_list_link_content i:last-child {
 .modal-content-head button {
   padding: 5px;
   background-color: var(--tertiary-color);
+  color: var(--white);
+  font-weight: 900;
+  min-width: 25px;
   border-radius: 20px;
   float: right;
   cursor: pointer;
+}
+
+.containerFilterdiv {
+  padding: 30px 20px;
+  border-bottom: solid 2px var(--primary-color) ;
 }
 
 .close {
@@ -618,13 +644,21 @@ table > tbody > tr > td{
   padding: 0px 10px;
 }
 
-.listColumnsActive button, .listColumnsAdd button {
+.containerFilterdiv select, .containerFilterdiv input {
+  min-width: 100px;
+  padding: 5px 10px;
+  border: solid 1px var(--primary-color);
+  border-radius: 10px;
+  margin: 5px;
+}
+
+.listColumnsActive button, .listColumnsAdd button, .conditionGroup button {
   padding: 0px 5px;
   margin: 5px;
   background-color: var(--primary-color);
   color: var(--white);
   font-weight: 900;
-  border-radius: 2px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
