@@ -7,192 +7,162 @@ function DetalleFideicomiso() {
     const { data, loading, error } = useFetchContratoInfo(idFid); // Obtener datos desde el hook
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // Estados locales para almacenar los datos del fideicomiso
-    const [fideicomisoInfo, setFideicomisoInfo] = useState({
-        NumeroDeContrato: '',
-        NombreDeContrato: '',
-        NombreDeCliente: '',
-        TextoTipoDeNegocio: '',
-        TextoInformativaSAT: '',
-        TxtReporteTransferenciaInternacional: '',
-        TextoOmiteRequeridos: '',
-        TextoSaldoEstadoFinanciero: '',
-        TextoFormaDeManejo: '',
-        TextoGerencia: '',
-        NombreDeActividad: '',
-        TextoSubContrato: ''
-    });
-
-    // Actualizar los estados con los datos recibidos
-    useEffect(() => {
-        if (data) {
-            setFideicomisoInfo({
-                NumeroDeContrato: data.NumeroDeContrato || '',
-                NombreDeContrato: data.NombreDeContrato || '',
-                NombreDeCliente: data.NombreDeCliente || '',
-                TextoTipoDeNegocio: data.TextoTipoDeNegocio || '',
-                TextoInformativaSAT: data.TextoInformativaSAT || '',
-                TxtReporteTransferenciaInternacional: data.TxtReporteTransferenciaInternacional || '',
-                TextoOmiteRequeridos: data.TextoOmiteRequeridos || '',
-                TextoSaldoEstadoFinanciero: data.TextoSaldoEstadoFinanciero || '',
-                TextoFormaDeManejo: data.TextoFormaDeManejo || '',
-                TextoGerencia: data.TextoGerencia || '',
-                NombreDeActividad: data.NombreDeActividad || '',
-                TextoSubContrato: data.TextoSubContrato || ''
-            });
-        }
-    }, [data]);
-
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>Error: {error}</div>;
-    
     const openModal = () => {
         setIsModalOpen(true);
     };
 
-    // Función para cerrar la modal
     const closeModal = () => {
         setIsModalOpen(false);
     };
+
+    if (loading) return <p>Cargando datos...</p>;
+    if (error) return <p>Error al cargar los datos: {error}</p>;
+
+    // Función auxiliar para manejar los datos vacíos
+    const displayData = (value) => {
+        if (typeof value === 'string') {
+            return value.trim() ? value : '-';
+        } else if (value == null || value === "") {
+            return '-';
+        } else {
+            return value;
+        }
+    };
+
     return (
         <>
-        <div className="card">
-            <span className="card-enc"><b>General</b></span>
-            <svg width="100%" height="2" viewBox="0 0 1093 2" fill="none">
-                <path d="M0 1H1093" stroke="#007AFF" strokeWidth="2" />
-            </svg>
-            <div className="card-content">
-                <div className='cardHorizontal'>
-                    <span><b>Número de negocio fiduciario</b></span>
-                    <span id='numeroDeContrato'></span>
-                    <span><b>Nombre de contrato</b></span>
-                    <span id='nombreDeContrato'></span>
-                    <span><b>Cliente</b></span>
-                    <span id='nombreDeCliente'></span>
+            <div className="card">
+                <span className="card-enc"><b>General</b></span>
+                <svg width="100%" height="2" viewBox="0 0 1093 2" fill="none">
+                    <path d="M0 1H1093" stroke="#007AFF" strokeWidth="2" />
+                </svg>
+                <div className="card-content">
+                    <div className='cardHorizontal'>
+                        <span><b>Número de negocio fiduciario</b></span>
+                        <span>{displayData(data?.numeroDeContrato)}</span>
+                        <span><b>Nombre de contrato</b></span>
+                        <span>{displayData(data?.nombreDeContrato)}</span>
+                        <span><b>Cliente</b></span>
+                        <span>{displayData(data?.nombreDeCliente)}</span>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div className="card">
-            <span className="card-enc"><b>Características</b></span>
-            <svg width="100%" height="2" viewBox="0 0 1093 2" fill="none">
-                <path d="M0 1H1093" stroke="#007AFF" strokeWidth="2" />
-            </svg>
-            <div id="frm_infoFideicomiso">
-                <div className="container__field">
-                    <p>Tipo de negocio<span id='textoTipoDeNegocio'></span></p>
-                    <p>Clasificación de producto<span id='textoClasificacionDeProducto'></span></p>
-                </div>
-                <div className="container__field">
-                    <p>Producto<span id='nombreDeProducto'></span></p>
-                    <p>Comité técnico<span id='textoComiteTecnico'></span></p>
-                </div>
-                <div className="container__field">
-                    <p>Actividad empresarial<span id='textoActividadEmpresarial'></span></p>
-                    <p>RFC<span id='rfcActividadEmpresarial'></span></p>
-                </div>
-                <div className="container__field">
-                    <p>Reglas de operación<span id='textoReglasDeOperacion'></span></p>
-                    <p>Fecha de apertura<span id='fechaDeApertura'></span></p>
-                </div>
-                <div className="container__field">
-                    <p>Fecha de extinción<span id='fechaDeCancelacion'></span></p>
-                    <p>Administración delegada<span id='textoDeTipoDeAdministracion'></span></p>
-                </div>
-                <div className="container__field">
-                    <p>Centro de costos<span id='textoCentroDeCosto'></span></p>
-                    <p>Registro público de la propiedad<span id='registroPublicoDeLaPropiedad'></span></p>
-                </div>
-                <div className="container__field">
-                    <p>Tiene Clave del Registro Presupuestal<span id='textoRegistroPresupuestal'></span></p>
-                    <p>Clave del Registro Presupuestal<span id='registroPresupuestal'></span></p>
-                </div>
-                <div className="container__field">
-                    <p>Tiene Renovación de la Clave Presupuestal<span id='textoRenovacionRegPresupuestal'></span></p>
-                    <p>Renovación Clave Presupuestal<span id='renovacionRegPresupuestal'></span></p>
-                </div>
-                <div className="container__field">
-                    <p>Sucursal<span id='textoSucursal'></span></p>
-                </div>
-                <div className="container__field">
-                    <p>¿El contrato es una Sustitución?<span id='textoEsSustitucion'></span></p>
-                    <p>Número de Fideicomiso Sustituido<span id='contratoSustitucion'></span></p>
-                </div>
-                <div className="container__field">
-                    <p>Institución Financiera de Origen<span id='nombreDeIntermediarioOrg'></span></p>
-                </div>
-
-                <div className="buttons_container">
-                    <button onClick={openModal}>Características Adicionales</button>
-                    <button>Características escritura pública</button>
-                    <button>Documentos</button>
+            <div className="card">
+                <span className="card-enc"><b>Características</b></span>
+                <svg width="100%" height="2" viewBox="0 0 1093 2" fill="none">
+                    <path d="M0 1H1093" stroke="#007AFF" strokeWidth="2" />
+                </svg>
+                <div id="frm_infoFideicomiso">
+                    <div className="container__field">
+                        <p>Tipo de negocio<span>{displayData(data?.textoTipoDeNegocio)}</span></p>
+                        <p>Clasificación de producto<span>{displayData(data?.textoClasificacionDeProducto)}</span></p>
+                    </div>
+                    <div className="container__field">
+                        <p>Producto<span>{displayData(data?.nombreDeProducto)}</span></p>
+                        <p>Comité técnico<span>{displayData(data?.textoComiteTecnico)}</span></p>
+                    </div>
+                    <div className="container__field">
+                        <p>Actividad empresarial<span>{displayData(data?.textoActividadEmpresarial)}</span></p>
+                        <p>RFC<span>{displayData(data?.rFCActividadEmpresarial)}</span></p>
+                    </div>
+                    <div className="container__field">
+                        <p>Reglas de operación<span>{displayData(data?.textoReglasDeOperacion)}</span></p>
+                        <p>Fecha de apertura<span>{data?.fechaDeApertura ? new Date(data.fechaDeApertura).toLocaleDateString() : '-'}</span></p>
+                    </div>
+                    <div className="container__field">
+                        <p>Fecha de extinción<span>{data?.fechaDeCancelacion && data.fechaDeCancelacion !== "1900-01-01T00:00:00" ? new Date(data.fechaDeCancelacion).toLocaleDateString() : '-'}</span></p>
+                        <p>Administración delegada<span>{displayData(data?.textoDeTipoDeAdministracion)}</span></p>
+                    </div>
+                    <div className="container__field">
+                        <p>Centro de costos<span>{displayData(data?.textoCentroDeCostos)}</span></p>
+                        <p>Registro público de la propiedad<span>{displayData(data?.registroPublicoDeLaPropiedad)}</span></p>
+                    </div>
+                    <div className="container__field">
+                        <p>Tiene Clave del Registro Presupuestal<span>{displayData(data?.textoRegistroPresupuestal)}</span></p>
+                        <p>Clave del Registro Presupuestal<span>{displayData(data?.registroPresupuestal)}</span></p>
+                    </div>
+                    <div className="container__field">
+                        <p>Tiene Renovación de la Clave Presupuestal<span>{displayData(data?.textoRenovacionRegPresupuestal)}</span></p>
+                        <p>Renovación Clave Presupuestal<span>{displayData(data?.renovacionRegPresupuestal)}</span></p>
+                    </div>
+                    <div className="container__field">
+                        <p>Sucursal<span>{displayData(data?.textoSucursal)}</span></p>
+                    </div>
+                    <div className="container__field">
+                        <p>¿El contrato es una Sustitución?<span>{displayData(data?.textoEsSustitucion)}</span></p>
+                        <p>Número de Fideicomiso Sustituido<span>{displayData(data?.contratoSustitucion)}</span></p>
+                    </div>
+                    <div className="container__field">
+                        <p>Institución Financiera de Origen<span>{displayData(data?.nombreDeIntermediarioOrg)}</span></p>
+                    </div>
+                    <div className="buttons_container">
+                        <button onClick={openModal}>Características Adicionales</button>
+                        <button>Características escritura pública</button>
+                        <button>Documentos</button>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        {/* Modal para mostrar los campos adicionales */}
-        {isModalOpen && (
-            <div className="modal">
-                <div className="modal-content">
-                    <span className="close-button" onClick={closeModal}>&times;</span>
-                    <h2>Características Adicionales</h2>
-                    
-                    {/* Adicionales */}
-                    <div className="container__field">
-                        <p>Genera Informativa 32b<span id='textoInformativaSAT'></span></p>
-                        <p>Genera Reporte Transferencias Internacionales<span id='txtReporteTransferenciaInternacional'></span></p>
+            {isModalOpen && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <span className="close-button" onClick={closeModal}>&times;</span>
+                        <h2>Características Adicionales</h2>
+                        <div className="container__field">
+                            <p>Genera Informativa 32b<span>{displayData(data?.textoInformativaSAT)}</span></p>
+                            <p>Genera Reporte Transferencias Internacionales<span>{displayData(data?.txtReporteTransferenciaInternacional)}</span></p>
+                        </div>
+                        <div className="container__field">
+                            <p>Omite Requeridos<span>{displayData(data?.textoOmiteRequeridos)}</span></p>
+                            <p>Carga Saldos Mediante Estados de Financieros<span>{displayData(data?.textoSaldoEstadoFinanciero)}</span></p>
+                        </div>
+                        <div className="container__field">
+                            <p>Forma de manejo<span>{displayData(data?.textoFormaDeManejo)}</span></p>
+                            <p>Tipo de actividad<span>{displayData(data?.textoGerencia)}</span></p>
+                        </div>
+                        <div className="container__field">
+                            <p>Actividad económica<span>{displayData(data?.nombreDeActividad)}</span></p>
+                            <p>Maneja SubContrato<span>{displayData(data?.textoSubContrato)}</span></p>
+                        </div>
+                        <div className="container__field">
+                            <p>Revocable<span>{displayData(data?.textoRevocable)}</span></p>
+                            <p>Regional<span>{displayData(data?.textoRegional)}</span></p>
+                        </div>
+                        <div className="container__field">
+                            <p>Aplica Cobro Automático<span>{displayData(data?.textoAplicaCobroA)}</span></p>
+                            <p>Institución donde se apertura<span>{displayData(data?.textoInstApertura)}</span></p>
+                        </div>
+                        <div className="container__field">
+                            <p>Plaza<span>{displayData(data?.textoPlaza)}</span></p>
+                            <p>No. Per. S.R.E.<span>{displayData(data?.noPerSre)}</span></p>
+                        </div>
+                        <div className="container__field">
+                            <p>Fecha Per. S.R.E.<span>{data?.fechaPerSre && data.fechaPerSre !== "1900-01-01T00:00:00" ? new Date(data.fechaPerSre).toLocaleDateString() : '-'}</span></p>
+                            <p>Actividad de riesgo<span>{displayData(data?.textoActividadRiesgo)}</span></p>
+                        </div>
+                        <div className="container__field">
+                            <p>Oficio de Exención<span>{displayData(data?.oficioExencion)}</span></p>
+                            <p>Reg. Nal. Inv. Ex.<span>{displayData(data?.regNalInvEx)}</span></p>
+                        </div>
+                        <div className="container__field">
+                            <p>GIIN<span>{displayData(data?.textoSHCP)}</span></p>
+                            <p>Tiene Reg. Gob. DF<span>{displayData(data?.textoGobDF)}</span></p>
+                        </div>
+                        <div className="container__field">
+                            <p>Tipo de Cliente<span>{displayData(data?.textoTipoDeCliente)}</span></p>
+                            <p>Tipo de contrato<span>{displayData(data?.textoTipoDeContrato)}</span></p>
+                        </div>
+                        <div className="container__field">
+                            <p>Estatus<span>{displayData(data?.textoEstatus)}</span></p>
+                        </div>
+                        <div className="container__field">
+                            <p>Dirección Fiscal<span>{displayData(data?.direccionFiscalCompleto)}</span></p>
+                        </div>
                     </div>
-                    <div className="container__field">
-                        <p>Omite Requeridos<span id='textoOmiteRequeridos'></span></p>
-                        <p>Carga Saldos Mediante Estados de Financieros<span id='textoSaldoEstadoFinanciero'></span></p>
-                    </div>
-                    <div className="container__field">
-                        <p>Forma de manejo<span id='textoFormaDeManejo'></span></p>
-                        <p>Tipo de actividad<span id='textoGerencia'></span></p>
-                    </div>
-                    <div className="container__field">
-                        <p>Actividad económica<span id='nombreDeActividadnombreDeActividad'></span></p>
-                        <p>Maneja SubContrato<span id='textoSubContrato'></span></p>
-                    </div>
-                    <div className="container__field">
-                        <p>Revocable<span id='textoRevocable'></span></p>
-                        <p>Regional<span id='textoRegional'></span></p>
-                    </div>
-                    <div className="container__field">
-                        <p>Aplica Cobro Automático<span id='textoAplicaCobroA'></span></p>
-                        <p>Institución donde se apertura<span id='textoInstApertura'></span></p>
-                    </div>
-                    <div className="container__field">
-                        <p>Plaza<span id='textoPlaza'></span></p>
-                        <p>No. Per. S.R.E.<span id='noPerSre'></span></p>
-                    </div>
-                    <div className="container__field">
-                        <p>Fecha Per. S.R.E.<span id='fechaPerSre'></span></p>
-                        <p>Actividad de riesgo<span id='textoActividadRiesgo'></span></p>
-                    </div>
-                    <div className="container__field">
-                        <p>Oficio de Exención<span id='oficioExencion'></span></p>
-                        <p>Reg. Nal. Inv. Ex.<span id='regNalInvEx'></span></p>
-                    </div>
-                    <div className="container__field">
-                        <p>GIIN<span id='textoActividadRiesgo'></span></p>
-                        <p>Tiene Reg. Gob. DF<span id='textoGobDF'></span></p>
-                    </div>
-                    <div className="container__field">
-                        <p>Tipo de Cliente<span id='textoTipoDeCliente'></span></p>
-                        <p>Tipo de contrato<span id='textoTipoDeContrato'></span></p>
-                    </div>
-                    <div className="container__field">
-                        <p>Estatus<span id='textoEstatus'></span></p>
-                    </div>
-                    <div className="container__field">
-                        <p>Dirección Fiscal<span id='direccionFIscalCompleto'></span></p>
-                    </div>
-                    {/* Fin Adicionales */}
                 </div>
-            </div>
-        )}
-    </>
+            )}
+        </>
     );
 }
 

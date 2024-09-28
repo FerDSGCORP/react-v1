@@ -12,7 +12,7 @@ const useFetchContratoInfo = (idFid) => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`http://win-k3v3h0qliq2:8112/api/contrato/${idFid}`, {
+        const response = await fetch(`http://win-k3v3h0qliq2:8112/api/contrato/info/${idFid}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
