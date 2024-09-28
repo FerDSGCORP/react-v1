@@ -12,7 +12,9 @@ function RenderView() {
     return (
         <Router>
         <main className='container__render'>
-            <div className="header"><div className='header-img'></div></div>
+            <div className="header">
+                <div className='header-img'></div>
+                </div>
             <div className="container__aside">
                 <AsideMenu />
             </div>

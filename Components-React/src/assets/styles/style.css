@@ -1241,3 +1241,18 @@ button.react-calendar__tile--now:enabled:hover,
   padding: 20px;
   cursor: pointer;
 }
+
+.container__field {
+  display: flex;
+  justify-content: space-between;
+}
+.container__field p {
+  font-weight: 600;
+}
+.container__field p {
+  font-weight: 600;
+}
+div#frm_infoFideicomiso{
+  width: 100%;
+  padding: 0 1rem;
+}

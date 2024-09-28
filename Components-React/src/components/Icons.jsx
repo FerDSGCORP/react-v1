@@ -62,7 +62,7 @@ export function IconCerrarSesion() {
         </svg>
     )
 }
-export function IconEdoCuentas() {
+export function IconSitPat() {
     return (
         <svg width="30" height="31" viewBox="0 0 30 31" fill="none">
             <g id="receipt_long_36dp_EE7B00_FILL0_wght400_GRAD0_opsz40 1">
@@ -81,7 +81,7 @@ export function IconGestionCuentas() {
         </svg>
     )
 }
-export function IconInfoFideicomiso() {
+export function IconFideicomiso() {
     return (
         <svg width="35" height="35" viewBox="0 0 35 35" fill="none">
             <g id="unknown_document_36dp_EE7B00_FILL0_wght400_GRAD0_opsz40 1">

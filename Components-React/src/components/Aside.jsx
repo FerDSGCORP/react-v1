@@ -7,9 +7,9 @@ import {
     IconArrowDown,
     IconBenes,
     IconCerrarSesion,
-    IconEdoCuentas,
+    IconSitPat,
     IconGestionCuentas,
-    IconInfoFideicomiso,
+    IconFideicomiso,
     IconInstrucciones,
     IconPerfilUsuario,
     IconPersonas
@@ -87,7 +87,7 @@ const AsideMenu = () => {
                     </li>
                     <li className="aside_list_link">
                         <Link to="/fideicomiso-info">
-                            <i><IconInfoFideicomiso />
+                            <i><IconFideicomiso />
                                 <div className='tooltip'>
                                     <h4>Información del fideicomiso</h4>
                                 </div>
@@ -162,7 +162,7 @@ const AsideMenu = () => {
                     </li>
                     <li className="aside_list_link">
                         <Link to="/edo-cuentas">
-                            <i><IconEdoCuentas />
+                            <i><IconSitPat />
                                 <div className='tooltip'>
                                     <h4>Estado de situación patrimonial</h4>
                                 </div>

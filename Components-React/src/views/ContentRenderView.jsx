@@ -12,7 +12,7 @@ function ContentRenderView() {
         <div className='bodyView'>
              <Routes>
                 <Route path="/" element={< MainComponent/>} />
-                <Route path="/fideicomiso-info" element={<DetalleFideicomiso />} />
+                <Route path="/fideicomiso-info/:idFid" element={<DetalleFideicomiso />} />
             </Routes>
         </div>
     );

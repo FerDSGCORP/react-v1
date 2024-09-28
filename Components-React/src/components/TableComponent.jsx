@@ -1,9 +1,10 @@
 
-import React, {useState, useMemo, useEffect  } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import MenuColumns from './MenuColumns.jsx';
 import ModalFiltersAdvanced from './ModalFiltersAdvanced.jsx';
 import SelectFilterComponent from '../hooks/Filters.jsx';
 import useFetchContrato from '../services/useFetchContrato.jsx'
+import { useNavigate } from 'react-router-dom';
 import {
     useReactTable,
     getCoreRowModel,
@@ -14,6 +15,7 @@ import {
 import { IconActualizarTabla, IconColumnsSelect, IconExportarDatos, IconFiltersCom, IconTableCLose, IconTableNext, IconTablePrevious } from './Icons.jsx';
 
 const TableComponent = ({ onTableReady }) => {
+    const navigate = useNavigate();
     const [page, setPage] = useState(1);
     const [rowsPerPage, setRowsPerPage] = useState(80);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -124,7 +126,11 @@ const TableComponent = ({ onTableReady }) => {
         });
     }, [data]);
 
-    const [columnVisibility, setColumnVisibility] = useState(() => 
+    const handleRowClick = (NumeroDeContrato) => {
+        navigate(`/fideicomiso-info/${NumeroDeContrato}`); // Redireccionar con el NumeroDeContrato
+    };
+
+    const [columnVisibility, setColumnVisibility] = useState(() =>
         columns.reduce((acc, col) => ({ ...acc, [col.accessorKey]: true }), {})
     );
 
@@ -195,8 +201,8 @@ const TableComponent = ({ onTableReady }) => {
     return (
         <div className='container__tbl'>
             <div className='container_tbl_buttons'>
-                <button onClick={toggleModal}><IconColumnsSelect/> Abrir filtros</button>
-                <button onClick={toggleFilterModal}><IconFiltersCom/>Filtros Avanzados</button>
+                <button onClick={toggleModal}><IconColumnsSelect /> Abrir filtros</button>
+                <button onClick={toggleFilterModal}><IconFiltersCom />Filtros Avanzados</button>
             </div>
 
             <table>
@@ -204,20 +210,11 @@ const TableComponent = ({ onTableReady }) => {
                     <tr>
                         {table.getHeaderGroups().map(headerGroup =>
                             headerGroup.headers.map(header => (
-                                <th
-                                    key={header.id}
-                                    onClick={header.column.getToggleSortingHandler()}
-                                    style={{ width: header.getSize(), position: 'relative' }}
-                                >
+                                <th key={header.id} onClick={header.column.getToggleSortingHandler()} style={{ width: header.getSize(), position: 'relative' }}>
                                     {header.column.columnDef.header}
-                                    <div
-                                        onMouseDown={header.getResizeHandler()}
-                                        onTouchStart={header.getResizeHandler()}
-                                        className="resizer"
-                                        style={{
-                                            transform: header.column.getIsResizing() ? 'scaleX(2)' : '',
-                                        }}
-                                    />
+                                    <div onMouseDown={header.getResizeHandler()} onTouchStart={header.getResizeHandler()} className="resizer" style={{
+                                        transform: header.column.getIsResizing() ? 'scaleX(2)' : '',
+                                    }} />
                                 </th>
                             ))
                         )}
@@ -225,7 +222,7 @@ const TableComponent = ({ onTableReady }) => {
                 </thead>
                 <tbody>
                     {table.getRowModel().rows.map(row => (
-                        <tr key={row.id}>
+                        <tr key={row.id} onClick={() => handleRowClick(row.original.NumeroDeContrato)}> {/* Añadir onClick */}
                             {row.getVisibleCells().map(cell => (
                                 <td key={cell.id} style={{ width: cell.column.getSize() }}>
                                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -238,11 +235,11 @@ const TableComponent = ({ onTableReady }) => {
 
             <div className="pagination">
                 <button onClick={() => handlePageChange(page - 1)} disabled={page === 1}>
-                    <IconTablePrevious/>
+                    <IconTablePrevious />
                 </button>
                 <span>Página <b>{page}</b> de <b>{total}</b></span>
                 <button onClick={() => handlePageChange(page + 1)} disabled={page === total}>
-                     <IconTableNext/>
+                    <IconTableNext />
                 </button>
             </div>
 
@@ -251,7 +248,7 @@ const TableComponent = ({ onTableReady }) => {
                     <div className="modal-content">
                         <div className='modal-content-head'>
                             <h2>Configurar Columnas</h2>
-                            <button onClick={toggleModal}><IconTableCLose/></button>
+                            <button onClick={toggleModal}><IconTableCLose /></button>
                         </div>
                         <MenuColumns
                             columns={columns}
@@ -260,7 +257,7 @@ const TableComponent = ({ onTableReady }) => {
                             listColumnsActive={listColumnsActive}
                             setListColumnsActive={setListColumnsActive}
                         />
-                        
+
                     </div>
                 </div>
             )}
