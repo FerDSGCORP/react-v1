@@ -1,10 +1,9 @@
 
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Button from '../components/Buttons'
-import Home from './Home'
 import MainComponent from './TableView'
 import DetalleFideicomiso from './DetalleFideicomiso'
+import MisFIdeicomisosCrd from '../components/MisFideicomisos'
 
 
 function ContentRenderView() {
@@ -12,6 +11,7 @@ function ContentRenderView() {
         <div className='bodyView'>
              <Routes>
                 <Route path="/" element={< MainComponent/>} />
+                <Route path="/home-fid" element={< MisFIdeicomisosCrd/>} />
                 <Route path="/fideicomiso-info/:idFid" element={<DetalleFideicomiso />} />
             </Routes>
         </div>

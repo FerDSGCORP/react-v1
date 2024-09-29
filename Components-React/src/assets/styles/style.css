@@ -330,7 +330,8 @@ aside,
 .container__menuSmall {
   margin-top: 30px;
 }
-aside.collapse{
+
+aside.collapse {
   min-width: 165px;
 }
 
@@ -397,7 +398,7 @@ aside.collapse .aside_list_link.dropdown .aside_list_link_content i:last-child {
   background: #007AFF20;
 }
 
-.collapse .aside_container_list .aside_list_link i:hover > .tooltip {
+.collapse .aside_container_list .aside_list_link i:hover>.tooltip {
   display: block;
   transition: all .1s ease-in-out;
 
@@ -510,7 +511,7 @@ aside.collapse .aside_list_link.dropdown .aside_list_link_content i:last-child {
   width: 100%;
 }
 
-.modal-content > button {
+.modal-content>button {
   padding: 10px;
   background-color: var(--white);
   color: var(--primary-color);
@@ -522,7 +523,8 @@ aside.collapse .aside_list_link.dropdown .aside_list_link_content i:last-child {
   cursor: pointer;
 }
 
-.generalCondition, .groupCondition {
+.generalCondition,
+.groupCondition {
   margin-top: 10px;
 }
 
@@ -547,7 +549,7 @@ aside.collapse .aside_list_link.dropdown .aside_list_link_content i:last-child {
 
 .containerFilterdiv {
   padding: 30px 20px;
-  border-bottom: solid 2px var(--primary-color) ;
+  border-bottom: solid 2px var(--primary-color);
 }
 
 .close {
@@ -557,24 +559,26 @@ aside.collapse .aside_list_link.dropdown .aside_list_link_content i:last-child {
   cursor: pointer;
 }
 
-.containerTBL{
+.containerTBL {
   width: 800px;
   overflow: auto;
 }
-table{
+
+table {
   width: 100%;
   overflow: auto;
   height: 600px;
 
 }
-table > thead > tr > th{
+
+table>thead>tr>th {
   text-align: center;
   font-size: 10px;
   padding: 10px 15px;
-    border-top: 1px solid #E4E7EB;
+  border-top: 1px solid #E4E7EB;
 }
 
-table > tbody > tr > td{
+table>tbody>tr>td {
   text-align: center;
   padding: .2rem .3rem;
   border-bottom: 1px solid #E4E7EB;
@@ -612,26 +616,30 @@ table > tbody > tr > td{
   color: var(--primary-color);
 }
 
-.header__rowsInTable, .header__rowsByAdd {
-   padding: 10px 0px;
+.header__rowsInTable,
+.header__rowsByAdd {
+  padding: 10px 0px;
 }
 
 .rowsInTable__numSelected {
   padding: 0px 5px;
 }
 
-.header__rowsInTable button , .container__options button {
+.header__rowsInTable button,
+.container__options button {
   background-color: var(--white);
   color: var(--primary-color);
   margin: 0px 5px;
   cursor: pointer;
 }
 
-.header__rowsInTable button:hover, .container__options button:hover {
+.header__rowsInTable button:hover,
+.container__options button:hover {
   text-decoration: underline;
 }
 
-.rowsInTable, .rowsByAdd {
+.rowsInTable,
+.rowsByAdd {
   padding: 0 1em;
 }
 
@@ -640,11 +648,13 @@ table > tbody > tr > td{
   border-bottom: solid 2px var(--primary-color);
 }
 
-.listColumnsActive, .listColumnsAdd {
+.listColumnsActive,
+.listColumnsAdd {
   padding: 0px 10px;
 }
 
-.containerFilterdiv select, .containerFilterdiv input {
+.containerFilterdiv select,
+.containerFilterdiv input {
   min-width: 100px;
   padding: 5px 10px;
   border: solid 1px var(--primary-color);
@@ -652,7 +662,9 @@ table > tbody > tr > td{
   margin: 5px;
 }
 
-.listColumnsActive button, .listColumnsAdd button, .conditionGroup button {
+.listColumnsActive button,
+.listColumnsAdd button,
+.conditionGroup button {
   padding: 0px 5px;
   margin: 5px;
   background-color: var(--primary-color);
@@ -953,14 +965,13 @@ table > tbody > tr > td{
 .card-content {
   width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  align-self: stretch;
   flex-direction: column;
 }
 
 .--short {
   width: 50%;
+  height: 350px;
+  overflow: auto;
 }
 
 .cardHorizontal {
@@ -1188,12 +1199,12 @@ button.react-calendar__tile--now:enabled:hover,
 }
 
 @media (max-width:1200px) {
-  aside.collapse{
+  aside.collapse {
     min-width: 90px;
     max-width: 120px;
   }
 
-  aside.collapse .head_aside_logoCliente img{
+  aside.collapse .head_aside_logoCliente img {
     width: 100%;
   }
 
@@ -1202,7 +1213,8 @@ button.react-calendar__tile--now:enabled:hover,
     min-height: 100px;
   }
 
-  .bell > svg, .calendar > svg {
+  .bell>svg,
+  .calendar>svg {
     width: 20px;
   }
 }
@@ -1246,13 +1258,16 @@ button.react-calendar__tile--now:enabled:hover,
   display: flex;
   justify-content: space-between;
 }
+
 .container__field p {
   font-weight: 600;
 }
+
 .container__field p {
   font-weight: 600;
 }
-div#frm_infoFideicomiso{
+
+div#frm_infoFideicomiso {
   width: 100%;
   padding: 0 1rem;
 }

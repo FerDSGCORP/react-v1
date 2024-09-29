@@ -1,7 +1,7 @@
 import FideicomisoHome from "./FideicomisoIndividual";
 
 
-function MisFIdeicomisos() {
+function MisFIdeicomisosCrd() {
     return (
         <div className="card --short">
             <span className="card-enc"><b>Mis Fideicomisos</b></span>
@@ -15,4 +15,4 @@ function MisFIdeicomisos() {
     );
 }
 
-export default MisFIdeicomisos
+export default MisFIdeicomisosCrd
