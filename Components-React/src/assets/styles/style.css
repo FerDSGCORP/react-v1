@@ -511,6 +511,10 @@ aside.collapse .aside_list_link.dropdown .aside_list_link_content i:last-child {
   width: 100%;
 }
 
+.__long {
+  max-width: 1040px;
+}
+
 .modal-content>button {
   padding: 10px;
   background-color: var(--white);
@@ -1257,17 +1261,55 @@ button.react-calendar__tile--now:enabled:hover,
 .container__field {
   display: flex;
   justify-content: space-between;
+  padding: 10px 0px;
+}
+
+.__Reg_indiv {
+  width: 50%;
 }
 
 .container__field p {
+  width: 40% !important;
+  font-weight: 600;
+  width: 50%;
+  text-align: left;
+}
+
+.container__field span {
+  width: 60%;
+  font-weight: 400;
+  padding: 0px 10px;
+}
+
+.buttons_container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0px;
+}
+
+.buttons_container button {
+  min-width: 200px;
+  background-color: var(--white);
+  color: var(--primary-color);
+  border: solid 2px var(--primary-color);
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
   font-weight: 600;
 }
 
-.container__field p {
-  font-weight: 600;
+.buttons_container button:hover {
+  background-color: #007AFF25;
 }
 
 div#frm_infoFideicomiso {
   width: 100%;
   padding: 0 1rem;
+}
+
+@media (max-width:750px) {
+  .buttons_container button {
+    min-width: 100px;
+    margin: 0px 10px;
+  }
 }
