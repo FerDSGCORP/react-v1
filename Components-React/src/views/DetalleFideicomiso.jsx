@@ -11,6 +11,15 @@ function DetalleFideicomiso() {
     const { data, loading, error } = useFetchContratoInfo(idFid);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    useEffect(() => {
+        if (data?.textoTipoDeContrato === "ESCRITURA PUBLICA") {
+            const boton = document.getElementById('botonEscrituraPublica');
+            if (boton) {
+                boton.classList.remove('hide');
+            }
+        }
+    }, [data]);
+
     const openModal = () => {
         setIsModalOpen(true);
     };
@@ -54,7 +63,7 @@ function DetalleFideicomiso() {
                 </div>
             </div>
 
-            <div className="card">
+            <div className="card mt-5">
                 <span className="card-enc"><b>Características</b></span>
                 <svg width="100%" height="2" viewBox="0 0 1093 2" fill="none">
                     <path d="M0 1H1093" stroke="#007AFF" strokeWidth="2" />
@@ -104,7 +113,7 @@ function DetalleFideicomiso() {
                     </div>
                     <div className="buttons_container">
                         <button onClick={openModal}>Características Adicionales</button>
-                        <button>Características escritura pública</button>
+                        <button id='botonEscrituraPublica' className='hide'>Características escritura pública</button>
                         <button>Documentos</button>
                     </div>
                 </div>
