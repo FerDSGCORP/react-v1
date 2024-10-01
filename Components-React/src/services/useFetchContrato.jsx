@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import {useFetchConfig} from './useFetchConfig';
 
 const useFetchContrato = (page = 1, rows = 80, filters = null) => {
   const [data, setData] = useState([]);
@@ -7,11 +8,13 @@ const useFetchContrato = (page = 1, rows = 80, filters = null) => {
   const [total, setTotal] = useState(0);
   const [records, setRecords] = useState(0);
 
+ 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
         // Obtener el token de sessionStorage
+        //console.log(uriApi.apiUrl);
         const token = sessionStorage.getItem('token');
         if (!token) {
           throw new Error('Token no encontrado. Por favor, inicia sesión nuevamente.');
@@ -39,10 +42,14 @@ const useFetchContrato = (page = 1, rows = 80, filters = null) => {
         if (filters) {
           headers['filters'] = JSON.stringify(filters);
         }
-
+        
+        //const uriApi=data.config.API_URL;
         // Hacer la petición GET al servidor con los headers y la URL adecuada
+        const config=await useFetchConfig();
+        const uriApi=config.apiUri;
+        console.log(uriApi);
         const response = await fetch(
-          `http://win-k3v3h0qliq2:8112/api/contrato/sidx/NumeroDeContrato/sord/asc/page/${page}/rows/${rows}`, 
+          `${uriApi}/api/contrato/sidx/NumeroDeContrato/sord/asc/page/${page}/rows/${rows}`, 
           {
             method: 'GET',
             headers: headers,

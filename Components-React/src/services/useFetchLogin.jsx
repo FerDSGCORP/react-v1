@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import {useFetchConfig} from './useFetchConfig';
 const useFetchLogin = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -9,7 +9,9 @@ const useFetchLogin = () => {
         setError(null);
 
         try {
-            const response = await fetch("http://win-k3v3h0qliq2:8112/api/auth/login", {
+            const config=await useFetchConfig();
+            const uriApi=config.apiUri;
+            const response = await fetch(`${uriApi}/api/auth/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
