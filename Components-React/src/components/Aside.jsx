@@ -19,7 +19,8 @@ const AsideMenu = () => {
     const [activeDropdown, setActiveDropdown] = useState(null);
     const [isCollapsed, setIsCollapsed] = useState(false); // Estado para manejar el colapso del aside
     const [location] = useLocation(); // Obtener la ruta actual
-
+    const userData =  JSON.parse(localStorage.getItem('userData'));
+    const userName=userData.nombreDeUsuario;
     const handleDropdownClick = (index) => {
         setActiveDropdown(activeDropdown === index ? null : index);
     };
@@ -27,7 +28,7 @@ const AsideMenu = () => {
     const handleAsideToggle = () => {
         setIsCollapsed(!isCollapsed); // Alterna entre colapsado y expandido
     };
-
+    
     // Detecta cambios en el tamaño de la pantalla y también el cambio de ruta
     useEffect(() => {
         const handleResize = () => {
@@ -69,7 +70,7 @@ const AsideMenu = () => {
                 </div>
                 <div className="head_aside_title">Portal Cliente</div>
                 <div className="head_aside_userName">
-                    <b>Usuario: <br /><span>Jesús Sebastián Anaya Vera</span></b>
+                    <b>Usuario: <br /><span>{userName}</span></b>
                 </div>
             </div>
             <nav className='aside_container_list'>

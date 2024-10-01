@@ -36,18 +36,17 @@ function LogIn() {
         try {
             // Mandar los datos del formulario al hook de login
             const response = await login({ nombreDeUsuario, password });
-
+            // Guardar los datos del login en localStorage y sessionStorage
+            const { token, autentificado, mensaje,expiraEn, ...otherData } = response.data;
             if (response.success) {
                 console.log("Login exitoso");
-
-                // Guardar los datos del login en localStorage y sessionStorage
-                const { token, autentificado, mensaje, ...otherData } = response.data;
 
                 // Guardar el token en sessionStorage
                 if (token) {
                     sessionStorage.setItem("token", token);
+                    sessionStorage.setItem("expiraEn", expiraEn);
                 }
-
+               
                 // Guardar el resto de los datos en localStorage
                 localStorage.setItem("userData", JSON.stringify(otherData));
 
@@ -57,7 +56,7 @@ function LogIn() {
                 }, 0);
             } else {
                 // Si falla la autenticación, mostrar un mensaje de error específico
-                setLocalError("Usuario o contraseña incorrectos. Por favor, inténtalo de nuevo.");
+                setLocalError(mensaje);
             }
         } catch (err) {
             // Capturar errores que puedan ocurrir en la petición
@@ -102,7 +101,7 @@ function LogIn() {
 
                         {/* Mostrar el mensaje de error si existe */}
                         {localError && <span className="error-message">{localError}</span>}
-                        {error && <span className="error-message">Error: {error.message}</span>}
+                        {error && <span className="error-message">{error.message}</span>}
 
                         <span className="forgot-pass">Olvidé mi contraseña</span>
                     </form>
