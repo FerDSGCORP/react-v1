@@ -67,23 +67,23 @@ function MenuNotifications() {
                         onChange={setDate}
                         value={date}
                     />
-                    <ul className="calendar_list">
+                    {/* <ul className="calendar_list">
                         {events.map((event, index) => (
                             <li key={index}>
                                 {event.title}
                             </li>
                         ))}
-                    </ul>
+                    </ul> */}
                     <div className="container__notifications">
                         <div className="banner">
                             <span>NOTIFICACIONES</span>
                         </div>
                         <div className="list_notifications">
                             <ul>
-                                <li className="notification">
+                                {/* <li className="notification">
                                     <IconBell />
                                     <span>Envío de carta de instrucción el 08/08/2024</span>
-                                </li>
+                                </li> */}
                             </ul>
                         </div>
                     </div>

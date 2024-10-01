@@ -4,6 +4,7 @@ const FideicomisosCard = (idFid) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [records, setRecords] = useState(0);
 
   useEffect(() => {
     let isMounted = true;
@@ -13,11 +14,22 @@ const FideicomisosCard = (idFid) => {
 
       setLoading(true);
       try {
-        const response = await fetch(`http://win-k3v3h0qliq2:8112/api/contrato/card/${idFid}`, {
+        // Obtener el token de sessionStorage
+        const token = sessionStorage.getItem('token');
+        if (!token) {
+          throw new Error('Token no encontrado. Por favor, inicia sesión nuevamente.');
+        }
+
+        // Configurar los headers, incluyendo Authorization
+        const headers = {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        };
+
+        // Hacer la petición GET con el token en los headers
+        const response = await fetch(`http://win-k3v3h0qliq2:8112/api/contrato/card/${idFid}`, {  
           method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: headers,
         });
 
         if (!response.ok) {
@@ -26,7 +38,8 @@ const FideicomisosCard = (idFid) => {
 
         const jsonData = await response.json();
         if (isMounted) {
-          setData(jsonData);
+          setData(jsonData.contratos);
+          setRecords(jsonData.records || 0); // Obtener el número de registros desde la respuesta
         }
       } catch (err) {
         if (isMounted) {
@@ -46,7 +59,7 @@ const FideicomisosCard = (idFid) => {
     };
   }, [idFid]);
 
-  return { data, loading, error };
+  return { data, records, loading, error };
 };
 
 export default FideicomisosCard;

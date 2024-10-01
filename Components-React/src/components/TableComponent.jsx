@@ -4,7 +4,7 @@ import MenuColumns from './MenuColumns.jsx';
 import ModalFiltersAdvanced from './ModalFiltersAdvanced.jsx';
 import SelectFilterComponent from '../hooks/Filters.jsx';
 import useFetchContrato from '../services/useFetchContrato.jsx'
-import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'wouter';
 import {
     useReactTable,
     getCoreRowModel,
@@ -15,7 +15,7 @@ import {
 import { IconActualizarTabla, IconColumnsSelect, IconExportarDatos, IconFiltersCom, IconTableCLose, IconTableNext, IconTablePrevious } from './Icons.jsx';
 
 const TableComponent = ({ onTableReady }) => {
-    const navigate = useNavigate();
+    const [location, navigate] = useLocation();
     const [page, setPage] = useState(1);
     const [rowsPerPage, setRowsPerPage] = useState(80);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,7 +23,9 @@ const TableComponent = ({ onTableReady }) => {
     const [filters, setFilters] = useState(null);
 
     const { data, total, records, loading, error } = useFetchContrato(page, rowsPerPage, filters);
-
+    const handleRowClick = (NumeroDeContrato) => {
+        navigate(`/home/fideicomiso-info/${NumeroDeContrato}`); // Redireccionar usando wouter
+    };
     // Define las columnas con los headers y accessorKeys proporcionados
     const columns = useMemo(() => [
         { header: "NumeroDeContrato", accessorKey: "NumeroDeContrato" },
@@ -71,7 +73,7 @@ const TableComponent = ({ onTableReady }) => {
         { header: "RenovacionRegPresupuestal", accessorKey: "RenovacionRegPresupuestal" },
         { header: "TextoInformativaSAT", accessorKey: "TextoInformativaSAT" },
     ], []);
-
+    handleRowClick 
     // Transformar los datos para adaptarlos a las columnas dinámicas
     const transformedData = useMemo(() => {
         return data.map(row => {
@@ -126,9 +128,7 @@ const TableComponent = ({ onTableReady }) => {
         });
     }, [data]);
 
-    const handleRowClick = (NumeroDeContrato) => {
-        navigate(`/fideicomiso-info/${NumeroDeContrato}`); // Redireccionar con el NumeroDeContrato
-    };
+   
 
     const [columnVisibility, setColumnVisibility] = useState(() =>
         columns.reduce((acc, col) => ({ ...acc, [col.accessorKey]: true }), {})

@@ -12,11 +12,22 @@ const useFetchContratoInfo = (idFid) => {
     const fetchData = async () => {
       setLoading(true);
       try {
+        // Obtener el token de sessionStorage
+        const token = sessionStorage.getItem('token');
+        if (!token) {
+          throw new Error('Token no encontrado. Por favor, inicia sesión nuevamente.');
+        }
+
+        // Configurar los headers, incluyendo el Authorization con el Bearer token
+        const headers = {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        };
+
+        // Hacer la petición GET al servidor con los headers y la URL adecuada
         const response = await fetch(`http://win-k3v3h0qliq2:8112/api/contrato/info/${idFid}`, {
           method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: headers,
         });
 
         if (!response.ok) {

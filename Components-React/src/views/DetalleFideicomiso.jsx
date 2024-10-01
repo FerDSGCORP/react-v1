@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useRoute } from 'wouter';
 import useFetchContratoInfo from '../services/useFetchContratoInfo';
 
 function DetalleFideicomiso() {
-    const { idFid } = useParams(); // Obtener el idFid desde la URL
-    const { data, loading, error } = useFetchContratoInfo(idFid); // Obtener datos desde el hook
+    // Utilizamos `useRoute` para obtener el parámetro `idFid` de la URL
+    const [match, params] = useRoute('/home/fideicomiso-info/:idFid');
+    const idFid = match ? params.idFid : null;
+
+    // Obtener datos usando el hook personalizado `useFetchContratoInfo`
+    const { data, loading, error } = useFetchContratoInfo(idFid);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const openModal = () => {
@@ -15,7 +19,10 @@ function DetalleFideicomiso() {
         setIsModalOpen(false);
     };
 
+    // Mientras los datos se están cargando
     if (loading) return <p>Cargando datos...</p>;
+
+    // Si hubo un error al cargar los datos
     if (error) return <p>Error al cargar los datos: {error}</p>;
 
     // Función auxiliar para manejar los datos vacíos
@@ -28,7 +35,6 @@ function DetalleFideicomiso() {
             return value;
         }
     };
-
     return (
         <>
             <div className="card">
@@ -107,11 +113,12 @@ function DetalleFideicomiso() {
             {isModalOpen && (
                 <div className="modal">
                     <div className="modal-content __long">
-                        <span className="close-button" onClick={closeModal}>&times;</span>
-                        <h2>Características Adicionales</h2>
-                        <svg width="100%" height="2" viewBox="0 0 1093 2" fill="none">
-                            <path d="M0 1H1093" stroke="#007AFF" strokeWidth="2" />
-                        </svg>
+                        <div className='modal-content-head'>
+                            <h2>Características Adicionales</h2>
+                            <button type='button' className="close-button" onClick={closeModal}>&times;</button>
+
+                        </div>
+
                         <div className="container__field">
                             <p>Genera Informativa 32b</p><span>{displayData(data?.textoInformativaSAT)}</span>
                             <p>Genera Reporte Transferencias Internacionales</p><span>{displayData(data?.txtReporteTransferenciaInternacional)}</span>

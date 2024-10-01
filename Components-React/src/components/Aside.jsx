@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom'; // Importa useLocation
+import { Link, useLocation } from 'wouter'; // Importa Link y useLocation de wouter
 import clienteLogo from '../assets/img/Logotipo.png';
 import {
     IconHome,
@@ -18,7 +18,7 @@ import {
 const AsideMenu = () => {
     const [activeDropdown, setActiveDropdown] = useState(null);
     const [isCollapsed, setIsCollapsed] = useState(false); // Estado para manejar el colapso del aside
-    const location = useLocation(); // Obtener la ruta actual
+    const [location] = useLocation(); // Obtener la ruta actual
 
     const handleDropdownClick = (index) => {
         setActiveDropdown(activeDropdown === index ? null : index);
@@ -31,7 +31,7 @@ const AsideMenu = () => {
     // Detecta cambios en el tamaño de la pantalla y también el cambio de ruta
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth <= 1200 || location.pathname === '/' || location.pathname === '/home') {
+            if (window.innerWidth <= 1200 || location === '/' || location === '/home') {
                 setIsCollapsed(true); // Colapsa el aside si la ruta es '/' o '/home'
             } else {
                 setIsCollapsed(false);
@@ -48,13 +48,13 @@ const AsideMenu = () => {
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, [location.pathname]); // El efecto debe depender también de la ruta actual
+    }, [location]); // El efecto debe depender también de la ruta actual
 
     // Condicional para agregar o remover la clase 'hide'
-    const asideListClassName = location.pathname === '/' || location.pathname === '/home' ? 'aside_list hide' : 'aside_list';
+    const asideListClassName = location === '/' || location === '/home' ? 'aside_list hide' : 'aside_list';
 
     // Condicional para mostrar u ocultar IconAsideAction
-    const showIconAsideAction = location.pathname !== '/' && location.pathname !== '/home';
+    const showIconAsideAction = location !== '/' && location !== '/home';
 
     return (
         <aside className={isCollapsed ? 'collapse' : ''}>
@@ -73,9 +73,9 @@ const AsideMenu = () => {
                 </div>
             </div>
             <nav className='aside_container_list'>
-                <ul className='aside_list'> {/* Clase condicional */}
+                <ul className={asideListClassName}>
                     <li className="aside_list_link">
-                        <Link to="/">
+                        <Link href="/Home/">
                             <i><IconHome /> 
                                 <div className='tooltip'>
                                     <h4>Home</h4>
@@ -83,10 +83,9 @@ const AsideMenu = () => {
                             </i>
                             <span>Home</span>
                         </Link>
-                        
                     </li>
                     <li className="aside_list_link">
-                        <Link to="/fideicomiso-info">
+                        <Link href="/fideicomiso-info">
                             <i><IconFideicomiso />
                                 <div className='tooltip'>
                                     <h4>Información del fideicomiso</h4>
@@ -109,8 +108,8 @@ const AsideMenu = () => {
                             <i><IconArrowDown /></i>
                         </label>
                         <ul className='dropdown__container__menu'>
-                            <li><Link to="/cuentas-info">Información de cuentas</Link></li>
-                            <li><Link to="/contrato-inversion">Contrato de inversión</Link></li>
+                            <li><Link href="/cuentas-info">Información de cuentas</Link></li>
+                            <li><Link href="/contrato-inversion">Contrato de inversión</Link></li>
                         </ul>
                     </li>
                     <li className={`aside_list_link dropdown ${activeDropdown === 1 ? 'dropdown-Active' : ''}`}
@@ -127,9 +126,9 @@ const AsideMenu = () => {
                             <i><IconArrowDown /></i>
                         </label>
                         <ul className='dropdown__container__menu'>
-                            <li><Link to="/fideicomitentes">Fideicomitentes</Link></li>
-                            <li><Link to="/fideicomisarios">Fideicomisarios</Link></li>
-                            <li><Link to="/terceros">Terceros</Link></li>
+                            <li><Link href="/fideicomitentes">Fideicomitentes</Link></li>
+                            <li><Link href="/fideicomisarios">Fideicomisarios</Link></li>
+                            <li><Link href="/terceros">Terceros</Link></li>
                         </ul>
                     </li>
                     <li className={`aside_list_link dropdown ${activeDropdown === 2 ? 'dropdown-Active' : ''}`}
@@ -146,12 +145,12 @@ const AsideMenu = () => {
                             <i><IconArrowDown /></i>
                         </label>
                         <ul className='dropdown__container__menu'>
-                            <li><Link to="/instrucciones-pago">Instrucciones de pago</Link></li>
-                            <li><Link to="/carta-instruccion">Carta Instrucción</Link></li>
+                            <li><Link href="/instrucciones-pago">Instrucciones de pago</Link></li>
+                            <li><Link href="/carta-instruccion">Carta Instrucción</Link></li>
                         </ul>
                     </li>
                     <li className="aside_list_link">
-                        <Link to="/bienes-fideicomitidos">
+                        <Link href="/bienes-fideicomitidos">
                             <i><IconBenes />
                                 <div className='tooltip'>
                                     <h4>Bienes fideicomitidos</h4>
@@ -161,7 +160,7 @@ const AsideMenu = () => {
                         </Link>
                     </li>
                     <li className="aside_list_link">
-                        <Link to="/edo-cuentas">
+                        <Link href="/edo-cuentas">
                             <i><IconSitPat />
                                 <div className='tooltip'>
                                     <h4>Estado de situación patrimonial</h4>
@@ -173,17 +172,17 @@ const AsideMenu = () => {
                 </ul>
                 <ul className='footerList'>
                     <li className="aside_list_link">
-                        <Link to="/perfil-usuario">
+                        <Link href="/perfil-usuario">
                             <i><IconPerfilUsuario />
                                 <div className='tooltip'>
                                     <h4>Perfil de usuario</h4>
-                                </div
-                            ></i>
+                                </div>
+                            </i>
                             <span>Perfil de usuario</span>
                         </Link>
                     </li>
                     <li className="aside_list_link">
-                        <Link to="/cerrar-sesion">
+                        <Link href="/cerrar-sesion">
                             <i><IconCerrarSesion />
                                 <div className='tooltip'>
                                     <h4>Cerrar sesión</h4>

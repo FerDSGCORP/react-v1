@@ -726,6 +726,7 @@ table>tbody>tr>td {
 .container__bodyRender {
   margin-top: 280px;
   width: 100%;
+  padding: 2rem;
 }
 
 .subHeader {
