@@ -4,6 +4,8 @@ import MainComponent from './TableView';
 import DetalleFideicomiso from './DetalleFideicomiso';
 import MisFIdeicomisosCrd from '../components/MisFideicomisos';
 import FideicomisosCard from '../services/useFetchFideicomisosCard';
+import CartaInstruccion from './CartaInstruccion'
+
 
 function ContentRenderView() {
   const [, navigate] = useLocation(); // Eliminamos `location` ya que no se usa
@@ -50,6 +52,9 @@ function ContentRenderView() {
         {/* Ruta para mostrar detalles de fideicomiso */}
         <Route path="/home/fideicomiso-info/:idFid">
           {params => <DetalleFideicomiso idFid={params.idFid} />}
+        </Route>
+        <Route path="/home/Carta-instruccion">
+            {params => <CartaInstruccion/>}
         </Route>
       </Switch>
     </div>

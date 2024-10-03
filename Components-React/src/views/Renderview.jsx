@@ -6,6 +6,7 @@ import MenuNotifications from '../components/NotificationMenu';
 import Footer from '../components/Footer';
 import ReportarProblema from '../components/reportarProblema';
 import DetalleFideicomiso from './DetalleFideicomiso';
+import CartaInstruccion from './CartaInstruccion'
 import '../assets/styles/style.css';
 
 function RenderView() {
@@ -27,6 +28,9 @@ function RenderView() {
             <Route path="/home/fideicomiso-info/:idFid">
               {params => <DetalleFideicomiso idFid={params.idFid} />}
             </Route>
+            <Route path="/home/Carta-instruccion">
+            {params => <CartaInstruccion/>}
+        </Route>
           </Switch>
         </div>
         <div className="container__notifications">

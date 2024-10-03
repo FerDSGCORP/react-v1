@@ -93,7 +93,6 @@ const AsideMenu = () => {
                             <span>Home</span>
                         </Link>
                     </li>
-                    {/* ... otras opciones ... */}
                 </ul>
                 <ul className='footerList'>
                     <li className="aside_list_link">
