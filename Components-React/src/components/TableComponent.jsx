@@ -201,7 +201,7 @@ const TableComponent = ({ onTableReady }) => {
     return (
         <div className='container__tbl'>
             <div className='container_tbl_buttons'>
-                <button onClick={toggleModal}><IconColumnsSelect /> Abrir filtros</button>
+                <button onClick={toggleModal}><IconColumnsSelect />Orden y columnas</button>
                 <button onClick={toggleFilterModal}><IconFiltersCom />Filtros Avanzados</button>
             </div>
 

@@ -720,7 +720,9 @@ table>tbody>tr>td {
   transition: background-color 0.3s, color 0.3s;
 }
 
-
+.container__body {
+  width: 100%;
+}
 
 .container__render {
   position: relative;
@@ -734,11 +736,13 @@ table>tbody>tr>td {
 }
 
 .subHeader {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 30px;
   border-bottom: 1px solid #DFDEDE;
+  align-self: stretch;
 }
 
 .infoSystem,
@@ -937,10 +941,6 @@ table>tbody>tr>td {
   opacity: .15;
 }
 
-.container__body {
-  padding: 0px 25px;
-}
-
 .bodyView {
   display: flex;
   padding: 25px 0px;
@@ -1034,7 +1034,7 @@ table>tbody>tr>td {
 }
 
 .InfoStatus {
-  font-size: 16px;
+  font-size: 14px;
   display: flex;
   padding: 4px 26px;
   justify-content: center;
@@ -1207,6 +1207,22 @@ button.react-calendar__tile--now:enabled:hover,
   gap: 10px;
 }
 
+.container_tblView {
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+  padding: 10px 20px;
+  border: 1px solid #E4E7EB;
+  gap: 20px;
+}
+
+
+@media (max-width: 1500px) {
+  .container_tblView {
+    max-width: 850px;
+  }
+}
+
 @media (max-width:1200px) {
   aside.collapse {
     min-width: 90px;
@@ -1226,15 +1242,22 @@ button.react-calendar__tile--now:enabled:hover,
   .calendar>svg {
     width: 20px;
   }
+
+   .container_tblView {
+    max-width: 700px;
+  }
 }
 
-.container_tblView {
-  width: 100%;
-  max-width: 1200px;
-  margin: auto;
-  padding: 10px 20px;
-  border: 1px solid #E4E7EB;
-  gap: 20px;
+@media (min-width: 1850px) {
+  .container_tblView {
+    max-width: 1200px;
+  }
+}
+
+@media (min-width: 2500px) {
+  .container_tblView {
+    max-width: 1850px;
+  }
 }
 
 .container__tbl {
@@ -1312,10 +1335,51 @@ div#frm_infoFideicomiso {
   padding: 0 1rem;
 }
 
+@media (max-height:650px){
+  .logIn-form {
+    padding: 0px 30px;
+    gap: 30px;
+  }
+
+  .logo-cliente {
+    height: 40px;
+  }
+  
+  .logIn-form_Titular {
+    font-size: 28px;
+  }
+  
+  .logIn-form_enc {
+    color: var(--secondary-color);
+    font-size: 16px;
+  }
+  
+  .logIn-form_input {
+    font-size: 14px;
+  }
+  
+}
+
+@media (max-height:550px){
+  .logIn-form {
+    padding: 0px 20px;
+    gap: 20px;
+  }
+  .card-logIn {
+    height: 90vh;
+    margin-top: 5px;
+  }
+  
+}
+
 @media (max-width:750px) {
   .buttons_container button {
     min-width: 100px;
     margin: 0px 10px;
+  }
+
+  .card-logIn {
+    width: 90%;
   }
 }
 
