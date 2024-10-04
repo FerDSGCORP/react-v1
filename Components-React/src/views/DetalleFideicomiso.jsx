@@ -174,7 +174,7 @@ function DetalleFideicomiso() {
                             <p>Tipo de contrato</p><span>{displayData(data?.textoTipoDeContrato)}</span>
                         </div>
                         <div className="container__field __Reg_indiv">
-                            <p>Estatu</p>s<span>{displayData(data?.textoEstatus)}</span>
+                            <p>Estatus</p><span>{displayData(data?.textoEstatus)}</span>
                         </div>
                         <div className="container__field __Reg_indiv">
                             <p>Dirección Fiscal</p><span>{displayData(data?.direccionFiscalCompleto)}</span>

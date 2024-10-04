@@ -11,48 +11,6 @@
   --primary-border: 1px solid #E4E7EB;
 }
 
-
-/* 
-table {
-  width: 400px;
-  border-collapse: collapse;
-  margin: 20px 0;
-  font-size: 18px;
-  text-align: left;
-}
-
-tr {
-  height: 35px;
-  border: 1px solid #DFDEDE;
-  text-align: center;
-
-}
-
-td {
-  font-size: 14px;
-}
-
-input[type="text"],
-select {
-  height: 25px;
-  margin: 0;
-  padding: 0;
-  border: none;
-  text-align: center;
-}
-
-select {
-  height: 29px;
-}
-
-th {
-  cursor: pointer;
-  position: relative;
-  color: #97948E;
-  font-weight: 600;
-  font-size: 16px;
-} */
-
 .hide,
 .container__notificationExpand.hide,
 .container__menuSmall.hide,
@@ -735,6 +693,60 @@ table>tbody>tr>td {
   padding: 2rem;
 }
 
+.select_Fideicomiso {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 815px;
+  height: 150px;
+  border-bottom: 3px solid #FFF;
+}
+
+.Fideicomiso_select {
+  width: 80%;
+  background-color: transparent;
+  color: var(--white);
+  font-size: 36px;
+  padding: 0px 30px;
+}
+
+.Fideicomiso_options {
+  width: 815px;
+  max-height: 200px;
+  background-color: var(--white);
+  border-radius: 20px;
+  margin: 10px 0px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.select_busqueda {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  border: solid 1px var(--gray);
+  border-radius: 10px;
+  padding: 10px;
+  color: var(--gray);
+  gap: 20px;
+}
+
+.select_option {
+  width: 100%;
+  padding: 10px;
+  color: var(--secondary-color);
+}
+
+.select_option:hover {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
 .subHeader {
   width: 100%;
   display: flex;
@@ -994,7 +1006,7 @@ table>tbody>tr>td {
 .selecFideicomiso {
   width: 100%;
   height: 100px;
-  padding: 0px 10px;
+  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1216,50 +1228,6 @@ button.react-calendar__tile--now:enabled:hover,
   gap: 20px;
 }
 
-
-@media (max-width: 1500px) {
-  .container_tblView {
-    max-width: 850px;
-  }
-}
-
-@media (max-width:1200px) {
-  aside.collapse {
-    min-width: 90px;
-    max-width: 120px;
-  }
-
-  aside.collapse .head_aside_logoCliente img {
-    width: 100%;
-  }
-
-  .container__menuSmall {
-    width: 60px;
-    min-height: 100px;
-  }
-
-  .bell>svg,
-  .calendar>svg {
-    width: 20px;
-  }
-
-   .container_tblView {
-    max-width: 700px;
-  }
-}
-
-@media (min-width: 1850px) {
-  .container_tblView {
-    max-width: 1200px;
-  }
-}
-
-@media (min-width: 2500px) {
-  .container_tblView {
-    max-width: 1850px;
-  }
-}
-
 .container__tbl {
   width: 100%;
   overflow: auto;
@@ -1335,54 +1303,6 @@ div#frm_infoFideicomiso {
   padding: 0 1rem;
 }
 
-@media (max-height:650px){
-  .logIn-form {
-    padding: 0px 30px;
-    gap: 30px;
-  }
-
-  .logo-cliente {
-    height: 40px;
-  }
-  
-  .logIn-form_Titular {
-    font-size: 28px;
-  }
-  
-  .logIn-form_enc {
-    color: var(--secondary-color);
-    font-size: 16px;
-  }
-  
-  .logIn-form_input {
-    font-size: 14px;
-  }
-  
-}
-
-@media (max-height:550px){
-  .logIn-form {
-    padding: 0px 20px;
-    gap: 20px;
-  }
-  .card-logIn {
-    height: 90vh;
-    margin-top: 5px;
-  }
-  
-}
-
-@media (max-width:750px) {
-  .buttons_container button {
-    min-width: 100px;
-    margin: 0px 10px;
-  }
-
-  .card-logIn {
-    width: 90%;
-  }
-}
-
 .container__load__file {
   width: 100%;
   display: flex;
@@ -1440,6 +1360,7 @@ div#frm_infoFideicomiso {
   max-width: 200px;
 }
 
+<<<<<<< Updated upstream
 .itemContainer {
   display: flex;
   align-items: center;
@@ -1455,4 +1376,100 @@ div#frm_infoFideicomiso {
   display: flex;
   align-items: center;
   gap: 5px;
+}
+
+@media (max-width: 1500px) {
+  .container_tblView {
+    max-width: 850px;
+  }
+}
+
+@media (max-width:1200px) {
+  aside.collapse {
+    min-width: 90px;
+    max-width: 120px;
+  }
+
+  aside.collapse .head_aside_logoCliente img {
+    width: 100%;
+  }
+
+  .container__menuSmall {
+    width: 60px;
+    min-height: 100px;
+  }
+
+  .bell>svg,
+  .calendar>svg {
+    width: 20px;
+  }
+
+   .container_tblView {
+    max-width: 700px;
+  }
+
+  .InfoStatus {
+      font-size: 12px;
+  }
+}
+
+@media (min-width: 1850px) {
+  .container_tblView {
+    max-width: 1200px;
+  }
+}
+
+@media (min-width: 2500px) {
+  .container_tblView {
+    max-width: 1850px;
+  }
+}
+
+@media (max-width:750px) {
+  .buttons_container button {
+    min-width: 100px;
+    margin: 0px 10px;
+  }
+
+  .card-logIn {
+    width: 90%;
+  }
+}
+
+
+@media (max-height:650px){
+  .logIn-form {
+    padding: 0px 30px;
+    gap: 30px;
+  }
+
+  .logo-cliente {
+    height: 40px;
+  }
+  
+  .logIn-form_Titular {
+    font-size: 28px;
+  }
+  
+  .logIn-form_enc {
+    color: var(--secondary-color);
+    font-size: 16px;
+  }
+  
+  .logIn-form_input {
+    font-size: 14px;
+  }
+  
+}
+
+@media (max-height:550px){
+  .logIn-form {
+    padding: 0px 20px;
+    gap: 20px;
+  }
+  .card-logIn {
+    height: 90vh;
+    margin-top: 5px;
+  }
+  
 }
