@@ -39,7 +39,7 @@ const AsideMenu = () => {
     // Detecta cambios en el tamaño de la pantalla y también el cambio de ruta
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth <= 1200 || location === '/' || location === '/Home/') {
+            if (window.innerWidth <= 1200 || location === '/' || location === '/Home/' || location === '/home/') {
                 setIsCollapsed(true); // Colapsa el aside si la ruta es '/' o '/home'
                 
             } else {
@@ -60,10 +60,10 @@ const AsideMenu = () => {
     }, [location]); // El efecto debe depender también de la ruta actual
 
     // Condicional para agregar o remover la clase 'hide'
-    const asideListClassName = location === '/' || location === '/Home/' ? 'aside_list hide' : 'aside_list';
+    const asideListClassName = location === '/' || location === '/Home/' || location === '/home/'? 'aside_list hide' : 'aside_list';
 
     // Condicional para mostrar u ocultar IconAsideAction
-    const showIconAsideAction = location !== '/' && location !== '/Home/';
+    const showIconAsideAction = location !== '/' && location !== '/home/' || location !== '/Home/';
 
     return (
         <aside className={isCollapsed ? 'collapse' : ''}>

@@ -11,10 +11,12 @@ function DetalleFideicomiso() {
     // Obtener datos usando el hook personalizado `useFetchContratoInfo`
     const { data, loading, error } = useFetchContratoInfo(idFid);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalPublicOpen, setisModalPublicOpen] = useState(false);
 
     useEffect(() => {
         if (data?.textoTipoDeContrato === "ESCRITURA PUBLICA") {
             const boton = document.getElementById('botonEscrituraPublica');
+
             if (boton) {
                 boton.classList.remove('hide');
             }
@@ -29,6 +31,14 @@ function DetalleFideicomiso() {
         setIsModalOpen(false);
     };
 
+
+    const openModalPublicContato = () => {
+        setisModalPublicOpen(true);
+    };
+
+    const closeModalPublicContato = () => {
+        setisModalPublicOpen(false);
+    };
     // Mientras los datos se están cargando
     if (loading) return <p>Cargando datos...</p>;
 
@@ -112,14 +122,18 @@ function DetalleFideicomiso() {
                     <div className="container__field __Reg_indiv">
                         <p>Institución Financiera de Origen</p><span>{displayData(data?.nombreDeIntermediarioOrg)}</span>
                     </div>
+                    <div className="container__field">
+                        <p>Estatus</p><span>{displayData(data?.textoEstatus)}</span>
+                        <p>Tipo de contrato</p><span>{displayData(data?.textoTipoDeContrato)}</span>
+                    </div>
                     <div className="buttons_container">
                         <button onClick={openModal}>Características Adicionales</button>
-                        <button id='botonEscrituraPublica' className='hide'>Características escritura pública</button>
+                        <button id='botonEscrituraPublica' className='hide' onClick={openModalPublicContato}>Características escritura pública</button>
                         <button >Documentos</button>
                     </div>
                 </div>
             </div>
-            <ControlDocumentalModal/>
+            <ControlDocumentalModal />
             {isModalOpen && (
                 <div className="modal">
                     <div className="modal-content __long">
@@ -131,7 +145,6 @@ function DetalleFideicomiso() {
 
                         <div className="container__field">
                             <p>Genera Informativa 32b</p><span>{displayData(data?.textoInformativaSAT)}</span>
-                            <p>Genera Reporte Transferencias Internacionales</p><span>{displayData(data?.txtReporteTransferenciaInternacional)}</span>
                         </div>
                         <div className="container__field">
                             <p>Omite Requeridos</p><span>{displayData(data?.textoOmiteRequeridos)}</span>
@@ -150,7 +163,6 @@ function DetalleFideicomiso() {
                             <p>Regional</p><span>{displayData(data?.textoRegional)}</span>
                         </div>
                         <div className="container__field">
-                            <p>Aplica Cobro Automático</p><span>{displayData(data?.textoAplicaCobroA)}</span>
                             <p>Institución donde se apertura</p><span>{displayData(data?.textoInstApertura)}</span>
                         </div>
                         <div className="container__field">
@@ -162,26 +174,57 @@ function DetalleFideicomiso() {
                             <p>Actividad de riesgo</p><span>{displayData(data?.textoActividadRiesgo)}</span>
                         </div>
                         <div className="container__field">
-                            <p>Oficio de Exención</p><span>{displayData(data?.oficioExencion)}</span>
-                            <p>Reg. Nal. Inv. Ex.</p><span>{displayData(data?.regNalInvEx)}</span>
-                        </div>
-                        <div className="container__field">
-                            <p>GIIN</p><span>{displayData(data?.textoSHCP)}</span>
-                            <p>Tiene Reg. Gob. DF</p><span>{displayData(data?.textoGobDF)}</span>
-                        </div>
-                        <div className="container__field">
+                            <p>Sucursal</p>
                             <p>Tipo de Cliente</p><span>{displayData(data?.textoTipoDeCliente)}</span>
-                            <p>Tipo de contrato</p><span>{displayData(data?.textoTipoDeContrato)}</span>
+
                         </div>
-                        <div className="container__field __Reg_indiv">
-                            <p>Estatus</p><span>{displayData(data?.textoEstatus)}</span>
-                        </div>
+
                         <div className="container__field __Reg_indiv">
                             <p>Dirección Fiscal</p><span>{displayData(data?.direccionFiscalCompleto)}</span>
                         </div>
                     </div>
                 </div>
             )}
+
+            {isModalPublicOpen && (
+                <div className="modal">
+                    <div className="modal-content __long">
+                        <div className='modal-content-head'>
+                            <h2>Características Escritura Publica</h2>
+                            <button type='button' className="close-button" onClick={closeModalPublicContato}>&times;</button>
+
+                        </div>
+
+                        {/* <div className="container__field">
+                            <p>Tipo de contrato Publico</p>
+                        </div> */}
+                        <div className="container__field">
+                            <p>Oficio de Exención</p><span>{displayData(data?.oficioExencion)}</span>
+                            <p>Reg. Nal. Inv. Ex.</p><span>{displayData(data?.regNalInvEx)}</span>
+                        </div>
+                        <div className="container__field">
+                            <p>Feche de inscripcion Reg. Nal. Inv. Ex.</p>
+                        </div>
+                        <div className="container__field">
+                            <p>GIIN</p><span>{displayData(data?.textoSHCP)}</span>
+                            <p>Número de GIIN</p>
+
+                        </div>
+                        <div className="container__field">
+                            <p>Tiene Reg. Gob. DF</p><span>{displayData(data?.textoGobDF)}</span>
+                            <p>Reg. Gob. DF</p>
+                        </div>
+                        <div className="container__field">
+                            <p>Fecha de Registro Público</p>
+                            <p>Escritura</p>
+                        </div>
+                        <div className="container__field __Reg_indiv">
+                            <p>Notario</p>
+                        </div>
+                    </div>
+                </div>
+            )}
+
         </>
     );
 }
