@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import {useFetchConfig} from './useFetchConfig';
+
 
 const FideicomisosCard = (idFid) => {
   const [data, setData] = useState(null);
@@ -25,9 +27,10 @@ const FideicomisosCard = (idFid) => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
         };
-
+        const config=await useFetchConfig();
+        const uriApi=config.apiUri;
         // Hacer la petición GET con el token en los headers
-        const response = await fetch(`http://win-k3v3h0qliq2:8112/api/contrato/card/${idFid}`, {  
+        const response = await fetch(`${uriApi}/api/contrato/card/${idFid}`, {  
           method: 'GET',
           headers: headers,
         });

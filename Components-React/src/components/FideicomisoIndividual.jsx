@@ -13,8 +13,6 @@ function FideicomisoHome() {
   // Obtener navigate de wouter
   const [location, navigate] = useLocation();
 
-  // Mostrar datos para depurar
-  console.log('Data recibida del servicio:', data);
 
   if (loading) {
     return <div>Cargando los datos de los fideicomisos...</div>;

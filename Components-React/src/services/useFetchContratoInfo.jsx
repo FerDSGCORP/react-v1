@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import {useFetchConfig} from './useFetchConfig';
 
 const useFetchContratoInfo = (idFid) => {
   const [data, setData] = useState(null);  // Guardará la información del contrato
@@ -23,9 +24,10 @@ const useFetchContratoInfo = (idFid) => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
         };
-
+        const config=await useFetchConfig();
+        const uriApi=config.apiUri;
         // Hacer la petición GET al servidor con los headers y la URL adecuada
-        const response = await fetch(`http://win-k3v3h0qliq2:8112/api/contrato/info/${idFid}`, {
+        const response = await fetch(`${uriApi}/api/contrato/info/${idFid}`, {
           method: 'GET',
           headers: headers,
         });

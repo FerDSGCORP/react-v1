@@ -37,7 +37,7 @@ function LogIn() {
             // Mandar los datos del formulario al hook de login
             const response = await login({ nombreDeUsuario, password });
             // Guardar los datos del login en localStorage y sessionStorage
-            const { token, autentificado, mensaje,expiraEn, ...otherData } = response.data;
+            const { token, autentificado, mensaje,expiraEn,fechaActual, ...otherData } = response.data;
             if (response.success) {
                 console.log("Login exitoso");
 
@@ -45,6 +45,7 @@ function LogIn() {
                 if (token) {
                     sessionStorage.setItem("token", token);
                     sessionStorage.setItem("expiraEn", expiraEn);
+                    sessionStorage.setItem("fechaActual", fechaActual);
                 }
                
                 // Guardar el resto de los datos en localStorage

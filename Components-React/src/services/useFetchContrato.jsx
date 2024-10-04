@@ -47,7 +47,6 @@ const useFetchContrato = (page = 1, rows = 80, filters = null) => {
         // Hacer la petición GET al servidor con los headers y la URL adecuada
         const config=await useFetchConfig();
         const uriApi=config.apiUri;
-        console.log(uriApi);
         const response = await fetch(
           `${uriApi}/api/contrato/sidx/NumeroDeContrato/sord/asc/page/${page}/rows/${rows}`, 
           {

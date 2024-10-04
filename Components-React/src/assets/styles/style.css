@@ -1439,3 +1439,20 @@ div#frm_infoFideicomiso {
 #SendFile {
   max-width: 200px;
 }
+
+.itemContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border: 1px solid var(--tertiary-color);
+  border-left: none;
+  border-right: none;
+  padding: .6rem 0;
+}
+
+.download_btn {
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}

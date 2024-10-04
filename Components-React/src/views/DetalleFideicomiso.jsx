@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRoute } from 'wouter';
 import useFetchContratoInfo from '../services/useFetchContratoInfo';
+import ControlDocumentalModal from '../components/ControlDocumentalModal'
 
 function DetalleFideicomiso() {
     // Utilizamos `useRoute` para obtener el parámetro `idFid` de la URL
@@ -114,11 +115,11 @@ function DetalleFideicomiso() {
                     <div className="buttons_container">
                         <button onClick={openModal}>Características Adicionales</button>
                         <button id='botonEscrituraPublica' className='hide'>Características escritura pública</button>
-                        <button>Documentos</button>
+                        <button >Documentos</button>
                     </div>
                 </div>
             </div>
-
+            <ControlDocumentalModal/>
             {isModalOpen && (
                 <div className="modal">
                     <div className="modal-content __long">
