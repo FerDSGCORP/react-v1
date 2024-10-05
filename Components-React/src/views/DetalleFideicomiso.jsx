@@ -196,30 +196,30 @@ function DetalleFideicomiso() {
                         </div>
 
                         {/* <div className="container__field">
-                            <p>Tipo de contrato Publico</p>
+                            <p>Tipo de contrato Publico<span>{displayData(data?.textoTipoDeContratoPublico)}</span></p>
                         </div> */}
                         <div className="container__field">
                             <p>Oficio de Exención</p><span>{displayData(data?.oficioExencion)}</span>
                             <p>Reg. Nal. Inv. Ex.</p><span>{displayData(data?.regNalInvEx)}</span>
                         </div>
                         <div className="container__field">
-                            <p>Feche de inscripcion Reg. Nal. Inv. Ex.</p>
+                            {/* <p>Fecha de inscripcion Reg. Nal. Inv. Ex.<span>{displayData(data?.fechaDeInscripcionRegNalInvEx)}</span></p> */}
                         </div>
                         <div className="container__field">
                             <p>GIIN</p><span>{displayData(data?.textoSHCP)}</span>
-                            <p>Número de GIIN</p>
+                            {/* <p>Número de GIIN<span>{displayData(data?.regSHCP)}</span></p> */}
 
                         </div>
                         <div className="container__field">
                             <p>Tiene Reg. Gob. DF</p><span>{displayData(data?.textoGobDF)}</span>
-                            <p>Reg. Gob. DF</p>
+                            {/* <p>Reg. Gob. DF<span>{displayData(data?.regGobDF)}</span></p> */}
                         </div>
                         <div className="container__field">
-                            <p>Fecha de Registro Público</p>
-                            <p>Escritura</p>
+                            {/* <p>Fecha de Registro Público<span>{displayData(data?.fechaDeRegistroPublico)}</span></p> */}
+                            {/* <p>Escritura <span>{displayData(data?.escritura)}</span></p> */}
                         </div>
                         <div className="container__field __Reg_indiv">
-                            <p>Notario</p>
+                            {/* <p>Notario <span>{displayData(data?.nombreDeNotario)}</span></p> */}
                         </div>
                     </div>
                 </div>
