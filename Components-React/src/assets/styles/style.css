@@ -477,6 +477,10 @@ aside.collapse .aside_list_link.dropdown .aside_list_link_content i:last-child {
   max-width: 1040px;
 }
 
+.--sm-modal{
+  max-width: 400px;
+}
+
 .modal-content>button {
   padding: 10px;
   background-color: var(--white);
@@ -1494,4 +1498,24 @@ div#frm_infoFideicomiso {
     margin-top: 5px;
   }
   
+}
+.container__content__ModalErr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1rem;
+}
+
+.msjError{
+  font-weight: 600;
+  font-size: 18px;
+}
+.detailError {
+  font-size: 16px;
+  text-align: center;
+}
+
+.---end-align{
+justify-content: end;
 }
