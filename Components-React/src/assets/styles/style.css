@@ -1261,13 +1261,12 @@ button.react-calendar__tile--now:enabled:hover,
 }
 
 .__Reg_indiv {
-  width: 50%;
+  width: 49%;
 }
 
 .container__field p {
-  width: 40% !important;
+  width: 40%;
   font-weight: 600;
-  width: 50%;
   text-align: left;
 }
 
@@ -1275,6 +1274,29 @@ button.react-calendar__tile--now:enabled:hover,
   width: 60%;
   font-weight: 400;
   padding: 0px 10px;
+}
+
+.container__field select {
+  width: 60%;
+  font-weight: 400;
+  padding: 5px 10px;
+  border: solid 2px var(--primary-color);
+  border-radius: 10px;
+}
+
+.container__field select:focus {
+  border: solid 2px var(--primary-color);
+}
+
+.container__field label {
+  font-weight: 600;
+  text-align: left;
+}
+
+.container__field input[type="radio"] {
+  width: 25px;
+  height: 25px;
+  color: var(--primary-color);
 }
 
 .buttons_container {
@@ -1384,7 +1406,7 @@ div#frm_infoFideicomiso {
   }
 }
 
-@media (max-width:1200px) {
+@media (max-width:1300px) {
   aside.collapse {
     min-width: 90px;
     max-width: 120px;

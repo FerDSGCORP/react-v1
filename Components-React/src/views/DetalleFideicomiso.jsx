@@ -143,7 +143,7 @@ function DetalleFideicomiso() {
 
                         </div>
 
-                        <div className="container__field">
+                        <div className="container__field __Reg_indiv">
                             <p>Genera Informativa 32b</p><span>{displayData(data?.textoInformativaSAT)}</span>
                         </div>
                         <div className="container__field">
@@ -162,7 +162,7 @@ function DetalleFideicomiso() {
                             <p>Revocable</p><span>{displayData(data?.textoRevocable)}</span>
                             <p>Regional</p><span>{displayData(data?.textoRegional)}</span>
                         </div>
-                        <div className="container__field">
+                        <div className="container__field __Reg_indiv">
                             <p>Institución donde se apertura</p><span>{displayData(data?.textoInstApertura)}</span>
                         </div>
                         <div className="container__field">
@@ -174,7 +174,7 @@ function DetalleFideicomiso() {
                             <p>Actividad de riesgo</p><span>{displayData(data?.textoActividadRiesgo)}</span>
                         </div>
                         <div className="container__field">
-                            <p>Sucursal</p>
+                            <p>Sucursal</p><span>-</span>
                             <p>Tipo de Cliente</p><span>{displayData(data?.textoTipoDeCliente)}</span>
 
                         </div>
@@ -188,9 +188,9 @@ function DetalleFideicomiso() {
 
             {isModalPublicOpen && (
                 <div className="modal">
-                    <div className="modal-content __long">
+                    <div className="modal-content">
                         <div className='modal-content-head'>
-                            <h2>Características Escritura Publica</h2>
+                            <h2>Características Escritura Pública</h2>
                             <button type='button' className="close-button" onClick={closeModalPublicContato}>&times;</button>
 
                         </div>
@@ -199,10 +199,11 @@ function DetalleFideicomiso() {
                             <p>Tipo de contrato Publico<span>{displayData(data?.textoTipoDeContratoPublico)}</span></p>
                         </div> */}
                         <div className="container__field">
-                            <p>Oficio de Exención</p><span>{displayData(data?.oficioExencion)}</span>
-                            <p>Reg. Nal. Inv. Ex.</p><span>{displayData(data?.regNalInvEx)}</span>
+                            {/* <p>Tipo de contrato Publico<span>{displayData(data?.textoTipoDeContratoPublico)}</span></p> */}
+                            <p>Oficio de Extención</p><span>{displayData(data?.oficioExencion)}</span>
                         </div>
                         <div className="container__field">
+                            <p>Reg. Nal. Inv. Ex.</p><span>{displayData(data?.regNalInvEx)}</span>
                             {/* <p>Fecha de inscripcion Reg. Nal. Inv. Ex.<span>{displayData(data?.fechaDeInscripcionRegNalInvEx)}</span></p> */}
                         </div>
                         <div className="container__field">
@@ -218,8 +219,8 @@ function DetalleFideicomiso() {
                             {/* <p>Fecha de Registro Público<span>{displayData(data?.fechaDeRegistroPublico)}</span></p> */}
                             {/* <p>Escritura <span>{displayData(data?.escritura)}</span></p> */}
                         </div>
-                        <div className="container__field __Reg_indiv">
-                            {/* <p>Notario <span>{displayData(data?.nombreDeNotario)}</span></p> */}
+                        <div className="container__field">
+                             {/* <p>Notario <span>{displayData(data?.nombreDeNotario)}</span></p> */}
                         </div>
                     </div>
                 </div>
