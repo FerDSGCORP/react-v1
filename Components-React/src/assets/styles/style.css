@@ -477,7 +477,7 @@ aside.collapse .aside_list_link.dropdown .aside_list_link_content i:last-child {
   max-width: 1040px;
 }
 
-.--sm-modal{
+.--sm-modal {
   max-width: 400px;
 }
 
@@ -1195,7 +1195,9 @@ button.react-calendar__tile--now:enabled:hover,
 .btn:hover {
   background: #007bff50;
 }
-
+.--btn-sm{
+  height: 25px;
+}
 .--btn-login {
   width: 250px;
   font-weight: 900;
@@ -1430,12 +1432,12 @@ div#frm_infoFideicomiso {
     width: 20px;
   }
 
-   .container_tblView {
+  .container_tblView {
     max-width: 700px;
   }
 
   .InfoStatus {
-      font-size: 12px;
+    font-size: 12px;
   }
 }
 
@@ -1463,7 +1465,7 @@ div#frm_infoFideicomiso {
 }
 
 
-@media (max-height:650px){
+@media (max-height:650px) {
   .logIn-form {
     padding: 0px 30px;
     gap: 30px;
@@ -1472,33 +1474,35 @@ div#frm_infoFideicomiso {
   .logo-cliente {
     height: 40px;
   }
-  
+
   .logIn-form_Titular {
     font-size: 28px;
   }
-  
+
   .logIn-form_enc {
     color: var(--secondary-color);
     font-size: 16px;
   }
-  
+
   .logIn-form_input {
     font-size: 14px;
   }
-  
+
 }
 
-@media (max-height:550px){
+@media (max-height:550px) {
   .logIn-form {
     padding: 0px 20px;
     gap: 20px;
   }
+
   .card-logIn {
     height: 90vh;
     margin-top: 5px;
   }
-  
+
 }
+
 .container__content__ModalErr {
   display: flex;
   flex-direction: column;
@@ -1507,15 +1511,61 @@ div#frm_infoFideicomiso {
   padding: 0 1rem;
 }
 
-.msjError{
+.msjError {
   font-weight: 600;
   font-size: 18px;
 }
+
 .detailError {
   font-size: 16px;
   text-align: center;
 }
 
-.---end-align{
-justify-content: end;
+.---end-align {
+  justify-content: end;
+}
+
+.--border-none {
+  border: none;
+}
+
+.bannerTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-color);
+  padding: 2rem;
+}
+
+.bannerTitle p {
+  color: var(--white);
+  font-style: italic;
+  text-align: center;
+  font-size: 16px;
+
+}
+
+.frm_reportar > .container__field{
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+  gap: 1rem;
+}
+textarea{
+  border: 2px solid var(--primary-color);
+  border-radius: 10px;
+}
+select#selectProblema {
+  width: 100%;
+}
+#uploadFileProblem{
+  display: none;
+}
+
+#btn-upload-file-problem + span{
+width: 100%;
+}
+
+.container__btn button{
+ margin: auto;
 }
