@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 import ReportarProblema from '../components/reportarProblema';
 import DetalleFideicomiso from './DetalleFideicomiso';
 import CartaInstruccion from './CartaInstruccion'
+import PerfilUserInfo from './PerfilUsuario';
 import '../assets/styles/style.css';
 
 function RenderView() {
@@ -29,8 +30,11 @@ function RenderView() {
               {params => <DetalleFideicomiso idFid={params.idFid} />}
             </Route>
             <Route path="/home/Carta-instruccion">
-            {params => <CartaInstruccion/>}
-        </Route>
+              {params => <CartaInstruccion />}
+            </Route>
+            <Route path="/Home/user-perfil">
+              {params => <PerfilUserInfo />}
+            </Route>
           </Switch>
         </div>
         <div className="container__notifications">

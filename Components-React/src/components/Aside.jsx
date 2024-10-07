@@ -19,7 +19,7 @@ const AsideMenu = () => {
     const [activeDropdown, setActiveDropdown] = useState(null);
     const [isCollapsed, setIsCollapsed] = useState(false); // Estado para manejar el colapso del aside
     const [location, setLocation] = useLocation(); // Obtener la ruta actual y función para cambiarla
-    const userData =  JSON.parse(localStorage.getItem('userData'));
+    const userData = JSON.parse(localStorage.getItem('userData'));
     const userName = userData?.nombreDeUsuario;
 
     const handleDropdownClick = (index) => {
@@ -35,13 +35,13 @@ const AsideMenu = () => {
         sessionStorage.clear(); // Limpiar sessionStorage
         setLocation('/'); // Redirigir a la página de inicio
     };
-    
+
     // Detecta cambios en el tamaño de la pantalla y también el cambio de ruta
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth <= 1200 || location === '/' || location === '/Home/' || location === '/home/') {
                 setIsCollapsed(true); // Colapsa el aside si la ruta es '/' o '/home'
-                
+
             } else {
                 setIsCollapsed(false);
             }
@@ -60,7 +60,7 @@ const AsideMenu = () => {
     }, [location]); // El efecto debe depender también de la ruta actual
 
     // Condicional para agregar o remover la clase 'hide'
-    const asideListClassName = location === '/' || location === '/Home/' || location === '/home/'? 'aside_list hide' : 'aside_list';
+    const asideListClassName = location === '/' || location === '/Home/' || location === '/home/' ? 'aside_list hide' : 'aside_list';
 
     // Condicional para mostrar u ocultar IconAsideAction
     const showIconAsideAction = location !== '/' && location !== '/home/' || location !== '/Home/';
@@ -85,7 +85,7 @@ const AsideMenu = () => {
                 <ul className={asideListClassName}>
                     <li className="aside_list_link">
                         <Link href="/Home/">
-                            <i><IconHome /> 
+                            <i><IconHome />
                                 <div className='tooltip'>
                                     <h4>Home</h4>
                                 </div>
@@ -96,12 +96,15 @@ const AsideMenu = () => {
                 </ul>
                 <ul className='footerList'>
                     <li className="aside_list_link">
+                        <Link href="/Home/user-perfil">
                         <i><IconPerfilUsuario />
                             <div className='tooltip'>
                                 <h4>Perfil de usuario</h4>
                             </div>
                         </i>
                         <span>Perfil de usuario</span>
+                        </Link>
+              
                     </li>
                     <li className="aside_list_link" id='cerrarSesion' onClick={handleLogout}>
                         <i><IconCerrarSesion />
