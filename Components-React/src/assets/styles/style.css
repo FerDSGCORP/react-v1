@@ -993,6 +993,10 @@ table>tbody>tr>td {
   flex-direction: column;
 }
 
+.__cardColor {
+  padding: 20px 0px;
+}
+
 .card-50 {
   width: 50%;
   display: flex;
@@ -1027,11 +1031,35 @@ table>tbody>tr>td {
   border-bottom: solid 2px var(--primary-color);
 }
 
+.card-form input[type="color"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.card-form input::-webkit-color-swatch-wrapper {
+  padding: 0;
+  border: 0;
+}
+
+.card-form input::-webkit-color-swatch {
+  border: 0;
+}
+
+.card-form input::-moz-color-swatch {
+  border: 0;
+}
+
+.card-form output {
+  padding: 10px;
+}
+
 .card-button {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 20px;
 }
+
 
 .--short {
   width: 50%;
