@@ -38,12 +38,13 @@ function App() {
   }
 
   return (
-    <Switch>
-      <Route path="/">
-        {isSessionValid ? <Redirect to="/home/" /> : <LogIn />}
-      </Route>
-      <Route path="/home/*" component={RenderView} />
-    </Switch>
+    // <Switch>
+    //   <Route path="/">
+    //     {isSessionValid ? <Redirect to="/home/" /> : <LogIn />}
+    //   </Route>
+    //   <Route path="/home/*" component={RenderView} />
+    // </Switch>
+    <RenderView/>
   );
 }
 

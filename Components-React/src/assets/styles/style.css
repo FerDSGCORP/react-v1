@@ -1,6 +1,6 @@
 :root {
   --primary-color: #007AFF;
-  --secondary-color: #041E42;
+  --secondary-color: #062C62;
   --tertiary-color: #97948E;
   --gray: #DFDEDE;
   --white: #FFFFFF;
@@ -993,6 +993,46 @@ table>tbody>tr>td {
   flex-direction: column;
 }
 
+.card-50 {
+  width: 50%;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  margin-bottom: 50px;
+}
+
+.card-50 img {
+  max-width: 150px;
+}
+
+.tiempo-psw {
+  width: 100%;
+  text-align: center;
+}
+
+.card-form {
+  width: 100%;
+  display: flex;
+  font-size: 12px;
+  align-items: center;
+}
+
+.card-form span {
+  min-width: 170px;
+  font-weight: 700;
+  padding: 10px;
+}
+
+.card-form input[type=text] {
+  border-bottom: solid 2px var(--primary-color);
+}
+
+.card-button {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
 .--short {
   width: 50%;
   height: 350px;
@@ -1217,7 +1257,7 @@ button.react-calendar__tile--now:enabled:hover,
 
 .--btn-azul:hover,
 .--btn-gris:hover {
-  background: var(--auxiliar-color);
+  background: var(--secondary-color);
 }
 
 .--btn-export {
