@@ -1,42 +1,54 @@
 import React, { useState } from 'react';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 import {
-    IconTema,
     IconNotificationAction,
     IconBell,
     IconAddEvent
-} from '../components/Icons'
+} from '../components/Icons';
+
+const localizer = momentLocalizer(moment);
 
 function MenuNotifications() {
-    const [date, setDate] = useState(new Date());
     const [events, setEvents] = useState([
-        { date: new Date(2024, 9, 18), title: 'Cumpleaños de Juan' },
-        { date: new Date(2024, 9, 20), title: 'Reunión de trabajo' },
-        { date: new Date(2024, 9, 25), title: 'Cita con el doctor' }
+        {
+            title: 'Cumpleaños de Juan',
+            start: new Date(2024, 9, 18),
+            end: new Date(2024, 9, 20), // Evento de 3 días
+            allDay: true,
+        },
+        {
+            title: 'Reunión de trabajo',
+            start: new Date(2024, 9, 20),
+            end: new Date(2024, 9, 21),
+            allDay: true,
+        },
+        {
+            title: 'Cita con el doctor',
+            start: new Date(2024, 9, 25),
+            end: new Date(2024, 9, 25),
+            allDay: true,
+        }
     ]);
 
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [eventTitle, setEventTitle] = useState("");
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     // Función para agregar un nuevo evento
     const addEvent = () => {
-        const newEvent = { date: selectedDate, title: eventTitle };
+        const newEvent = {
+            title: eventTitle,
+            start: selectedDate,
+            end: selectedDate,
+            allDay: true
+        };
         setEvents([...events, newEvent]);
         setEventTitle("");
+        setIsModalOpen(false); // Cierra el modal después de agregar
     };
 
-    // Función para mostrar contenido en las celdas con eventos
-    const tileContent = ({ date, view }) => {
-        if (view === 'month') {
-            const eventForDate = events.find(event => event.date.toDateString() === date.toDateString());
-            return eventForDate ? <p className="event-marker">{eventForDate.title}</p> : null;
-        }
-    };
-
-
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const openModal = () => {
         setIsModalOpen(true);
     };
@@ -45,7 +57,6 @@ function MenuNotifications() {
         setIsModalOpen(false);
     };
 
-
     return (
         <>
             <div className='container__notificationExpand'>
@@ -53,31 +64,28 @@ function MenuNotifications() {
                     <i><IconNotificationAction /></i>
                 </div>
                 <div className="container_calendar">
+                    <button className='--btn-icon-text --ml-auto' onClick={openModal}>
+                        Agregar Evento <IconAddEvent />
+                    </button>
 
-                <button className='--btn-icon-text --ml-auto' onClick={openModal}>Agregar Evento
-                    <IconAddEvent/>
-                </button>
-                    {/* <input
-                    type="text"
-                    placeholder="Título del evento"
-                    value={eventTitle}
-                    onChange={e => setEventTitle(e.target.value)}
-                />
-                 */}
-                    <Calendar
-                        onChange={setDate}
-                        value={date}
-                        tileContent={tileContent}
-                    />
+                    <div style={{ height: 500 }}>
+                        <Calendar
+                            localizer={localizer}
+                            events={events}
+                            startAccessor="start"
+                            endAccessor="end"
+                            style={{ height: 500 }}
+                        />
+                    </div>
+
                     <ul className="calendar_list">
                         {events.map((event, index) => (
                             <li key={index}>
-                                &nbsp;
-                                {event.date.toDateString()}:
-                                {event.title}
+                                {event.start.toDateString()} - {event.end.toDateString()}: {event.title}
                             </li>
                         ))}
                     </ul>
+
                     <div className="container__notifications">
                         <div className="banner">
                             <span>NOTIFICACIONES</span>
@@ -94,49 +102,38 @@ function MenuNotifications() {
                 </div>
             </div>
 
-
-             {isModalOpen && ( 
-            <div className="modal">
-                <div className="modal-content">
-                    <div className='modal-content-head'>
-                        <h2>Agregar Evento</h2>
-                        <button type='button' className="close-button" onClick={closeModal}>&times;</button>
-                    </div>
-                    <div className="container__content --content__modal__column">
-                        <div className="container__field">
-                            <span>Tema de Agenda</span>
-                            <input type="text" name="" id="TituloAgenda" />
+            {isModalOpen && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <div className='modal-content-head'>
+                            <h2>Agregar Evento</h2>
+                            <button type='button' className="close-button" onClick={closeModal}>&times;</button>
                         </div>
-                        <div className="container__field">
-                            <span>Fecha/Hora Inicio</span>
-                            <input type="datetime-local" name="" id="FechaInicio" />
-                        </div>
-                        <div className="container__field">
-                            <span>Fecha/Hora Término</span>
-                            <input type="datetime-local" name="" id="FechaFin" />
-                        </div>
-                        <div className="container__field">
-                            <span>Prioridad</span>
-                            <select name="selectPrioridad" id="selectPrioridad">
-                                <option value="" selected>Selecciona una opción</option>
-                                <option value="Alta">Alta</option>
-                                <option value="Media">Media</option>
-                                <option value="Baja">Baja</option>
-                            </select>
-                        </div>
-                        <div className="container__field">
-                            <span>Descripción</span>
-                            <textarea name="" id="" rows="5"></textarea>
-                        </div>
-                        <div className="container__field container__btn">
-                            <button className="btn --btn-azul">Guardar</button>
+                        <div className="container__content --content__modal__column">
+                            <div className="container__field">
+                                <span>Tema de Agenda</span>
+                                <input
+                                    type="text"
+                                    value={eventTitle}
+                                    onChange={(e) => setEventTitle(e.target.value)}
+                                />
+                            </div>
+                            <div className="container__field">
+                                <span>Fecha/Hora Inicio</span>
+                                <input
+                                    type="datetime-local"
+                                    onChange={(e) => setSelectedDate(new Date(e.target.value))}
+                                />
+                            </div>
+                            <div className="container__btn">
+                                <button onClick={addEvent} className="btn --btn-azul">Guardar</button>
+                            </div>
                         </div>
                     </div>
-
                 </div>
-            </div>
-           )} 
+            )}
         </>
     );
 }
-export default MenuNotifications
+
+export default MenuNotifications;
