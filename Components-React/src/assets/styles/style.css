@@ -305,7 +305,7 @@ aside.collapse .head_aside_logoCliente img {
   width: 120px;
 }
 
-aside.collapse .aside_container_list .aside_list_link {
+aside.collapse .aside_container_list .aside_list_link, aside.collapse .aside_container_list .aside_list_link > div{
   justify-content: center;
 }
 
@@ -348,14 +348,16 @@ aside.collapse .aside_list_link.dropdown .aside_list_link_content i:last-child {
   font-size: 36px;
 }
 
-.aside_list_link {
+.aside_list_link , .aside_list_link > div {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 20px;
   cursor: pointer;
 }
-
+.aside_list_link > div span{
+  width: 100%;
+}
 .--menuActive {
   background: #007AFF20;
 }

@@ -25,7 +25,7 @@ const AsideMenu = () => {
     const userName = userData?.nombreDeUsuario;
 
     const handleDropdownClick = (index) => {
-        setActiveDropdown(activeDropdown === index ? null : index);
+        setActiveDropdown(activeDropdown === index ? null : index); // Alterna el dropdown abierto/cerrado
     };
 
     const handleAsideToggle = () => {
@@ -80,9 +80,8 @@ const AsideMenu = () => {
             <li
                 key={index}
                 className={`aside_list_link ${item.subItems ? 'dropdown' : ''} ${activeDropdown === index ? 'dropdown-Active' : ''}`}
-                onClick={item.subItems ? () => handleDropdownClick(index) : null}
             >
-                <Link href={item.link}>
+                <div onClick={item.subItems ? () => handleDropdownClick(index) : null}>
                     <i>
                         {React.createElement(eval(item.icon))} {/* Renderiza el ícono dinámicamente */}
                         <div className='tooltip'>
@@ -90,9 +89,10 @@ const AsideMenu = () => {
                         </div>
                     </i>
                     <span>{item.name}</span>
-                </Link>
+                    {item.subItems && <i><IconArrowDown /></i>} {/* Mostrar el ícono de dropdown si hay submenús */}
+                </div>
 
-                {item.subItems && (
+                {item.subItems && activeDropdown === index && ( /* Si tiene subItems y el dropdown está activo */
                     <ul className='dropdown__container__menu'>
                         {item.subItems.map((subItem, subIndex) => (
                             <li key={subIndex}>

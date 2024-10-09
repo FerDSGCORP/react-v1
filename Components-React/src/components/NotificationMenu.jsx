@@ -6,15 +6,22 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import {
     IconNotificationAction,
     IconBell,
-    IconAddEvent
+    IconAddEvent,
+    IconcalendarMenu
 } from '../components/Icons';
 
 // Configura moment para español
 moment.locale('es');
 
-const localizer = momentLocalizer(moment);
-
 function MenuNotifications() {
+    
+const localizer = momentLocalizer(moment);
+const [isMenuHidden, setIsMenuHidden] = useState(false);
+
+const toggleMenu = () => {
+    setIsMenuHidden(!isMenuHidden);
+};
+
     const [events, setEvents] = useState([
         {
             title: 'Cumpleaños de Juan',
@@ -103,12 +110,28 @@ function MenuNotifications() {
         weekdayFormat: (date, culture, localizer) => moment(date).format('dddd'), // Formato para días completos
         monthHeaderFormat: (date, culture, localizer) => moment(date).format('MMMM YYYY'), // Formato para el encabezado de meses
     };
-
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth <= 1200) {
+                setIsMenuHidden(true); 
+            } else {
+                setIsMenuHidden(false); 
+            }
+        };
+    
+        handleResize();
+    
+        window.addEventListener('resize', handleResize);
+    
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
     return (
         <>
-            <div className='container__notificationExpand'>
+           <div className={`container__notificationExpand ${isMenuHidden ? 'hide' : ''}`}>
                 <div className="actionAside">
-                    <i><IconNotificationAction /></i>
+                    <i id='hideMenu' onClick={toggleMenu}><IconNotificationAction /></i>
                 </div>
                 <div className="container_calendar">
                     <button id='newEvent' className='--btn-icon-text --ml-auto' onClick={handleNewEvent}>
@@ -151,7 +174,15 @@ function MenuNotifications() {
                     </div>
                 </div>
             </div>
-
+            <div className={`container__menuSmall ${isMenuHidden ? '' : 'hide'}`} onClick={toggleMenu}>
+                <div className="bell">
+                    <IconBell />
+                </div>
+                <div className="line"></div>
+                <div className="calendar">
+                    <IconcalendarMenu />
+                </div>
+            </div>
             {isModalOpen && (
             <div className="modal">
                 <div className="modal-content">
