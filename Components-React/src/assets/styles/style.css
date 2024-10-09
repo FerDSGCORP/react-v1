@@ -795,7 +795,7 @@ table>tbody>tr>td {
 }
 
 .calendar_list>li {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .calendar_list>li:last-child {
@@ -803,7 +803,39 @@ table>tbody>tr>td {
 }
 
 .calendar_list>li::marker {
-  content: '•';
+  content: '• ';
+}
+
+.rbc-toolbar-label {
+  margin: 10px 0px;
+}
+
+.rbc-toolbar button, .rbc-toolbar .rbc-btn-group button {
+  color: var(--primary-color);
+  background: var(--white);
+  border: 1px solid var(--primary-color);
+}
+
+.rbc-toolbar button:hover {
+  background-color: #007AFF25;
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.rbc-toolbar button:active, .rbc-toolbar button.rbc-active {
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0);
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+.rbc-toolbar button:active:hover, .rbc-toolbar button:active:focus, .rbc-toolbar button.rbc-active:hover, .rbc-toolbar button.rbc-active:focus, .rbc-toolbar .rbc-btn-group button:focus {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+.rbc-event, .rbc-day-slot .rbc-background-event {
+  background-color: var(--primary-color);
 }
 
 .banner {

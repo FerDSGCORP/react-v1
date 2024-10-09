@@ -115,13 +115,13 @@ function MenuNotifications() {
                         Agregar Evento <IconAddEvent />
                     </button>
 
-                    <div style={{ height: 500 }}>
+                    <div style={{ height: 350 }}>
                         <Calendar
                             localizer={localizer}
                             events={events}
                             startAccessor="start"
                             endAccessor="end"
-                            style={{ height: 500 }}
+                            style={{ height: 350 }}
                             onSelectEvent={handleEventClick}
                             messages={messages}  
                             formats={formats}   
