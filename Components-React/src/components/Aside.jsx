@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter'; // Importa Link y useLocation de wouter
 import clienteLogo from '../assets/img/Logotipo.png';
+import useMenuService from '../services/useFetchMenu.jsx'
 import {
     IconHome,
     IconAsideAction,
@@ -19,6 +20,7 @@ const AsideMenu = () => {
     const [activeDropdown, setActiveDropdown] = useState(null);
     const [isCollapsed, setIsCollapsed] = useState(false); // Estado para manejar el colapso del aside
     const [location, setLocation] = useLocation(); // Obtener la ruta actual y función para cambiarla
+    const { data: menuData, loading, error } = useMenuService(); // Usa el hook para consumir el menú
     const userData = JSON.parse(localStorage.getItem('userData'));
     const userName = userData?.nombreDeUsuario;
 
@@ -41,7 +43,6 @@ const AsideMenu = () => {
         const handleResize = () => {
             if (window.innerWidth <= 1200 || location === '/' || location === '/Home/' || location === '/home/') {
                 setIsCollapsed(true); // Colapsa el aside si la ruta es '/' o '/home'
-
             } else {
                 setIsCollapsed(false);
             }
@@ -65,6 +66,45 @@ const AsideMenu = () => {
     // Condicional para mostrar u ocultar IconAsideAction
     const showIconAsideAction = location !== '/' && location !== '/home/' || location !== '/Home/';
 
+    if (loading) {
+        return <div>Cargando menú...</div>;
+    }
+
+    if (error) {
+        return <div>Error al cargar el menú: {error}</div>;
+    }
+
+    // Renderizar el menú dinámicamente desde menuData
+    const renderMenu = () => {
+        return menuData.map((item, index) => (
+            <li
+                key={index}
+                className={`aside_list_link ${item.subItems ? 'dropdown' : ''} ${activeDropdown === index ? 'dropdown-Active' : ''}`}
+                onClick={item.subItems ? () => handleDropdownClick(index) : null}
+            >
+                <Link href={item.link}>
+                    <i>
+                        {React.createElement(eval(item.icon))} {/* Renderiza el ícono dinámicamente */}
+                        <div className='tooltip'>
+                            <h4>{item.toolTip}</h4>
+                        </div>
+                    </i>
+                    <span>{item.name}</span>
+                </Link>
+
+                {item.subItems && (
+                    <ul className='dropdown__container__menu'>
+                        {item.subItems.map((subItem, subIndex) => (
+                            <li key={subIndex}>
+                                <Link href={subItem.link}>{subItem.name}</Link>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </li>
+        ));
+    };
+
     return (
         <aside className={isCollapsed ? 'collapse' : ''}>
             {showIconAsideAction && (
@@ -83,28 +123,18 @@ const AsideMenu = () => {
             </div>
             <nav className='aside_container_list'>
                 <ul className={asideListClassName}>
-                    <li className="aside_list_link">
-                        <Link href="/Home/">
-                            <i><IconHome />
-                                <div className='tooltip'>
-                                    <h4>Home</h4>
-                                </div>
-                            </i>
-                            <span>Home</span>
-                        </Link>
-                    </li>
+                    {renderMenu()} {/* Renderiza el menú dinámicamente */}
                 </ul>
                 <ul className='footerList'>
                     <li className="aside_list_link">
                         <Link href="/Home/user-perfil">
-                        <i><IconPerfilUsuario />
-                            <div className='tooltip'>
-                                <h4>Perfil de usuario</h4>
-                            </div>
-                        </i>
-                        <span>Perfil de usuario</span>
+                            <i><IconPerfilUsuario />
+                                <div className='tooltip'>
+                                    <h4>Perfil de usuario</h4>
+                                </div>
+                            </i>
+                            <span>Perfil de usuario</span>
                         </Link>
-              
                     </li>
                     <li className="aside_list_link" id='cerrarSesion' onClick={handleLogout}>
                         <i><IconCerrarSesion />

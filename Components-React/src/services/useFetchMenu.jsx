@@ -47,7 +47,6 @@ const useMenuService = () => {
           console.log('URI de la API:', uriApi); // Verificar la URI de la API
       
           // Hacer la petición GET con el token en los headers
-          console.log('Haciendo fetch a:', `${uriApi}/api/menu/modulo/10/perfil/${idUser}`);
           const response = await fetch(`${uriApi}/api/menu/modulo/10/perfil/${idUser}`, {
             method: 'GET',
             headers: headers,
