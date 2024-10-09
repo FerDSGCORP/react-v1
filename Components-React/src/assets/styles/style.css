@@ -473,6 +473,10 @@ aside.collapse .aside_list_link.dropdown .aside_list_link_content i:last-child {
   width: 100%;
 }
 
+.__modal100 {
+  padding: 0px ;
+}
+
 .__long {
   max-width: 1040px;
 }
@@ -836,6 +840,10 @@ table>tbody>tr>td {
 
 .rbc-event, .rbc-day-slot .rbc-background-event {
   background-color: var(--primary-color);
+}
+
+.rbc-event.rbc-selected, .rbc-day-slot .rbc-selected.rbc-background-event {
+  background-color: var(--secondary-color);
 }
 
 .banner {
@@ -1602,6 +1610,10 @@ div#frm_infoFideicomiso {
     margin-top: 5px;
   }
 
+}
+
+.container__content{
+  padding: 0px 20px;  
 }
 
 .container__content__ModalErr {

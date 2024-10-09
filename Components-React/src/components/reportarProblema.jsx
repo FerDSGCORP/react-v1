@@ -14,24 +14,22 @@ function ReportarProblema() {
     return (
         <>
             <div className="problema">
-                <div className="problema-card">
+                <div className="problema-card"  onClick={openModal}>
                     <span><b>¿Tienes un problema?</b></span>
                     <span><b>¡Podemos ayudarte!<br /><br />Escríbenos</b></span>
                 </div>
-                <div className="problema-img" onClick={openModal}></div>
+                <div className="problema-img"></div>
             </div>
 
             {isModalOpen && (
                 <div className="modal">
-                    <div className="modal-content --sm-modal">
+                    <div className="modal-content --sm-modal __modal100">
                         <div className='modal-content-head ---end-align --border-none'>
                             <button type='button' className="close-button" onClick={closeModal}>&times;</button>
 
                         </div>
                         <div className="bannerTitle">
-                            <p>Describe tu problema en el siguiente formulario y <br />
-                                a la brevedad le daremos una respuesta <br />
-                                / solución al problema que nos reportas</p>
+                            <p>Describe tu problema en el siguiente formulario y a la brevedad le daremos una respuesta / solución al problema que nos reportas</p>
                         </div>
                         <div className="container__content">
                             <form className="frm_reportar" action="">
