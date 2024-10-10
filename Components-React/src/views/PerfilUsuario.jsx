@@ -11,6 +11,7 @@ function PerfilUserInfo() {
             <div className='card-content'>
                 <div className='cardHorizontal'>
                     <form className="card-50">
+                        <h4><b>Perfil del Usuario:</b> 000 / usuario</h4>
                         <img src={imagenUsuario} alt="Imagen de usuario" />
                         <div className='card-form'>
                             <span>Cambiar imagen de perfil</span>
