@@ -190,9 +190,9 @@ const toggleMenu = () => {
                         <h2 id='titleModal'>{modalTitle}</h2> {/* Cambia el título según sea necesario */}
                         <button type='button' className="close-button" onClick={closeModal}>&times;</button>
                     </div>
-                    <div className="container__content --content__modal__column">
+                    <div className="container__content"> {/* Estilo comentado: --content__modal__column */}
                         <div className="container__field">
-                            <span>Tema de Agenda</span>
+                            <p>Número de contrato</p>
                             <input
                                 type="text"
                                 id="TituloAgenda"
@@ -201,7 +201,23 @@ const toggleMenu = () => {
                             />
                         </div>
                         <div className="container__field">
-                            <span>Fecha/Hora Inicio</span>
+                            <p>Tema de reunión</p>
+                            <select>
+                                <option>1</option>
+                                <option>2</option>
+                            </select>
+                        </div>
+                        <div className="container__field">
+                            <p>Descripción</p>
+                            <input
+                                type="text"
+                                id="TituloAgenda"
+                                value={modalData.title}
+                                onChange={(e) => setModalData({ ...modalData, title: e.target.value })}
+                            />
+                        </div>
+                        <div className="container__field">
+                            <p>Fecha/Hora Inicio</p>
                             <input
                                 type="datetime-local"
                                 id="FechaInicio"
@@ -210,13 +226,33 @@ const toggleMenu = () => {
                             />
                         </div>
                         <div className="container__field">
-                            <span>Fecha/Hora Término</span>
+                            <p>Fecha/Hora Término</p>
                             <input
                                 type="datetime-local"
                                 id="FechaFin"
                                 value={modalData.end}
                                 onChange={(e) => setModalData({ ...modalData, end: e.target.value })}
                             />
+                        </div>
+                        <div className="container__field">
+                            <p>Prioridad</p>
+                            <select>
+                                <option>1</option>
+                                <option>2</option>
+                            </select>
+                        </div>
+                        <div className="container__field __checkbox">
+                            <p>Enviar por correo</p>
+                            <input 
+                                type="checkbox" 
+                            />
+                        </div>
+                        <div className="container__field">
+                            <p>Perfil</p>
+                            <select>
+                                <option>1</option>
+                                <option>2</option>
+                            </select>
                         </div>
                         <div className="container__btn">
                             <button className="btn --btn-azul" onClick={addEvent}>Guardar</button> {/* Guardar evento nuevo */}

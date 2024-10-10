@@ -1074,6 +1074,12 @@ table>tbody>tr>td {
   outline: none;
 }
 
+input[type="datetime-local" i] {
+  font-family: inherit;
+  color: var(--primary-color);
+  padding-inline-start: 1px;
+}
+
 .card-form input[type="color"] {
   width: 20px;
   height: 20px;
@@ -1381,6 +1387,10 @@ button.react-calendar__tile--now:enabled:hover,
   width: 49%;
 }
 
+.__checkbox {
+  justify-content: flex-start;
+}
+
 .container__field p {
   width: 40%;
   font-weight: 600;
@@ -1410,10 +1420,19 @@ button.react-calendar__tile--now:enabled:hover,
   text-align: left;
 }
 
+.container__field input {
+  width: 60%;
+}
+
 .container__field input[type="radio"] {
   width: 25px;
   height: 25px;
   color: var(--primary-color);
+}
+
+.container__field input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
 }
 
 .buttons_container {

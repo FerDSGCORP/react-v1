@@ -24,19 +24,19 @@ function PerfilUserInfo() {
                     <form className="card-50">
                         <span className='tiempo-psw'>Último cambio de contraseña hace 38 días</span>
                         <div className='card-form'>
-                            <span>Cambiar alias de usuario</span>
-                            <input type="text" name="" id="uploadAlias" />
+                            <span>Antigua contraseña</span>
+                            <input type="text" name="" id="psw-antique" />
                         </div>
                         <div className='card-form'>
-                            <span>Cambiar alias de usuario</span>
-                            <input type="text" name="" id="uploadAlias" />
+                            <span>Nueva contraseña</span>
+                            <input type="text" name="" id="uploadpsw" />
                         </div>
                         <div className='card-form'>
-                            <span>Cambiar alias de usuario</span>
-                            <input type="text" name="" id="uploadAlias" />
+                            <span>Confirmar nueva contraseña</span>
+                            <input type="text" name="" id="uploadpsw-confirm" />
                         </div>
                         <div className='card-button'>
-                            <button className='btn --btn-azul'> Seleccionar archivo</button>
+                            <button className='btn --btn-azul'>Confirmar cambio</button>
                         </div>
                     </form>
                 </div>
