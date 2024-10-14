@@ -25,7 +25,7 @@ const AsideMenu = () => {
     const userName = userData?.nombreDeUsuario;
 
     const handleDropdownClick = (index) => {
-        setActiveDropdown(activeDropdown === index ? null : index); // Alterna el dropdown abierto/cerrado
+        setActiveDropdown(activeDropdown === index ? null : index);
     };
 
     const handleAsideToggle = () => {
@@ -73,15 +73,15 @@ const AsideMenu = () => {
     if (error) {
         return <div>Error al cargar el menú: {error}</div>;
     }
-
-    // Renderizar el menú dinámicamente desde menuData
-    const renderMenu = () => {
-        return menuData.map((item, index) => (
-            <li
-                key={index}
-                className={`aside_list_link ${item.subItems ? 'dropdown' : ''} ${activeDropdown === index ? 'dropdown-Active' : ''}`}
-            >
-                <div onClick={item.subItems ? () => handleDropdownClick(index) : null}>
+// Renderizar el menú dinámicamente desde menuData
+const renderMenu = () => {
+    return menuData.map((item, index) => (
+        <li
+            key={index}
+            className={`aside_list_link ${item.subItems ? 'dropdown' : ''} ${activeDropdown === index ? 'dropdown-Active' : ''}`}
+        >
+            {item.subItems ? (
+                <div onClick={() => handleDropdownClick(index)}>
                     <i>
                         {React.createElement(eval(item.icon))} {/* Renderiza el ícono dinámicamente */}
                         <div className='tooltip'>
@@ -89,21 +89,35 @@ const AsideMenu = () => {
                         </div>
                     </i>
                     <span>{item.name}</span>
-                    {item.subItems && <i><IconArrowDown /></i>} {/* Mostrar el ícono de dropdown si hay submenús */}
+                    <i><IconArrowDown /></i> {/* Mostrar el ícono de dropdown si hay submenús */}
                 </div>
+            ) : (
+                <Link href={item.link}>
+                    <div>
+                        <i>
+                            {React.createElement(eval(item.icon))} {/* Renderiza el ícono dinámicamente */}
+                            <div className='tooltip'>
+                                <h4>{item.toolTip}</h4>
+                            </div>
+                        </i>
+                        <span>{item.name}</span>
+                    </div>
+                </Link>
+            )}
 
-                {item.subItems && activeDropdown === index && ( /* Si tiene subItems y el dropdown está activo */
-                    <ul className='dropdown__container__menu'>
-                        {item.subItems.map((subItem, subIndex) => (
-                            <li key={subIndex}>
-                                <Link href={subItem.link}>{subItem.name}</Link>
-                            </li>
-                        ))}
-                    </ul>
-                )}
-            </li>
-        ));
-    };
+            {item.subItems && activeDropdown === index && ( /* Si tiene subItems y el dropdown está activo */
+                <ul className='dropdown__container__menu'>
+                    {item.subItems.map((subItem, subIndex) => (
+                        <li key={subIndex}>
+                            <Link href={subItem.link}>{subItem.name}</Link>
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </li>
+    ));
+};
+
 
     return (
         <aside className={isCollapsed ? 'collapse' : ''}>
