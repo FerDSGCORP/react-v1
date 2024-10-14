@@ -20,12 +20,11 @@ const useMenuService = () => {
           }
       
           const userData = JSON.parse(userDataStr);
-          const idUser = userData.numeroDeUsuario;
+          const idUser = userData.numeroDePerfil;
           if (!idUser) {
             throw new Error('ID de usuario no encontrado en userData');
           }
       
-          console.log('ID de usuario obtenido del localStorage:', idUser); // Verificar el valor de idUser
       
           // Obtener el token de sessionStorage
           const token = sessionStorage.getItem('token');
@@ -33,7 +32,6 @@ const useMenuService = () => {
             throw new Error('Token no encontrado en sessionStorage. Por favor, inicia sesión nuevamente.');
           }
       
-          console.log('Token encontrado:', token); // Verificar que el token se haya obtenido
       
           // Configurar los headers, incluyendo Authorization
           const headers = {
@@ -44,7 +42,6 @@ const useMenuService = () => {
           // Obtener configuración de la API
           const config = await useFetchConfig();
           const uriApi = config.apiUri;
-          console.log('URI de la API:', uriApi); // Verificar la URI de la API
       
           // Hacer la petición GET con el token en los headers
           const response = await fetch(`${uriApi}/api/menu/modulo/10/perfil/${idUser}`, {
@@ -57,7 +54,6 @@ const useMenuService = () => {
           }
       
           const jsonData = await response.json();
-          console.log('Respuesta del menú:', jsonData); // Verificar la respuesta
       
           if (isMounted) {
             setData(jsonData.menu);

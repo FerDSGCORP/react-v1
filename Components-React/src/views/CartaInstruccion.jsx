@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { IconPDF,IconErrorModal } from '../components/Icons';
-import useEnvioInstruction from '../services/useFetchSendInstruccionPago';
+import useEnvioInstruction from '../services/useFetchSendCartaInstruccion';
 
 function CartaInstruccion() {
     const [file, setFile] = useState(null);
