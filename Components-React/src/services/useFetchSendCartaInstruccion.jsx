@@ -31,7 +31,7 @@ const useEnvioInstruction = (file) => {
         const uriApi = config.apiUri;
         console.log('URI de la API:', uriApi);
 
-        const response = await fetch(`${uriApi}/upload`, {
+        const response = await fetch(`${uriApi}/api/cartaIns/uploadFile`, {
           method: 'POST',
           // Content-Type': 'multipart/form-data',  fetch lo maneja automaticamente con FormData
           headers: headers, 
