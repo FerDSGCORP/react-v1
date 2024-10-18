@@ -10,15 +10,14 @@ import CartaInstruccion from './CartaInstruccion';
 import PerfilUserInfo from './PerfilUsuario';
 import '../assets/styles/style.css';
 import useFideicomisosCard from "../services/useFetchFideicomisosCard";
+import { IconFIdeicomisoSelect } from '../components/Icons';
 
 function RenderView() {
   const { data: fideicomisos, loading, error, idFid } = useFideicomisosCard();
   const [location, setLocation] = useLocation();
 
   useEffect(() => {
-    console.log('Fideicomisos:', fideicomisos);
-    console.log('idFid:', idFid); 
-    console.log('Ruta actual:', location);
+
   }, [fideicomisos, idFid, location]);
 
   const handleSelectChange = (event) => {
@@ -44,14 +43,17 @@ function RenderView() {
             ) : error ? (
               <p>Error al cargar fideicomisos: {error}</p>
             ) : (
-              <select name="selectHeader" id="selectHeader" onChange={handleSelectChange}>
-                <option value="">Seleccione un contrato</option>
-                {fideicomisos && fideicomisos.map(contrato => (
-                  <option key={contrato.numeroDeContrato} value={contrato.numeroDeContrato}>
-                    {contrato.nombreDeContratoU}
-                  </option>
-                ))}
-              </select>
+              <div className="select_Fideicomiso">
+                <IconFIdeicomisoSelect/>
+                <select className="Fideicomiso_select" name="selectHeader" id="selectHeader" onChange={handleSelectChange}>
+                  <option value="">SELECCIONE UN CONTRATO</option>
+                  {fideicomisos && fideicomisos.map(contrato => (
+                    <option key={contrato.numeroDeContrato} value={contrato.numeroDeContrato}>
+                      {contrato.nombreDeContratoU}
+                    </option>
+                  ))}
+                </select>
+              </div>
             )}
           </div>
         </div>

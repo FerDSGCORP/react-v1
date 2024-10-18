@@ -729,17 +729,24 @@ th>input[type="text"] {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 815px;
+  width: 700px;
   height: 150px;
   border-bottom: 3px solid #FFF;
+  background-color: transparent;
 }
 
 .Fideicomiso_select {
   width: 80%;
+  height: 90%;
   background-color: transparent;
   color: var(--white);
-  font-size: 36px;
-  padding: 0px 30px;
+  font-size: 24px;
+  padding: 0px 20px;
+  margin: 10px;
+}
+
+.select_Fideicomiso select:focus {
+  background-color: #062C6275;
 }
 
 .Fideicomiso_options {
