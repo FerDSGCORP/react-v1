@@ -1,39 +1,74 @@
-import React from 'react';
-import { Route, Switch } from 'wouter';
+import React, { useEffect } from 'react';
+import { Route, Switch, useLocation } from 'wouter';
 import AsideMenu from '../components/Aside';
 import ContentBodyRender from '../components/ContentBodyRender';
 import MenuNotifications from '../components/NotificationMenu';
 import Footer from '../components/Footer';
 import ReportarProblema from '../components/reportarProblema';
 import DetalleFideicomiso from './DetalleFideicomiso';
-import CartaInstruccion from './CartaInstruccion'
+import CartaInstruccion from './CartaInstruccion';
 import PerfilUserInfo from './PerfilUsuario';
 import '../assets/styles/style.css';
+import useFideicomisosCard from "../services/useFetchFideicomisosCard";
 
 function RenderView() {
+  const { data: fideicomisos, loading, error, idFid } = useFideicomisosCard();
+  const [location, setLocation] = useLocation();
+
+  useEffect(() => {
+    console.log('Fideicomisos:', fideicomisos);
+    console.log('idFid:', idFid); 
+    console.log('Ruta actual:', location);
+  }, [fideicomisos, idFid, location]);
+
+  const handleSelectChange = (event) => {
+    const selectedValue = event.target.value;
+    if (selectedValue) {
+
+      setLocation(`/home/fideicomiso-info/${selectedValue}`);
+    }
+  };
+
+
+  const normalizedLocation = location.toLowerCase().replace(/\/$/, ''); 
+  const shouldHideSelectHeader = normalizedLocation === '/home' || normalizedLocation === '/home/user-perfil';
+
   return (
     <>
       <main className='container__render'>
         <div className="header">
           <div className='header-img'></div>
+          <div className={`container__selectHeader ${shouldHideSelectHeader ? 'hide' : ''}`}>
+            {loading ? (
+              <p>Cargando fideicomisos...</p>
+            ) : error ? (
+              <p>Error al cargar fideicomisos: {error}</p>
+            ) : (
+              <select name="selectHeader" id="selectHeader" onChange={handleSelectChange}>
+                <option value="">Seleccione un contrato</option>
+                {fideicomisos && fideicomisos.map(contrato => (
+                  <option key={contrato.numeroDeContrato} value={contrato.numeroDeContrato}>
+                    {contrato.nombreDeContratoU}
+                  </option>
+                ))}
+              </select>
+            )}
+          </div>
         </div>
         <div className="container__aside">
           <AsideMenu />
         </div>
         <div className="container__bodyRender">
           <Switch>
-            {/* Ruta para mostrar el componente principal de home */}
             <Route path="/home" component={ContentBodyRender} />
-
-            {/* Ruta para mostrar detalles de fideicomiso */}
             <Route path="/home/fideicomiso-info/:idFid">
               {params => <DetalleFideicomiso idFid={params.idFid} />}
             </Route>
             <Route path="/home/Carta-instruccion">
-              {params => <CartaInstruccion />}
+              {params => <CartaInstruccion idFid={idFid} />}
             </Route>
-            <Route path="/Home/user-perfil">
-              {params => <PerfilUserInfo />}
+            <Route path="/home/user-perfil">
+              {params => <PerfilUserInfo idFid={idFid} />}
             </Route>
           </Switch>
         </div>
