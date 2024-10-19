@@ -2,15 +2,15 @@ import { useState, useEffect } from 'react';
 import { useFetchConfig } from './useFetchConfig';
 
 const useExportarDatosTable = (payload) => {
-  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [records, setRecords] = useState(0);
 
   useEffect(() => {
     let isMounted = true;
 
     const fetchData = async () => {
+      if (!payload) return;
+
       setLoading(true);
       try {
         const token = sessionStorage.getItem('token');
@@ -34,19 +34,28 @@ const useExportarDatosTable = (payload) => {
         const response = await fetch(`${uriApi}/api/contrato/generar-csv`, {
           method: 'POST',
           headers: headers,
-          body: JSON.stringify(payload), // Usamos el payload dinámico que viene desde el componente
+          body: JSON.stringify(payload),
         });
 
         if (!response.ok) {
           throw new Error('Error en la respuesta del servidor');
         }
 
-        const jsonData = await response.json();
+        const blob = await response.blob();
 
-        if (isMounted) {
-          setData(jsonData.menu);
-          setRecords(jsonData.records || 0);
-        }
+        // Crear URL para descargar el archivo
+        const fileURL = window.URL.createObjectURL(blob);
+        const fileName = payload.formatos === 'csv' ? 'archivo.csv' : 'archivo.txt';
+
+        const a = document.createElement('a');
+        a.href = fileURL;
+        a.download = fileName;
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(fileURL); // Liberar memoria
+        document.body.removeChild(a);
+        
       } catch (err) {
         if (isMounted) {
           setError(err.message);
@@ -65,7 +74,7 @@ const useExportarDatosTable = (payload) => {
     };
   }, [payload]);
 
-  return { data, records, loading, error };
+  return { loading, error };
 };
 
 export default useExportarDatosTable;

@@ -186,12 +186,12 @@ const TableComponent = ({ onTableReady }) => {
         const formato = document.getElementById('formatoExportar').value;
         const filtro = document.getElementById('tableFilterSelectExport').value;
         const columnas = document.getElementById('tableColumnSelectExport').value;
-
+    
         let busquedaJQgrid = '';
         let filtros = 0;
         let columnasJQgrid = '';
         let columnasVal = 0;
-
+    
         // Manejo de filtros
         if (filtro === 'tableEmpty') {
             filtros = 1;
@@ -205,7 +205,7 @@ const TableComponent = ({ onTableReady }) => {
             }
             filtros = 2;
         }
-
+    
         // Manejo de columnas
         if (columnas === 'allTableData') {
             columnasJQgrid = columns.map(col => col.accessorKey).join(',');
@@ -216,7 +216,7 @@ const TableComponent = ({ onTableReady }) => {
                 .join(',');
             columnasVal = 2;
         }
-
+    
         const payload = {
             formatos: formato,
             busquedaJQgrid,
@@ -226,9 +226,8 @@ const TableComponent = ({ onTableReady }) => {
             campoDeOrdenJQgrid: '',
             tipoDeOrdenJQgrid: ''
         };
-
-        // Actualizar el estado exportPayload para disparar el hook
-        setExportPayload(payload);
+    
+        setExportPayload(payload);  // Actualiza el payload para disparar el hook de exportación
     };
 
     // Usar el hook de exportación cuando haya un payload disponible
