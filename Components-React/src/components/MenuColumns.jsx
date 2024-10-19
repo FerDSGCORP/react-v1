@@ -1,27 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-const MenuColumns = ({ columns, setColumnVisibility, columnVisibility, listColumnsActive, setListColumnsActive }) => {
+const MenuColumns = ({ columns, setColumnVisibility, columnVisibility }) => {
     const [filterText, setFilterText] = useState('');
 
-    // Al abrir el modal, sincronizar el estado de columnas activas
-    useEffect(() => {
-        setListColumnsActive({
-            list: columns.filter(col => columnVisibility[col.accessorKey]), // Solo columnas visibles
-            draggingIndex: null,
-        });
-    }, [columnVisibility, columns, setListColumnsActive]);
-
-    // Columnas visibles en rowsInTable
-    const activeColumns = (listColumnsActive.list || []).filter(
-        (col) => columnVisibility[col.accessorKey]
+    const activeColumns = columns.filter(
+        (col) => columnVisibility[col.accessorKey] // Filtra columnas visibles
     );
 
-    // Columnas no visibles (rowsByAdd)
     const inactiveColumns = columns.filter(
-        (col) => !columnVisibility[col.accessorKey]
+        (col) => !columnVisibility[col.accessorKey] // Filtra columnas no visibles
     );
 
-    // Filtrar columnas inactivas basado en el input
     const filteredColumns = inactiveColumns.filter((col) =>
         col.header.toLowerCase().includes(filterText.toLowerCase())
     );
@@ -29,21 +18,21 @@ const MenuColumns = ({ columns, setColumnVisibility, columnVisibility, listColum
     const handleAddColumn = (accessorKey) => {
         setColumnVisibility((prev) => ({
             ...prev,
-            [accessorKey]: true,
+            [accessorKey]: true, // Marca la columna como visible
         }));
     };
 
     const handleRemoveColumn = (accessorKey) => {
         setColumnVisibility((prev) => ({
             ...prev,
-            [accessorKey]: false,
+            [accessorKey]: false, // Marca la columna como no visible
         }));
     };
 
     const handleRemoveAllColumns = () => {
         setColumnVisibility(
             columns.reduce((acc, col) => {
-                acc[col.accessorKey] = false;
+                acc[col.accessorKey] = false; // Todas las columnas no visibles
                 return acc;
             }, {})
         );
@@ -52,38 +41,10 @@ const MenuColumns = ({ columns, setColumnVisibility, columnVisibility, listColum
     const handleAddAllColumns = () => {
         setColumnVisibility(
             columns.reduce((acc, col) => {
-                acc[col.accessorKey] = true;
+                acc[col.accessorKey] = true; // Todas las columnas visibles
                 return acc;
             }, {})
         );
-    };
-
-    const handleDragStart = (index) => {
-        setListColumnsActive((prevOrder) => ({
-            ...prevOrder,
-            draggingIndex: index,
-        }));
-    };
-
-    const handleDragEnter = (index) => {
-        setListColumnsActive((prevOrder) => {
-            const newOrder = [...prevOrder.list];
-            const draggingItem = newOrder[prevOrder.draggingIndex];
-            newOrder.splice(prevOrder.draggingIndex, 1);
-            newOrder.splice(index, 0, draggingItem);
-
-            return {
-                list: newOrder,
-                draggingIndex: index,
-            };
-        });
-    };
-
-    const handleDragEnd = () => {
-        setListColumnsActive((prevOrder) => ({
-            ...prevOrder,
-            draggingIndex: null,
-        }));
     };
 
     return (
@@ -98,14 +59,8 @@ const MenuColumns = ({ columns, setColumnVisibility, columnVisibility, listColum
                     </button>
                 </div>
                 <div className="listColumnsActive">
-                    {activeColumns.map((col, index) => (
-                        <div
-                            key={col.accessorKey}
-                            draggable
-                            onDragStart={() => handleDragStart(index)}
-                            onDragEnter={() => handleDragEnter(index)}
-                            onDragEnd={handleDragEnd}
-                        >
+                    {activeColumns.map((col) => (
+                        <div key={col.accessorKey}>
                             {col.header}
                             <button onClick={() => handleRemoveColumn(col.accessorKey)}>
                                 -

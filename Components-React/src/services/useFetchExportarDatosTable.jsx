@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useFetchConfig } from './useFetchConfig';
 
-const useFideicomisosCard = () => {
+const useExportarDatosTable = (payload) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [idFid, setIdFid] = useState(null);
   const [records, setRecords] = useState(0);
 
   useEffect(() => {
@@ -14,23 +13,14 @@ const useFideicomisosCard = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-
         const token = sessionStorage.getItem('token');
         const userDataStr = localStorage.getItem('userData');
-        
-
         if (!token) {
-          throw new Error('Token no encontrado. Por favor, inicia sesión nuevamente.');
-        }
-        if (!userDataStr) {
-          throw new Error('Datos de usuario no encontrados.');
+          throw new Error('Token no encontrado en sessionStorage. Por favor, inicia sesión nuevamente.');
         }
 
         const userData = JSON.parse(userDataStr);
         const idUser = userData.numeroDeUsuario;
-
-        setIdFid(idUser);
-
 
         const headers = {
           'Content-Type': 'application/json',
@@ -38,29 +28,23 @@ const useFideicomisosCard = () => {
           'X-User-Id': `${idUser}`, 
         };
 
-
         const config = await useFetchConfig();
         const uriApi = config.apiUri;
 
-
-
-
-        const response = await fetch(`${uriApi}/api/contrato/card/${idUser}`, {
-          method: 'GET',
+        const response = await fetch(`${uriApi}/api/contrato/generar-csv`, {
+          method: 'POST',
           headers: headers,
+          body: JSON.stringify(payload), // Usamos el payload dinámico que viene desde el componente
         });
 
-
         if (!response.ok) {
-          const errorResponse = await response.json();
-          throw new Error(`Error en la respuesta del servidor: ${response.status} - ${response.statusText}`);
+          throw new Error('Error en la respuesta del servidor');
         }
-
 
         const jsonData = await response.json();
 
         if (isMounted) {
-          setData(jsonData.contratos);
+          setData(jsonData.menu);
           setRecords(jsonData.records || 0);
         }
       } catch (err) {
@@ -79,9 +63,9 @@ const useFideicomisosCard = () => {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [payload]);
 
-  return { data, records, loading, error, idFid };
+  return { data, records, loading, error };
 };
 
-export default useFideicomisosCard;
+export default useExportarDatosTable;

@@ -4,6 +4,7 @@ import MenuColumns from './MenuColumns.jsx';
 import ModalFiltersAdvanced from './ModalFiltersAdvanced.jsx';
 import SelectFilterComponent from '../hooks/Filters.jsx';
 import useFetchContrato from '../services/useFetchContrato.jsx'
+import useExportarDatosTable from '../services/useFetchExportarDatosTable.jsx'
 import { useLocation } from 'wouter';
 import {
     useReactTable,
@@ -19,8 +20,10 @@ const TableComponent = ({ onTableReady }) => {
     const [page, setPage] = useState(1);
     const [rowsPerPage, setRowsPerPage] = useState(80);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalExportarOpen, setModalExportarOpen] = useState(false);
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
     const [filters, setFilters] = useState(null);
+    const [exportPayload, setExportPayload] = useState(null); // Estado para el payload de exportación
 
     const { data, total, records, loading, error } = useFetchContrato(page, rowsPerPage, filters);
 
@@ -28,57 +31,61 @@ const TableComponent = ({ onTableReady }) => {
         navigate(`/home/fideicomiso-info/${NumeroDeContrato}`);
     };
 
- 
+    const closeModalExport = () => {
+        setModalExportarOpen(false);
+    };
+
     const columns = useMemo(() => [
-        { header: "NumeroDeContrato", accessorKey: "NumeroDeContrato", field: "text" },
-        { header: "NombreDeContrato", accessorKey: "NombreDeContrato", field: "select" },
-        { header: "OficioExencion", accessorKey: "OficioExencion", field: "select" },
-        { header: "RegSHCP", accessorKey: "RegSHCP", field: "select" },
-        { header: "RegGobDF", accessorKey: "RegGobDF", field: "select" },
-        { header: "TextoRegional", accessorKey: "TextoRegional", field: "select" },
-        { header: "Escritura", accessorKey: "Escritura", field: "select" },
-        { header: "TextoSucursal", accessorKey: "TextoSucursal", field: "select" },
-        { header: "FechaDeRegistroPublico", accessorKey: "FechaDeRegistroPublico", field: "select" },
-        { header: "FechaDeApertura", accessorKey: "FechaDeApertura", field: "select" },
-        { header: "FechaDeCancelacion", accessorKey: "FechaDeCancelacion", field: "select" },
-        { header: "FechaDeInscripcionRegNalInvEx", accessorKey: "FechaDeInscripcionRegNalInvEx", field: "select" },
-        { header: "NombreDeCliente", accessorKey: "NombreDeCliente", field: "select" },
-        { header: "TextoESustitucion", accessorKey: "TextoESustitucion", field: "select" },
-        { header: "TextoSustitucion", accessorKey: "TextoSustitucion", field: "select" },
-        { header: "TextoESustitucionEje", accessorKey: "TextoESustitucionEje", field: "select" },
-        { header: "TextoNombreDeContratoEje", accessorKey: "TextoNombreDeContratoEje", field: "select" },
-        { header: "TextoTipoDeNegocio", accessorKey: "TextoTipoDeNegocio", field: "select" },
-        { header: "TextoClasificacionDeProducto", accessorKey: "TextoClasificacionDeProducto", field: "select" },
-        { header: "TextoNombreDeProducto", accessorKey: "TextoNombreDeProducto", field: "select" },
-        { header: "TextoFormaDeManejo", accessorKey: "TextoFormaDeManejo", field: "select" },
-        { header: "TextoComiteTecnico", accessorKey: "TextoComiteTecnico", field: "select" },
-        { header: "TextoRevocable", accessorKey: "TextoRevocable", field: "select" },
-        { header: "TextoSHCP", accessorKey: "TextoSHCP", field: "select" },
-        { header: "TextoGobDF", accessorKey: "TextoGobDF", field: "select" },
-        { header: "TextoTipoDeCliente", accessorKey: "TextoTipoDeCliente", field: "select" },
-        { header: "TextoTipoDeContratoPublico", accessorKey: "TextoTipoDeContratoPublico", field: "select" },
-        { header: "TextoTipoDeContrato", accessorKey: "TextoTipoDeContrato", field: "select" },
-        { header: "TextoSubContrato", accessorKey: "TextoSubContrato", field: "select" },
-        { header: "TextoNombreDeNotario", accessorKey: "TextoNombreDeNotario", field: "select" },
-        { header: "TextoDeTipoDeAdministracion", accessorKey: "TextoDeTipoDeAdministracion", field: "select" },
-        { header: "TextoCentroDeCostos", accessorKey: "TextoCentroDeCostos", field: "select" },
-        { header: "TextoActividadEmpresarial", accessorKey: "TextoActividadEmpresarial", field: "select" },
-        { header: "TextoPatrimonio", accessorKey: "TextoPatrimonio", field: "select" },
-        { header: "TextoRegLasDeOperacion", accessorKey: "TextoRegLasDeOperacion", field: "select" },
-        { header: "TextoNombreDeActividad", accessorKey: "TextoNombreDeActividad", field: "select" },
-        { header: "RFCActividadEmpresarial", accessorKey: "RFCActividadEmpresarial", field: "select" },
-        { header: "TextoGerencia", accessorKey: "TextoGerencia", field: "select" },
-        { header: "TextoClasificacionProducto", accessorKey: "TextoClasificacionProducto", field: "select" },
-        { header: "RegistroPublicoDeLaPropiedad", accessorKey: "RegistroPublicoDeLaPropiedad", field: "select" },
-        { header: "TextoRegistroPresupuestal", accessorKey: "TextoRegistroPresupuestal", field: "select" },
-        { header: "TextoRenovacionRegPresupuestal", accessorKey: "TextoRenovacionRegPresupuestal", field: "select" },
-        { header: "RenovacionRegPresupuestal", accessorKey: "RenovacionRegPresupuestal", field: "select" },
-        { header: "TextoInformativaSAT", accessorKey: "TextoInformativaSAT", field: "select" },
+        { header: "NumeroDeContrato", accessorKey: "NumeroDeContrato", field: "text", visibilityCol: true },
+        { header: "NombreDeContrato", accessorKey: "NombreDeContrato", field: "select", visibilityCol: true },
+        { header: "OficioExencion", accessorKey: "OficioExencion", field: "select", visibilityCol: true },
+        { header: "RegSHCP", accessorKey: "RegSHCP", field: "select", visibilityCol: true },
+        { header: "RegGobDF", accessorKey: "RegGobDF", field: "select", visibilityCol: true },
+        { header: "TextoRegional", accessorKey: "TextoRegional", field: "select", visibilityCol: true },
+        { header: "Escritura", accessorKey: "Escritura", field: "select", visibilityCol: true },
+        { header: "TextoSucursal", accessorKey: "TextoSucursal", field: "select", visibilityCol: true },
+        { header: "FechaDeRegistroPublico", accessorKey: "FechaDeRegistroPublico", field: "select", visibilityCol: true },
+        { header: "FechaDeApertura", accessorKey: "FechaDeApertura", field: "select", visibilityCol: true },
+        { header: "FechaDeCancelacion", accessorKey: "FechaDeCancelacion", field: "select", visibilityCol: true },
+        { header: "FechaDeInscripcionRegNalInvEx", accessorKey: "FechaDeInscripcionRegNalInvEx", field: "select", visibilityCol: true },
+        { header: "NombreDeCliente", accessorKey: "NombreDeCliente", field: "select", visibilityCol: true },
+        { header: "TextoESustitucion", accessorKey: "TextoESustitucion", field: "select", visibilityCol: true },
+        { header: "TextoSustitucion", accessorKey: "TextoSustitucion", field: "select", visibilityCol: true },
+        { header: "TextoESustitucionEje", accessorKey: "TextoESustitucionEje", field: "select", visibilityCol: true },
+        { header: "TextoNombreDeContratoEje", accessorKey: "TextoNombreDeContratoEje", field: "select", visibilityCol: true },
+        { header: "TextoTipoDeNegocio", accessorKey: "TextoTipoDeNegocio", field: "select", visibilityCol: true },
+        { header: "TextoClasificacionDeProducto", accessorKey: "TextoClasificacionDeProducto", field: "select", visibilityCol: true },
+        { header: "TextoNombreDeProducto", accessorKey: "TextoNombreDeProducto", field: "select", visibilityCol: true },
+        { header: "TextoFormaDeManejo", accessorKey: "TextoFormaDeManejo", field: "select", visibilityCol: true },
+        { header: "TextoComiteTecnico", accessorKey: "TextoComiteTecnico", field: "select", visibilityCol: true },
+        { header: "TextoRevocable", accessorKey: "TextoRevocable", field: "select", visibilityCol: true },
+        { header: "TextoSHCP", accessorKey: "TextoSHCP", field: "select", visibilityCol: true },
+        { header: "TextoGobDF", accessorKey: "TextoGobDF", field: "select", visibilityCol: true },
+        { header: "TextoTipoDeCliente", accessorKey: "TextoTipoDeCliente", field: "select", visibilityCol: true },
+        { header: "TextoTipoDeContratoPublico", accessorKey: "TextoTipoDeContratoPublico", field: "select", visibilityCol: true },
+        { header: "TextoTipoDeContrato", accessorKey: "TextoTipoDeContrato", field: "select", visibilityCol: true },
+        { header: "TextoSubContrato", accessorKey: "TextoSubContrato", field: "select", visibilityCol: true },
+        { header: "TextoNombreDeNotario", accessorKey: "TextoNombreDeNotario", field: "select", visibilityCol: false },
+        { header: "TextoDeTipoDeAdministracion", accessorKey: "TextoDeTipoDeAdministracion", field: "select", visibilityCol: false },
+        { header: "TextoCentroDeCostos", accessorKey: "TextoCentroDeCostos", field: "select", visibilityCol: false },
+        { header: "TextoActividadEmpresarial", accessorKey: "TextoActividadEmpresarial", field: "select", visibilityCol: false },
+        { header: "TextoPatrimonio", accessorKey: "TextoPatrimonio", field: "select", visibilityCol: false },
+        { header: "TextoRegLasDeOperacion", accessorKey: "TextoRegLasDeOperacion", field: "select", visibilityCol: false },
+        { header: "TextoNombreDeActividad", accessorKey: "TextoNombreDeActividad", field: "select", visibilityCol: false },
+        { header: "RFCActividadEmpresarial", accessorKey: "RFCActividadEmpresarial", field: "select", visibilityCol: false },
+        { header: "TextoGerencia", accessorKey: "TextoGerencia", field: "select", visibilityCol: false },
+        { header: "TextoClasificacionProducto", accessorKey: "TextoClasificacionProducto", field: "select", visibilityCol: false },
+        { header: "RegistroPublicoDeLaPropiedad", accessorKey: "RegistroPublicoDeLaPropiedad", field: "select", visibilityCol: false },
+        { header: "TextoRegistroPresupuestal", accessorKey: "TextoRegistroPresupuestal", field: "select", visibilityCol: false },
+        { header: "TextoRenovacionRegPresupuestal", accessorKey: "TextoRenovacionRegPresupuestal", field: "select", visibilityCol: false },
+        { header: "RenovacionRegPresupuestal", accessorKey: "RenovacionRegPresupuestal", field: "select", visibilityCol: false },
+        { header: "TextoInformativaSAT", accessorKey: "TextoInformativaSAT", field: "select", visibilityCol: false },
     ], []);
 
     const [columnFilters, setColumnFilters] = useState(
         columns.reduce((acc, col) => ({ ...acc, [col.accessorKey]: "" }), {})
     );
+
     const handleFilterChange = (accessorKey, value) => {
         const newRule = {
             field: accessorKey,
@@ -157,25 +164,14 @@ const TableComponent = ({ onTableReady }) => {
             };
         });
     }, [data]);
+
     const [columnVisibility, setColumnVisibility] = useState(() =>
-        columns.reduce((acc, col) => ({ ...acc, [col.accessorKey]: true }), {})
+        columns.reduce((acc, col) => ({ ...acc, [col.accessorKey]: col.visibilityCol }), {})
     );
 
-    const [listColumnsActive, setListColumnsActive] = useState({
-        list: columns,
-        draggingIndex: null,
-    });
-
-    useEffect(() => {
-        setColumnVisibility(columns.reduce((acc, col) => ({ ...acc, [col.accessorKey]: true }), {}));
-        setListColumnsActive({
-            list: columns,
-            draggingIndex: null,
-        });
-    }, [columns]);
     const table = useReactTable({
         data: transformedData,
-        columns: listColumnsActive.list,
+        columns,
         state: {
             columnVisibility,
         },
@@ -186,13 +182,63 @@ const TableComponent = ({ onTableReady }) => {
         columnResizeMode: 'onChange',
     });
 
+    const handleExportarDatos = () => {
+        const formato = document.getElementById('formatoExportar').value;
+        const filtro = document.getElementById('tableFilterSelectExport').value;
+        const columnas = document.getElementById('tableColumnSelectExport').value;
+
+        let busquedaJQgrid = '';
+        let filtros = 0;
+        let columnasJQgrid = '';
+        let columnasVal = 0;
+
+        // Manejo de filtros
+        if (filtro === 'tableEmpty') {
+            filtros = 1;
+            busquedaJQgrid = '';
+        } else if (filtro === 'tableFiltersHeader') {
+            const filtroAvanzado = localStorage.getItem('filtroAvanzado');
+            if (filtroAvanzado) {
+                busquedaJQgrid = filtroAvanzado;
+            } else {
+                busquedaJQgrid = '';
+            }
+            filtros = 2;
+        }
+
+        // Manejo de columnas
+        if (columnas === 'allTableData') {
+            columnasJQgrid = columns.map(col => col.accessorKey).join(',');
+            columnasVal = 1;
+        } else if (columnas === 'activeColumnTableData') {
+            columnasJQgrid = Object.keys(columnVisibility)
+                .filter(key => columnVisibility[key])
+                .join(',');
+            columnasVal = 2;
+        }
+
+        const payload = {
+            formatos: formato,
+            busquedaJQgrid,
+            filtros,
+            columnasJQgrid,
+            columnas: columnasVal,
+            campoDeOrdenJQgrid: '',
+            tipoDeOrdenJQgrid: ''
+        };
+
+        // Actualizar el estado exportPayload para disparar el hook
+        setExportPayload(payload);
+    };
+
+    // Usar el hook de exportación cuando haya un payload disponible
+    const { data: exportData, loading: exportLoading, error: exportError } = useExportarDatosTable(exportPayload);
+
     useEffect(() => {
         if (onTableReady && data.length > 0) {
             onTableReady({
                 columns,
                 setColumnVisibility,
-                listColumnsActive,
-                setListColumnsActive,
             });
         }
     }, [onTableReady, data, columns]);
@@ -210,11 +256,13 @@ const TableComponent = ({ onTableReady }) => {
             setPage(newPage);
         }
     };
+
     return (
         <div className='container__tbl'>
             <div className='container_tbl_buttons'>
                 <button onClick={() => setIsModalOpen(true)}><IconColumnsSelect />Orden y columnas</button>
                 <button onClick={() => setIsFilterModalOpen(true)}><IconFiltersCom />Filtros Avanzados</button>
+                <button onClick={() => setModalExportarOpen(true)}>Exportar</button>
             </div>
 
             <table>
@@ -240,7 +288,7 @@ const TableComponent = ({ onTableReady }) => {
                                             {data.length > 0 && data
                                                 .map((row) => {
                                                     const cellIndex = header.index;
-                                                   
+
                                                     return row.cell[cellIndex];
                                                 })
                                                 .filter((value, index, self) => value && self.indexOf(value) === index)
@@ -251,8 +299,6 @@ const TableComponent = ({ onTableReady }) => {
                                                 ))}
                                         </select>
                                     )}
-
-
 
                                     <div onMouseDown={header.getResizeHandler()} onTouchStart={header.getResizeHandler()} className="resizer" style={{
                                         transform: header.column.getIsResizing() ? 'scaleX(2)' : '',
@@ -296,16 +342,46 @@ const TableComponent = ({ onTableReady }) => {
                             columns={columns}
                             setColumnVisibility={setColumnVisibility}
                             columnVisibility={columnVisibility}
-                            listColumnsActive={listColumnsActive}
-                            setListColumnsActive={setListColumnsActive}
                         />
                     </div>
                 </div>
             )}
+            {isModalExportarOpen && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <div className='modal-content-head'>
+                            <h2>Exportar Datos</h2>
+                            <button type='button' className="close-button" onClick={closeModalExport}>&times;</button>
+                        </div>
 
+                        <div className="container__field">
+                            <p>Formato</p>
+                            <select name="Formato" id='formatoExportar'>
+                                <option value="csv">Archivo separado por comas (.CSV)</option>
+                                <option value="txt">Archivo de texto (.TXT)</option>
+                            </select>
+                        </div>
+                        <div className="container__field">
+                            <p>Filtros</p>
+                            <select name="Filtros" id='tableFilterSelectExport'>
+                                <option value="tableEmpty">Toda la información</option>
+                                <option value="tableFiltersHeader">Los mismo filtros que el grid</option>
+                            </select>
+                        </div>
+                        <div className="container__field">
+                            <p>Columnas</p>
+                            <select name="Columnas" id='tableColumnSelectExport'>
+                                <option value="allTableData">Todos los campos disponibles</option>
+                                <option value="activeColumnTableData">Sólo los campos que muestran en el grid</option>
+                            </select>
+                        </div>
+                        <button onClick={handleExportarDatos}>Realizar exportación</button>
+                    </div>
+                </div>
+            )}
             {isFilterModalOpen && (
                 <ModalFiltersAdvanced
-                    visibleColumns={listColumnsActive.list}
+                    visibleColumns={columns}
                     isOpen={isFilterModalOpen}
                     onClose={() => setIsFilterModalOpen(false)}
                     onSave={setFilters}
@@ -313,6 +389,5 @@ const TableComponent = ({ onTableReady }) => {
             )}
         </div>
     );
-
 };
 export default TableComponent;

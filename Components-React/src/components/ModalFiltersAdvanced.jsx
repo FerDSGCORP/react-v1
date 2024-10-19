@@ -56,7 +56,7 @@ const ModalFiltersAdvanced = ({ visibleColumns, isOpen, onClose, onSave }) => {
 
     // Manejo de guardar filtros o cerrar el modal
     const handleSaveFilters = () => {
-        // Enviar el objeto de filtros al componente padre
+        localStorage.setItem("filtroAvanzado", JSON.stringify(filters));
         onSave(filters);
         onClose(); // Cerrar modal después de guardar
     };
