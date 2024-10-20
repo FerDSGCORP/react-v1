@@ -50,7 +50,7 @@ function ContentRenderView() {
         </Route>
 
         {/* Ruta para mostrar detalles de fideicomiso */}
-        <Route path="/home/fideicomiso-info/:idFid">
+        <Route path="/home/contrato-info/:idFid">
           {params => <DetalleFideicomiso idFid={params.idFid} />}
         </Route>
         <Route path="/home/instruccionpagoconcilia-envio/:idFid">

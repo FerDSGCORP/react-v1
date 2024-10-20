@@ -5,7 +5,7 @@ import ControlDocumentalModal from '../components/ControlDocumentalModal'
 
 function DetalleFideicomiso() {
     // Utilizamos `useRoute` para obtener el parámetro `idFid` de la URL
-    const [match, params] = useRoute('/home/fideicomiso-info/:idFid');
+    const [match, params] = useRoute('/home/contrato-info/:idFid');
     const idFid = match ? params.idFid : null;
 
     // Obtener datos usando el hook personalizado `useFetchContratoInfo`

@@ -29,7 +29,7 @@ function FideicomisoHome() {
 
   // Manejar el clic en `IngresoFidei`
   const handleIngresoClick = (numeroDeContrato) => {
-    navigate(`/home/fideicomiso-info/${numeroDeContrato}`);
+    navigate(`/home/contrato-info/${numeroDeContrato}`);
   };
 
   return (

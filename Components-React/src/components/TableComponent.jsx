@@ -28,7 +28,7 @@ const TableComponent = ({ onTableReady }) => {
     const { data, total, records, loading, error } = useFetchContrato(page, rowsPerPage, filters);
 
     const handleRowClick = (NumeroDeContrato) => {
-        navigate(`/home/fideicomiso-info/${NumeroDeContrato}`);
+        navigate(`/home/contrato-info/${NumeroDeContrato}`);
     };
 
     const closeModalExport = () => {

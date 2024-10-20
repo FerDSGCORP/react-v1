@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'wouter'; // Importa Link y useLocation de wouter
+import { Link, useLocation } from 'wouter';
 import clienteLogo from '../assets/img/Logotipo.png';
-import useMenuService from '../services/useFetchMenu.jsx'
+import useMenuService from '../services/useFetchMenu.jsx';
 import {
     IconHome,
     IconAsideAction,
@@ -18,52 +18,49 @@ import {
 
 const AsideMenu = () => {
     const [activeDropdown, setActiveDropdown] = useState(null);
-    const [isCollapsed, setIsCollapsed] = useState(false); // Estado para manejar el colapso del aside
-    const [location, setLocation] = useLocation(); // Obtener la ruta actual y función para cambiarla
-    const { data: menuData, loading, error } = useMenuService(); // Usa el hook para consumir el menú
+    const [isCollapsed, setIsCollapsed] = useState(false);
+    const [location, setLocation] = useLocation();
+    const { data: menuData, loading, error } = useMenuService();
     const userData = JSON.parse(localStorage.getItem('userData'));
     const userName = userData?.nombreDeUsuario;
+
+    // Recuperar el idFidSelect desde localStorage
+    const idFidSelect = localStorage.getItem('idFidSelect');
 
     const handleDropdownClick = (index) => {
         setActiveDropdown(activeDropdown === index ? null : index);
     };
 
     const handleAsideToggle = () => {
-        setIsCollapsed(!isCollapsed); // Alterna entre colapsado y expandido
+        setIsCollapsed(!isCollapsed);
     };
 
     const handleLogout = () => {
-        localStorage.clear(); // Limpiar localStorage
-        sessionStorage.clear(); // Limpiar sessionStorage
-        setLocation('/'); // Redirigir a la página de inicio
+        localStorage.clear();
+        sessionStorage.clear();
+        setLocation('/');
     };
 
-    // Detecta cambios en el tamaño de la pantalla y también el cambio de ruta
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth <= 1200 || location === '/' || location === '/Home/' || location === '/home/') {
-                setIsCollapsed(true); // Colapsa el aside si la ruta es '/' o '/home'
+                setIsCollapsed(true);
             } else {
                 setIsCollapsed(false);
             }
         };
 
-        // Ejecutar la función en el primer render
         handleResize();
 
-        // Agregar el event listener para cambios de tamaño
         window.addEventListener('resize', handleResize);
 
-        // Limpiar el event listener al desmontar el componente
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, [location]); // El efecto debe depender también de la ruta actual
+    }, [location]);
 
-    // Condicional para agregar o remover la clase 'hide'
     const asideListClassName = location === '/' || location === '/Home/' || location === '/home/' ? 'aside_list hide' : 'aside_list';
 
-    // Condicional para mostrar u ocultar IconAsideAction
     const showIconAsideAction = location !== '/' && location !== '/home/' || location !== '/Home/';
 
     if (loading) {
@@ -73,51 +70,52 @@ const AsideMenu = () => {
     if (error) {
         return <div>Error al cargar el menú: {error}</div>;
     }
-// Renderizar el menú dinámicamente desde menuData
-const renderMenu = () => {
-    return menuData.map((item, index) => (
-        <li
-            key={index}
-            className={`aside_list_link ${item.subItems ? 'dropdown' : ''} ${activeDropdown === index ? 'dropdown-Active' : ''}`}
-        >
-            {item.subItems ? (
-                <div onClick={() => handleDropdownClick(index)}>
-                    <i>
-                        {React.createElement(eval(item.icon))} {/* Renderiza el ícono dinámicamente */}
-                        <div className='tooltip'>
-                            <h4>{item.toolTip}</h4>
-                        </div>
-                    </i>
-                    <span>{item.name}</span>
-                    <i><IconArrowDown /></i> {/* Mostrar el ícono de dropdown si hay submenús */}
-                </div>
-            ) : (
-                <Link href={item.link}>
-                    <div>
+
+    const renderMenu = () => {
+        return menuData.map((item, index) => (
+            <li
+                key={index}
+                className={`aside_list_link ${item.subItems ? 'dropdown' : ''} ${activeDropdown === index ? 'dropdown-Active' : ''}`}
+            >
+                {item.subItems ? (
+                    <div onClick={() => handleDropdownClick(index)}>
                         <i>
-                            {React.createElement(eval(item.icon))} {/* Renderiza el ícono dinámicamente */}
+                            {React.createElement(eval(item.icon))}
                             <div className='tooltip'>
                                 <h4>{item.toolTip}</h4>
                             </div>
                         </i>
                         <span>{item.name}</span>
+                        <i><IconArrowDown /></i>
                     </div>
-                </Link>
-            )}
+                ) : (
+                    <Link href={`${item.link}${idFidSelect ? `/${idFidSelect}` : ''}`}> {/* Añadir idFidSelect a la URL */}
+                        <div>
+                            <i>
+                                {React.createElement(eval(item.icon))}
+                                <div className='tooltip'>
+                                    <h4>{item.toolTip}</h4>
+                                </div>
+                            </i>
+                            <span>{item.name}</span>
+                        </div>
+                    </Link>
+                )}
 
-            {item.subItems && activeDropdown === index && ( /* Si tiene subItems y el dropdown está activo */
-                <ul className='dropdown__container__menu'>
-                    {item.subItems.map((subItem, subIndex) => (
-                        <li key={subIndex}>
-                            <Link href={subItem.link}>{subItem.name}</Link>
-                        </li>
-                    ))}
-                </ul>
-            )}
-        </li>
-    ));
-};
-
+                {item.subItems && activeDropdown === index && (
+                    <ul className='dropdown__container__menu'>
+                        {item.subItems.map((subItem, subIndex) => (
+                            <li key={subIndex}>
+                                <Link href={`${subItem.link}${idFidSelect ? `/${idFidSelect}` : ''}`}> {/* Añadir idFidSelect a los subItems */}
+                                    {subItem.name}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </li>
+        ));
+    };
 
     return (
         <aside className={isCollapsed ? 'collapse' : ''}>
@@ -137,11 +135,11 @@ const renderMenu = () => {
             </div>
             <nav className='aside_container_list'>
                 <ul className={asideListClassName}>
-                    {renderMenu()} {/* Renderiza el menú dinámicamente */}
+                    {renderMenu()}
                 </ul>
                 <ul className='footerList'>
                     <li className="aside_list_link">
-                        <Link href="/Home/user-perfil">
+                        <Link href={`/Home/user-perfil/${idFidSelect || ''}`}>
                             <i><IconPerfilUsuario />
                                 <div className='tooltip'>
                                     <h4>Perfil de usuario</h4>
