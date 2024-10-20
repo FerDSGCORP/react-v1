@@ -66,7 +66,7 @@ function RenderView() {
             <Route path="/home/fideicomiso-info/:idFid">
               {params => <DetalleFideicomiso idFid={params.idFid} />}
             </Route>
-            <Route path="/home/Carta-instruccion">
+            <Route path="/home/instruccionpagoconcilia-envio/:idFid">
               {params => <CartaInstruccion idFid={idFid} />}
             </Route>
             <Route path="/home/user-perfil">

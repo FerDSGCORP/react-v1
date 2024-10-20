@@ -53,8 +53,8 @@ function ContentRenderView() {
         <Route path="/home/fideicomiso-info/:idFid">
           {params => <DetalleFideicomiso idFid={params.idFid} />}
         </Route>
-        <Route path="/home/Carta-instruccion">
-            {params => <CartaInstruccion/>}
+        <Route path="/home/instruccionpagoconcilia-envio/:idFid">
+            {params => <CartaInstruccion idFid={params.idFid}/>}
         </Route>
       </Switch>
     </div>
