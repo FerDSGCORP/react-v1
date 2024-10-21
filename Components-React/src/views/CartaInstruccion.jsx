@@ -40,13 +40,13 @@ function CartaInstruccion() {
     const handleSendFile = async () => {
         if (file) {
             try {
-                const response = await sendFile(file);  // Recibir la respuesta del servicio
+                const response = await sendFile(file);  
 
-                // Concatenar el mensaje de éxito con el folio
+                
                 const mensajeExito = `${response.mensaje} con folio ${response.folioReferenciaR}`;
-                setMsjExito(mensajeExito);  // Establecer el mensaje de éxito
+                setMsjExito(mensajeExito);  
 
-                // Retrasar la apertura del modal de éxito por 2 segundos
+                
                 setTimeout(() => {
                     openModalExito();
                 }, 2000);
@@ -117,7 +117,7 @@ function CartaInstruccion() {
                             <button type='button' className="close-button" onClick={closeModalExito}>&times;</button>
                         </div>
                         <div className="container__content__ModalErr">
-                            <span className="msjExito">{msjExito}</span>  {/* Mostrar el mensaje de éxito */}
+                            <span className="msjExito">{msjExito}</span> 
                         </div>
                     </div>
                 </div>

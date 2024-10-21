@@ -13,7 +13,7 @@ import {
     getFilteredRowModel,
     flexRender,
 } from '@tanstack/react-table';
-import { IconActualizarTabla, IconColumnsSelect, IconExportarDatos, IconFiltersCom, IconTableCLose, IconTableNext, IconTablePrevious } from './Icons.jsx';
+import { IconActualizarTabla, IconBtnExportar, IconColumnsSelect, IconExportarDatos, IconFiltersCom, IconTableCLose, IconTableNext, IconTablePrevious } from './Icons.jsx';
 
 const TableComponent = ({ onTableReady }) => {
     const [location, navigate] = useLocation();
@@ -264,64 +264,66 @@ const TableComponent = ({ onTableReady }) => {
             <div className='container_tbl_buttons'>
                 <button onClick={() => setIsModalOpen(true)}><IconColumnsSelect />Orden y columnas</button>
                 <button onClick={() => setIsFilterModalOpen(true)}><IconFiltersCom />Filtros Avanzados</button>
-                <button onClick={() => setModalExportarOpen(true)}>Exportar</button>
+                <button onClick={() => setModalExportarOpen(true)}><IconBtnExportar/>Exportar</button>
             </div>
 
-            <table>
-                <thead>
-                    <tr>
-                        {table.getHeaderGroups().map(headerGroup =>
-                            headerGroup.headers.map(header => (
-                                <th key={header.id}>
-                                    {header.column.columnDef.header}
-                                    {header.column.columnDef.field === "text" ? (
-                                        <input
-                                            type="text"
-                                            placeholder={`Filtrar ${header.column.columnDef.header}`}
-                                            value={columnFilters[header.column.id]}
-                                            onChange={(e) => handleFilterChange(header.column.id, e.target.value)}
-                                        />
-                                    ) : (
-                                        <select
-                                            value={columnFilters[header.column.id]}
-                                            onChange={(e) => handleFilterChange(header.column.id, e.target.value)}
-                                        >
-                                            <option value="">Seleccione</option>
-                                            {data.length > 0 && data
-                                                .map((row) => {
-                                                    const cellIndex = header.index;
+            <div className='container__tbl_table'>
+                <table>
+                    <thead>
+                        <tr>
+                            {table.getHeaderGroups().map(headerGroup =>
+                                headerGroup.headers.map(header => (
+                                    <th key={header.id}>
+                                        {header.column.columnDef.header}
+                                        {header.column.columnDef.field === "text" ? (
+                                            <input
+                                                type="text"
+                                                placeholder={`Filtrar ${header.column.columnDef.header}`}
+                                                value={columnFilters[header.column.id]}
+                                                onChange={(e) => handleFilterChange(header.column.id, e.target.value)}
+                                            />
+                                        ) : (
+                                            <select className='container__tbl_select'
+                                                value={columnFilters[header.column.id]}
+                                                onChange={(e) => handleFilterChange(header.column.id, e.target.value)}
+                                            >
+                                                <option value="">Seleccione</option>
+                                                {data.length > 0 && data
+                                                    .map((row) => {
+                                                        const cellIndex = header.index;
 
-                                                    return row.cell[cellIndex];
-                                                })
-                                                .filter((value, index, self) => value && self.indexOf(value) === index)
-                                                .map((uniqueValue, index) => (
-                                                    <option key={`${header.column.id}-${index}`} value={uniqueValue}>
-                                                        {uniqueValue}
-                                                    </option>
-                                                ))}
-                                        </select>
-                                    )}
+                                                        return row.cell[cellIndex];
+                                                    })
+                                                    .filter((value, index, self) => value && self.indexOf(value) === index)
+                                                    .map((uniqueValue, index) => (
+                                                        <option key={`${header.column.id}-${index}`} value={uniqueValue}>
+                                                            {uniqueValue}
+                                                        </option>
+                                                    ))}
+                                            </select>
+                                        )}
 
-                                    <div onMouseDown={header.getResizeHandler()} onTouchStart={header.getResizeHandler()} className="resizer" style={{
-                                        transform: header.column.getIsResizing() ? 'scaleX(2)' : '',
-                                    }} />
-                                </th>
-                            ))
-                        )}
-                    </tr>
-                </thead>
-                <tbody>
-                    {table.getRowModel().rows.map(row => (
-                        <tr key={row.id} onClick={() => handleRowClick(row.original.NumeroDeContrato)}>
-                            {row.getVisibleCells().map(cell => (
-                                <td key={cell.id}>
-                                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                </td>
-                            ))}
+                                        <div onMouseDown={header.getResizeHandler()} onTouchStart={header.getResizeHandler()} className="resizer" style={{
+                                            transform: header.column.getIsResizing() ? 'scaleX(2)' : '',
+                                        }} />
+                                    </th>
+                                ))
+                            )}
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {table.getRowModel().rows.map(row => (
+                            <tr key={row.id} onClick={() => handleRowClick(row.original.NumeroDeContrato)}>
+                                {row.getVisibleCells().map(cell => (
+                                    <td key={cell.id}>
+                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                    </td>
+                                ))}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
 
             <div className="pagination">
                 <button onClick={() => handlePageChange(page - 1)} disabled={page === 1}>
