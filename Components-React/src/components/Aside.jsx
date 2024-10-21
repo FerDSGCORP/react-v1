@@ -24,7 +24,6 @@ const AsideMenu = () => {
     const userData = JSON.parse(localStorage.getItem('userData'));
     const userName = userData?.nombreDeUsuario;
 
-    // Recuperar el idFidSelect desde localStorage
     const idFidSelect = localStorage.getItem('idFidSelect');
 
     const handleDropdownClick = (index) => {
@@ -71,6 +70,13 @@ const AsideMenu = () => {
         return <div>Error al cargar el menú: {error}</div>;
     }
 
+    const cleanPath = (path) => {
+        if (path.toLowerCase() === '/home/') {
+            return path;
+        }
+        return idFidSelect ? `${path}/${idFidSelect}` : path;
+    };
+
     const renderMenu = () => {
         return menuData.map((item, index) => (
             <li
@@ -89,7 +95,7 @@ const AsideMenu = () => {
                         <i><IconArrowDown /></i>
                     </div>
                 ) : (
-                    <Link href={`${item.link}${idFidSelect ? `/${idFidSelect}` : ''}`}> {/* Añadir idFidSelect a la URL */}
+                    <Link href={cleanPath(item.link)}>
                         <div>
                             <i>
                                 {React.createElement(eval(item.icon))}
@@ -106,7 +112,7 @@ const AsideMenu = () => {
                     <ul className='dropdown__container__menu'>
                         {item.subItems.map((subItem, subIndex) => (
                             <li key={subIndex}>
-                                <Link href={`${subItem.link}${idFidSelect ? `/${idFidSelect}` : ''}`}> {/* Añadir idFidSelect a los subItems */}
+                                <Link href={cleanPath(subItem.link)}>
                                     {subItem.name}
                                 </Link>
                             </li>
@@ -139,7 +145,7 @@ const AsideMenu = () => {
                 </ul>
                 <ul className='footerList'>
                     <li className="aside_list_link">
-                        <Link href={`/Home/user-perfil/${idFidSelect || ''}`}>
+                        <Link href={cleanPath(`/Home/user-perfil/`)}>
                             <i><IconPerfilUsuario />
                                 <div className='tooltip'>
                                     <h4>Perfil de usuario</h4>
@@ -161,5 +167,6 @@ const AsideMenu = () => {
         </aside>
     );
 };
+
 
 export default AsideMenu;

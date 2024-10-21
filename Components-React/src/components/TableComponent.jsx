@@ -23,13 +23,16 @@ const TableComponent = ({ onTableReady }) => {
     const [isModalExportarOpen, setModalExportarOpen] = useState(false);
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
     const [filters, setFilters] = useState(null);
-    const [exportPayload, setExportPayload] = useState(null); // Estado para el payload de exportación
+    const [exportPayload, setExportPayload] = useState(null); 
 
     const { data, total, records, loading, error } = useFetchContrato(page, rowsPerPage, filters);
 
     const handleRowClick = (NumeroDeContrato) => {
+        localStorage.setItem('idFidSelect', NumeroDeContrato);
+        window.dispatchEvent(new CustomEvent('fidSelectChange', { detail: NumeroDeContrato }));
         navigate(`/home/contrato-info/${NumeroDeContrato}`);
     };
+    
 
     const closeModalExport = () => {
         setModalExportarOpen(false);
@@ -192,7 +195,7 @@ const TableComponent = ({ onTableReady }) => {
         let columnasJQgrid = '';
         let columnasVal = 0;
     
-        // Manejo de filtros
+        
         if (filtro === 'tableEmpty') {
             filtros = 1;
             busquedaJQgrid = '';
@@ -206,7 +209,7 @@ const TableComponent = ({ onTableReady }) => {
             filtros = 2;
         }
     
-        // Manejo de columnas
+       
         if (columnas === 'allTableData') {
             columnasJQgrid = columns.map(col => col.accessorKey).join(',');
             columnasVal = 1;
@@ -227,10 +230,10 @@ const TableComponent = ({ onTableReady }) => {
             tipoDeOrdenJQgrid: ''
         };
     
-        setExportPayload(payload);  // Actualiza el payload para disparar el hook de exportación
+        setExportPayload(payload);
     };
 
-    // Usar el hook de exportación cuando haya un payload disponible
+
     const { data: exportData, loading: exportLoading, error: exportError } = useExportarDatosTable(exportPayload);
 
     useEffect(() => {

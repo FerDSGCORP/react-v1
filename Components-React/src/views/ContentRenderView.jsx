@@ -8,20 +8,17 @@ import CartaInstruccion from './CartaInstruccion'
 
 
 function ContentRenderView() {
-  const [, navigate] = useLocation(); // Eliminamos `location` ya que no se usa
+  const [, navigate] = useLocation();
 
-  // Obtener `numeroDeUsuario` desde `localStorage`
   const userData = localStorage.getItem('userData');
   const { numeroDeUsuario } = userData ? JSON.parse(userData) : {};
 
-  // Usar el hook `FideicomisosCard` para obtener `records`
   const { records, loading, error } = FideicomisosCard(numeroDeUsuario);
 
-  // Verificar si el token está disponible, si no redirigir al Login
   useEffect(() => {
     const token = sessionStorage.getItem('token');
     if (!token) {
-      navigate('/'); // Si no hay token, redirigir al login
+      navigate('/');
     }
   }, [navigate]);
 
@@ -31,12 +28,10 @@ function ContentRenderView() {
     }
   }, [numeroDeUsuario]);
 
-  // Mostrar loading mientras se obtienen los datos
   if (loading) {
     return <p>Cargando información...</p>;
   }
 
-  // Mostrar mensaje de error si ocurre
   if (error) {
     return <p>Error: {error}</p>;
   }
@@ -44,12 +39,9 @@ function ContentRenderView() {
   return (
     <div className='bodyView'>
       <Switch>
-        {/* Ruta predeterminada para mostrar el componente principal */}
         <Route path="/home">
           {() => (records > 11 ? <MainComponent /> : <MisFIdeicomisosCrd />)}
         </Route>
-
-        {/* Ruta para mostrar detalles de fideicomiso */}
         <Route path="/home/contrato-info/:idFid">
           {params => <DetalleFideicomiso idFid={params.idFid} />}
         </Route>

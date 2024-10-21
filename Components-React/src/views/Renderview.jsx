@@ -15,28 +15,32 @@ import { IconFIdeicomisoSelect } from '../components/Icons';
 function RenderView() {
   const { data: fideicomisos, loading, error } = useFideicomisosCard();
   const [location, setLocation] = useLocation();
-  const [idFidSelect, setIdFidSelect] = useState(null); // Estado para almacenar el numeroDeContrato seleccionado
+  const [idFidSelect, setIdFidSelect] = useState(null); 
 
-  // Recuperar idFidSelect de localStorage cuando se monta el componente
   useEffect(() => {
     const storedIdFidSelect = localStorage.getItem('idFidSelect');
     if (storedIdFidSelect) {
-      setIdFidSelect(storedIdFidSelect); // Recuperar el valor de localStorage al cargar el componente
+      setIdFidSelect(storedIdFidSelect);
     }
-  }, []);
 
-  // Actualizar idFidSelect en localStorage cada vez que cambia
-  useEffect(() => {
-    if (idFidSelect) {
-      localStorage.setItem('idFidSelect', idFidSelect); // Guardar idFidSelect en localStorage cuando cambie
-      setLocation(`/home/contrato-info/${idFidSelect}`); // Redirigir a la nueva ruta inmediatamente
-    }
-  }, [idFidSelect, setLocation]); // Agregar setLocation como dependencia
+    const handleFidSelectChange = (event) => {
+      setIdFidSelect(event.detail); 
+    };
+
+   
+    window.addEventListener('fidSelectChange', handleFidSelectChange);
+
+    return () => {
+      window.removeEventListener('fidSelectChange', handleFidSelectChange);
+    };
+  }, []);
 
   const handleSelectChange = (event) => {
     const selectedValue = event.target.value;
     if (selectedValue) {
-      setIdFidSelect(selectedValue); // Actualizar el estado y la redirección será gestionada por el useEffect
+      setIdFidSelect(selectedValue);
+      localStorage.setItem('idFidSelect', selectedValue);
+      setLocation(`/home/contrato-info/${selectedValue}`);
     }
   };
 
