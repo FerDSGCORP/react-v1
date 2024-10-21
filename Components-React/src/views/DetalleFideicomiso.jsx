@@ -4,14 +4,14 @@ import useFetchContratoInfo from '../services/useFetchContratoInfo';
 import ControlDocumentalModal from '../components/ControlDocumentalModal'
 
 function DetalleFideicomiso() {
-    // Utilizamos `useRoute` para obtener el parámetro `idFid` de la URL
+
     const [match, params] = useRoute('/home/contrato-info/:idFid');
     const idFid = match ? params.idFid : null;
-
-    // Obtener datos usando el hook personalizado `useFetchContratoInfo`
+    const tablaNum = 134;
     const { data, loading, error } = useFetchContratoInfo(idFid);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModalPublicOpen, setisModalPublicOpen] = useState(false);
+    const [showControlDocumentalModal, setShowControlDocumentalModal] = useState(false);
 
     useEffect(() => {
         if (data?.textoTipoDeContrato === "ESCRITURA PUBLICA") {
@@ -39,13 +39,16 @@ function DetalleFideicomiso() {
     const closeModalPublicContato = () => {
         setisModalPublicOpen(false);
     };
-    // Mientras los datos se están cargando
+
+    const openDocumentalModal = () => {
+        setShowControlDocumentalModal(true);
+    };
+
+
     if (loading) return <p>Cargando datos...</p>;
 
-    // Si hubo un error al cargar los datos
     if (error) return <p>Error al cargar los datos: {error}</p>;
 
-    // Función auxiliar para manejar los datos vacíos
     const displayData = (value) => {
         if (typeof value === 'string') {
             return value.trim() ? value : '-';
@@ -129,11 +132,10 @@ function DetalleFideicomiso() {
                     <div className="buttons_container">
                         <button onClick={openModal}>Características Adicionales</button>
                         <button id='botonEscrituraPublica' className='hide' onClick={openModalPublicContato}>Características escritura pública</button>
-                        <button >Documentos</button>
+                        <button id='openModalDocumentos' onClick={openDocumentalModal}>Documentos</button>
                     </div>
                 </div>
             </div>
-            <ControlDocumentalModal />
             {isModalOpen && (
                 <div className="modal">
                     <div className="modal-content __long">
@@ -220,10 +222,18 @@ function DetalleFideicomiso() {
                             {/* <p>Escritura <span>{displayData(data?.escritura)}</span></p> */}
                         </div>
                         <div className="container__field">
-                             {/* <p>Notario <span>{displayData(data?.nombreDeNotario)}</span></p> */}
+                            {/* <p>Notario <span>{displayData(data?.nombreDeNotario)}</span></p> */}
                         </div>
                     </div>
                 </div>
+
+            )}
+            {showControlDocumentalModal && (
+                <ControlDocumentalModal
+                    isOpen={showControlDocumentalModal}
+                    closeModal={() => setShowControlDocumentalModal(false)}
+                    tablaNum={tablaNum}
+                />
             )}
 
         </>

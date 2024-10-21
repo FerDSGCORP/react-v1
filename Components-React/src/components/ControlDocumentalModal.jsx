@@ -1,21 +1,21 @@
-import React,{useState} from 'react';
-import { IconRedPDF, IconDownload } from './Icons'
+import React from 'react';
+import { IconRedPDF, IconDownload } from './Icons';
+import useControlDocumental from '../services/useFetchControlDocumental';
 
+function ControlDocumentalModal({ isOpen, closeModal, tablaNum }) {
+    const { data, loading, error } = useControlDocumental(tablaNum);
 
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
-function ControlDocumentalModal() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
 
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
     return (
         <>
-            {isModalOpen && (
+            {isOpen && (
                 <div className="modal">
                     <div className="modal-content">
                         <div className='modal-content-head'>
@@ -28,19 +28,21 @@ function ControlDocumentalModal() {
                             </div>
                             <div className="container_list">
                                 <ul>
-                                    <li className="itemContainer">
-                                        <IconRedPDF />
-                                        <span id="nombreArchivo">
-                                            jdhskshjdiehemnsmeler.pdf
-                                        </span>
-                                        <span id="clasificacionArchivo">
-                                            Factura
-                                        </span>
-                                        <button className='download_btn'>
-                                            <IconDownload />
-                                            Descargar Archivo
-                                        </button>
-                                    </li>
+                                    {data && data.map((documento) => (
+                                        <li className="itemContainer" key={documento.id}>
+                                            <i id="extension"><IconRedPDF /></i>
+                                            <span id="nombreDeDocumento">
+                                                {documento.nombreDeDocumento}
+                                            </span>
+                                            <span id="nombreDeElemento">
+                                                {documento.nombreDeElemento}
+                                            </span>
+                                            <a className='download_btn' href={documento.link} target="_blank" rel="noopener noreferrer">
+                                                <IconDownload />
+                                                Descargar
+                                            </a>
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
                         </div>
@@ -51,4 +53,4 @@ function ControlDocumentalModal() {
     );
 }
 
-export default ControlDocumentalModal
+export default ControlDocumentalModal;
