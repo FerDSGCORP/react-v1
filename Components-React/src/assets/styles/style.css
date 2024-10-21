@@ -353,12 +353,13 @@ aside.collapse .aside_list_link.dropdown .aside_list_link_content i:last-child {
 }
 
 .aside_list_link,
-.aside_list_link>div {
+.aside_list_link>div, .aside_list_link a {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 20px;
   cursor: pointer;
+  color: var(--body-text-color);
 }
 
 .aside_list_link>div span {
