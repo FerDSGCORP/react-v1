@@ -3,6 +3,7 @@ import { useState, useMemo,useEffect } from 'react';
 import TableComponent from '../components/TableComponent';
 import MenuColumns from '../components/MenuColumns';
 import useFetchCuenFid from '../services/useFetchCuenFid';
+import { useRoute } from 'wouter';
 function GridCuenFid() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [tableState, setTableState] = useState(null);
@@ -11,7 +12,12 @@ function GridCuenFid() {
 	const [filters, setFilters] = useState(null);
 	const [columnFilters, setColumnFilters] = useState({});
 
-	const { data: fetchData, total, loading, error }= useFetchCuenFid(page, rowsPerPage, filters);
+	// Utilizamos `useRoute` para obtener el parámetro `idFid` de la URL
+    const [match, params] = useRoute('/home/cuenfid-info/:numeroDeContrato');
+    const numeroDeContrato = match ? params.numeroDeContrato : null;//TOMAR LO DEL COMBO
+	const { data: fetchData, total, loading, error }= useFetchCuenFid(numeroDeContrato,page, rowsPerPage, filters);
+
+	
 
 	const columns = useMemo(() => [
 		{ id:"NumeroDeContrato",header: "Negocio Fiduciario", accessorKey: "NumeroDeContrato", field: "text", visibilityCol: true }

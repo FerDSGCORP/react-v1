@@ -49,8 +49,11 @@ function ContentRenderView() {
         <Route path="/home/instruccionpagoconcilia-envio/:idFid">
             {params => <CartaInstruccion idFid={params.idFid}/>}
         </Route>
-        <Route path="/home/cuenfid-info/">
-          {params => <GridCuenFid />}
+        <Route path="/home/cuenfid-info/:numeroDeContrato">
+          {params => <GridCuenFid numeroDeContrato={params.idFid}/>}
+        </Route>
+        <Route path="/home/cinterfid-info/:numeroDeContrato">
+          {params => <GridCInterFid numeroDeContrato={params.idFid}/>}
         </Route>
       </Switch>
     </div>

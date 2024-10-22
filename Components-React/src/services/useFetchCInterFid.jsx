@@ -1,8 +1,8 @@
-//Generado Automáticamente, Versión del generador: 4.2
+﻿//Generado Automáticamente, Versión del generador: 4.2
 import { useState, useEffect } from 'react';
 import {useFetchConfig} from './useFetchConfig';
 
-const useFetchCuenFid = (numeroDeContrato,page = 1, rows = 80, filters = null) => {
+const useFetchCInterFid = (numeroDeContrato,page = 1, rows = 80, filters = null) => {
 	const [data, setData] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -45,7 +45,7 @@ const useFetchCuenFid = (numeroDeContrato,page = 1, rows = 80, filters = null) =
 				const config=await useFetchConfig();
 				const uriApi=config.apiUri;
 				const response = await fetch(
-					`${uriApi}/api/CuenFid/sidx/NumeroDeContrato/sord/asc/page/${page}/rows/${rows}/${numeroDeContrato}`,
+					`${uriApi}/api/CInterFid/sidx/NumeroDeContrato/sord/asc/page/${page}/rows/${rows}/${numeroDeContrato}`,
 					{
 						method: 'GET',
 						 headers: headers,
@@ -71,4 +71,4 @@ const useFetchCuenFid = (numeroDeContrato,page = 1, rows = 80, filters = null) =
 	}, [numeroDeContrato,page, rows, filters]);
 	return { data, total, records, loading, error };
 };
-export default useFetchCuenFid;
+export default useFetchCInterFid;
