@@ -10,7 +10,7 @@ function Footer() {
                 <h6>@DSGCorp. Todos los derechos reservados.</h6>
             </div>
             <div className="version">
-                <h6>Versión 1.0</h6>
+                <h6>Versión 1.1</h6>
             </div>
         </footer>
     );

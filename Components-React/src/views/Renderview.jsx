@@ -13,6 +13,7 @@ import PerfilUserInfo from './PerfilUsuario';
 import '../assets/styles/style.css';
 import useFideicomisosCard from "../services/useFetchFideicomisosCard";
 import { IconFIdeicomisoSelect } from '../components/Icons';
+import GridCuenFid from './IndexCuenFid';
 
 function RenderView() {
   const { data: fideicomisos, loading, error } = useFideicomisosCard();
@@ -112,6 +113,9 @@ function RenderView() {
             <Route path="/Home/user-perfil/">
               {params => <PerfilUserInfo />}
             </Route>
+            <Route path="/home/cuenfid-info/:idFidSelect">
+             {params => <GridCuenFid idFidSelect={idFidSelect} />}
+             </Route>
           </Switch>
         </div>
         <div className="container__notifications">

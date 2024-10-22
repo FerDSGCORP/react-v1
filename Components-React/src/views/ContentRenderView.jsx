@@ -4,7 +4,8 @@ import MainComponent from './TableView';
 import DetalleFideicomiso from './DetalleFideicomiso';
 import MisFIdeicomisosCrd from '../components/MisFideicomisos';
 import FideicomisosCard from '../services/useFetchFideicomisosCard';
-import CartaInstruccion from './CartaInstruccion'
+import CartaInstruccion from './CartaInstruccion';
+import GridCuenFid from './IndexCuenFid';
 
 
 function ContentRenderView() {
@@ -47,6 +48,9 @@ function ContentRenderView() {
         </Route>
         <Route path="/home/instruccionpagoconcilia-envio/:idFid">
             {params => <CartaInstruccion idFid={params.idFid}/>}
+        </Route>
+        <Route path="/home/cuenfid-info/">
+          {params => <GridCuenFid />}
         </Route>
       </Switch>
     </div>
