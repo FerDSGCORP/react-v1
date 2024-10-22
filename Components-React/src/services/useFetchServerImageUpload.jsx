@@ -18,7 +18,6 @@ const useUploadServerImg = () => {
             throw new Error('Token no encontrado en sessionStorage. Por favor, inicia sesión nuevamente.');
           }
       
-          console.log('Token encontrado:', token);
       
           const headers = {
             'Content-Type': 'application/json',
@@ -27,7 +26,6 @@ const useUploadServerImg = () => {
       
           const config = await useFetchConfig();
           const uriApi = config.apiUri;
-          console.log('URI de la API:', uriApi);
       
           const response = await fetch(`${uriApi}/upload`, {
             method: 'GET',
