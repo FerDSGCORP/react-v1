@@ -55,11 +55,10 @@ const useFetchContrato = (page = 1, rows = 80, filters = null) => {
           }
         );
         if (response.status === 204) {
-          setData("Sin registros");
-          setTotal(0); // Total de páginas
-          setRecords(0); // Total de registros
-          return null;
-        }
+					setTotal(0); // Total de páginas
+					setRecords(0); // Total de registros
+					return;
+				}
         if (!response.ok) {
           // Registrar el error y la respuesta completa para mayor detalle
           console.error('Error en la respuesta del servidor', response);
