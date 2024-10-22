@@ -49,6 +49,25 @@ function RenderView() {
 
   const selectedOption = options.find(option => option.value === idFidSelect) || null;
 
+  const colorStyles = {
+
+    control: (style, state) => ({
+      ...style,
+      height: "150px",
+    }),
+    
+    option: (styles, state) => ({
+      ...styles,
+      background: "#062C62",
+      padding: "15px",
+
+      "&:hover" : {
+        background: "#007AFF",
+      }
+    }),
+
+  }
+
   return (
     <>
       <main className='container__render'>
@@ -63,6 +82,8 @@ function RenderView() {
               <div className="select_Fideicomiso">
                 <IconFIdeicomisoSelect />
                 <Select
+                  unstyled
+                  styles={colorStyles}            
                   className="Fideicomiso_select"
                   name="selectHeader"
                   id="selectHeader"
