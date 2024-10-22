@@ -31,7 +31,7 @@ const useExportarDatosTable = (payload) => {
         const config = await useFetchConfig();
         const uriApi = config.apiUri;
 
-        const response = await fetch(`${uriApi}/api/contrato/generar-csv`, {
+        const response = await fetch(`${uriApi}/api/contrato/exporta`, {
           method: 'POST',
           headers: headers,
           body: JSON.stringify(payload),

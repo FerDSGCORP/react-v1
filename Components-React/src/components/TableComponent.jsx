@@ -1,10 +1,7 @@
-
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import MenuColumns from './MenuColumns.jsx';
 import ModalFiltersAdvanced from './ModalFiltersAdvanced.jsx';
-import SelectFilterComponent from '../hooks/Filters.jsx';
-import useFetchContrato from '../services/useFetchContrato.jsx'
-import useExportarDatosTable from '../services/useFetchExportarDatosTable.jsx'
+import useExportarDatosTable from '../services/useFetchExportarDatosTable.jsx';
 import { useLocation } from 'wouter';
 import {
     useReactTable,
@@ -13,19 +10,14 @@ import {
     getFilteredRowModel,
     flexRender,
 } from '@tanstack/react-table';
-import { IconActualizarTabla, IconBtnExportar, IconColumnsSelect, IconExportarDatos, IconFiltersCom, IconTableCLose, IconTableNext, IconTablePrevious } from './Icons.jsx';
+import { IconActualizarTabla, IconBtnExportar, IconColumnsSelect, IconFiltersCom, IconTableCLose, IconTableNext, IconTablePrevious } from './Icons.jsx';
 
-const TableComponent = ({ onTableReady }) => {
+const TableComponent = ({ data, columns, total, page, setPage, filters, setFilters, columnFilters, handleFilterChange, onTableReady }) => {
     const [location, navigate] = useLocation();
-    const [page, setPage] = useState(1);
-    const [rowsPerPage, setRowsPerPage] = useState(80);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModalExportarOpen, setModalExportarOpen] = useState(false);
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-    const [filters, setFilters] = useState(null);
     const [exportPayload, setExportPayload] = useState(null); 
-
-    const { data, total, records, loading, error } = useFetchContrato(page, rowsPerPage, filters);
 
     const handleRowClick = (numContract) => {
         localStorage.setItem('idFidSelect', numContract);
@@ -33,147 +25,16 @@ const TableComponent = ({ onTableReady }) => {
         navigate(`/home/contrato-info/${numContract}`);
     };
     
-
     const closeModalExport = () => {
         setModalExportarOpen(false);
     };
 
-    const columns = useMemo(() => [
-        { header: "NumeroDeContrato", accessorKey: "NumeroDeContrato", field: "text", visibilityCol: true },
-        { header: "NombreDeContrato", accessorKey: "NombreDeContrato", field: "select", visibilityCol: true },
-        { header: "OficioExencion", accessorKey: "OficioExencion", field: "select", visibilityCol: true },
-        { header: "RegSHCP", accessorKey: "RegSHCP", field: "select", visibilityCol: true },
-        { header: "RegGobDF", accessorKey: "RegGobDF", field: "select", visibilityCol: true },
-        { header: "TextoRegional", accessorKey: "TextoRegional", field: "select", visibilityCol: true },
-        { header: "Escritura", accessorKey: "Escritura", field: "select", visibilityCol: true },
-        { header: "TextoSucursal", accessorKey: "TextoSucursal", field: "select", visibilityCol: true },
-        { header: "FechaDeRegistroPublico", accessorKey: "FechaDeRegistroPublico", field: "select", visibilityCol: true },
-        { header: "FechaDeApertura", accessorKey: "FechaDeApertura", field: "select", visibilityCol: true },
-        { header: "FechaDeCancelacion", accessorKey: "FechaDeCancelacion", field: "select", visibilityCol: true },
-        { header: "FechaDeInscripcionRegNalInvEx", accessorKey: "FechaDeInscripcionRegNalInvEx", field: "select", visibilityCol: true },
-        { header: "NombreDeCliente", accessorKey: "NombreDeCliente", field: "select", visibilityCol: true },
-        { header: "TextoESustitucion", accessorKey: "TextoESustitucion", field: "select", visibilityCol: true },
-        { header: "TextoSustitucion", accessorKey: "TextoSustitucion", field: "select", visibilityCol: true },
-        { header: "TextoESustitucionEje", accessorKey: "TextoESustitucionEje", field: "select", visibilityCol: true },
-        { header: "TextoNombreDeContratoEje", accessorKey: "TextoNombreDeContratoEje", field: "select", visibilityCol: true },
-        { header: "TextoTipoDeNegocio", accessorKey: "TextoTipoDeNegocio", field: "select", visibilityCol: true },
-        { header: "TextoClasificacionDeProducto", accessorKey: "TextoClasificacionDeProducto", field: "select", visibilityCol: true },
-        { header: "TextoNombreDeProducto", accessorKey: "TextoNombreDeProducto", field: "select", visibilityCol: true },
-        { header: "TextoFormaDeManejo", accessorKey: "TextoFormaDeManejo", field: "select", visibilityCol: true },
-        { header: "TextoComiteTecnico", accessorKey: "TextoComiteTecnico", field: "select", visibilityCol: true },
-        { header: "TextoRevocable", accessorKey: "TextoRevocable", field: "select", visibilityCol: true },
-        { header: "TextoSHCP", accessorKey: "TextoSHCP", field: "select", visibilityCol: true },
-        { header: "TextoGobDF", accessorKey: "TextoGobDF", field: "select", visibilityCol: true },
-        { header: "TextoTipoDeCliente", accessorKey: "TextoTipoDeCliente", field: "select", visibilityCol: true },
-        { header: "TextoTipoDeContratoPublico", accessorKey: "TextoTipoDeContratoPublico", field: "select", visibilityCol: true },
-        { header: "TextoTipoDeContrato", accessorKey: "TextoTipoDeContrato", field: "select", visibilityCol: true },
-        { header: "TextoSubContrato", accessorKey: "TextoSubContrato", field: "select", visibilityCol: true },
-        { header: "TextoNombreDeNotario", accessorKey: "TextoNombreDeNotario", field: "select", visibilityCol: false },
-        { header: "TextoDeTipoDeAdministracion", accessorKey: "TextoDeTipoDeAdministracion", field: "select", visibilityCol: false },
-        { header: "TextoCentroDeCostos", accessorKey: "TextoCentroDeCostos", field: "select", visibilityCol: false },
-        { header: "TextoActividadEmpresarial", accessorKey: "TextoActividadEmpresarial", field: "select", visibilityCol: false },
-        { header: "TextoPatrimonio", accessorKey: "TextoPatrimonio", field: "select", visibilityCol: false },
-        { header: "TextoRegLasDeOperacion", accessorKey: "TextoRegLasDeOperacion", field: "select", visibilityCol: false },
-        { header: "TextoNombreDeActividad", accessorKey: "TextoNombreDeActividad", field: "select", visibilityCol: false },
-        { header: "RFCActividadEmpresarial", accessorKey: "RFCActividadEmpresarial", field: "select", visibilityCol: false },
-        { header: "TextoGerencia", accessorKey: "TextoGerencia", field: "select", visibilityCol: false },
-        { header: "TextoClasificacionProducto", accessorKey: "TextoClasificacionProducto", field: "select", visibilityCol: false },
-        { header: "RegistroPublicoDeLaPropiedad", accessorKey: "RegistroPublicoDeLaPropiedad", field: "select", visibilityCol: false },
-        { header: "TextoRegistroPresupuestal", accessorKey: "TextoRegistroPresupuestal", field: "select", visibilityCol: false },
-        { header: "TextoRenovacionRegPresupuestal", accessorKey: "TextoRenovacionRegPresupuestal", field: "select", visibilityCol: false },
-        { header: "RenovacionRegPresupuestal", accessorKey: "RenovacionRegPresupuestal", field: "select", visibilityCol: false },
-        { header: "TextoInformativaSAT", accessorKey: "TextoInformativaSAT", field: "select", visibilityCol: false },
-    ], []);
-
-    const [columnFilters, setColumnFilters] = useState(
-        columns.reduce((acc, col) => ({ ...acc, [col.accessorKey]: "" }), {})
-    );
-
-    const handleFilterChange = (accessorKey, value) => {
-        const newRule = {
-            field: accessorKey,
-            op: "eq",
-            data: value
-        };
-
-        setFilters((prev) => {
-            const updatedFilters = {
-                groupOp: "AND",
-                rules: [],
-                groups: []
-            };
-
-            const updatedRules = prev?.rules?.filter(rule => rule.field !== accessorKey) || [];
-
-            if (value !== "") {
-                updatedRules.push(newRule);
-            }
-
-            updatedFilters.rules = updatedRules;
-
-            return updatedFilters;
-        });
-    };
-
-    const transformedData = useMemo(() => {
-        return data.map(row => {
-            const cellData = row.cell;
-
-            return {
-                NumeroDeContrato: cellData[0],
-                NombreDeContrato: cellData[1],
-                OficioExencion: cellData[2],
-                RegSHCP: cellData[3],
-                RegGobDF: cellData[4],
-                TextoRegional: cellData[5],
-                Escritura: cellData[6],
-                TextoSucursal: cellData[7],
-                FechaDeRegistroPublico: cellData[8],
-                FechaDeApertura: cellData[9],
-                FechaDeCancelacion: cellData[10],
-                FechaDeInscripcionRegNalInvEx: cellData[11],
-                NombreDeCliente: cellData[12],
-                TextoESustitucion: cellData[13],
-                TextoSustitucion: cellData[14],
-                TextoESustitucionEje: cellData[15],
-                TextoNombreDeContratoEje: cellData[16],
-                TextoTipoDeNegocio: cellData[17],
-                TextoClasificacionDeProducto: cellData[18],
-                TextoNombreDeProducto: cellData[19],
-                TextoFormaDeManejo: cellData[20],
-                TextoComiteTecnico: cellData[21],
-                TextoRevocable: cellData[22],
-                TextoSHCP: cellData[23],
-                TextoGobDF: cellData[24],
-                TextoTipoDeCliente: cellData[25],
-                TextoTipoDeContratoPublico: cellData[26],
-                TextoTipoDeContrato: cellData[27],
-                TextoSubContrato: cellData[28],
-                TextoNombreDeNotario: cellData[29],
-                TextoDeTipoDeAdministracion: cellData[30],
-                TextoCentroDeCostos: cellData[31],
-                TextoActividadEmpresarial: cellData[32],
-                TextoPatrimonio: cellData[33],
-                TextoRegLasDeOperacion: cellData[34],
-                TextoNombreDeActividad: cellData[35],
-                RFCActividadEmpresarial: cellData[36],
-                TextoGerencia: cellData[37],
-                TextoClasificacionProducto: cellData[38],
-                RegistroPublicoDeLaPropiedad: cellData[39],
-                TextoRegistroPresupuestal: cellData[40],
-                TextoRenovacionRegPresupuestal: cellData[41],
-                RenovacionRegPresupuestal: cellData[42],
-                TextoInformativaSAT: cellData[43]
-            };
-        });
-    }, [data]);
-
     const [columnVisibility, setColumnVisibility] = useState(() =>
-        columns.reduce((acc, col) => ({ ...acc, [col.accessorKey]: col.visibilityCol }), {})
+        columns.reduce((acc, col) => ({ ...acc, [col.id]: col.visibilityCol }), {})
     );
 
     const table = useReactTable({
-        data: transformedData,
+        data,
         columns,
         state: {
             columnVisibility,
@@ -191,13 +52,12 @@ const TableComponent = ({ onTableReady }) => {
         const columnas = document.getElementById('tableColumnSelectExport').value;
     
         let busquedaJQgrid = '';
-        let filtros = 0;
+        let filtrosVal = 0;
         let columnasJQgrid = '';
         let columnasVal = 0;
     
-        
         if (filtro === 'tableEmpty') {
-            filtros = 1;
+            filtrosVal = 1;
             busquedaJQgrid = '';
         } else if (filtro === 'tableFiltersHeader') {
             const filtroAvanzado = localStorage.getItem('filtroAvanzado');
@@ -206,10 +66,9 @@ const TableComponent = ({ onTableReady }) => {
             } else {
                 busquedaJQgrid = '';
             }
-            filtros = 2;
+            filtrosVal = 2;
         }
     
-       
         if (columnas === 'allTableData') {
             columnasJQgrid = columns.map(col => col.accessorKey).join(',');
             columnasVal = 1;
@@ -223,7 +82,7 @@ const TableComponent = ({ onTableReady }) => {
         const payload = {
             formatos: formato,
             busquedaJQgrid,
-            filtros,
+            filtros: filtrosVal,
             columnasJQgrid,
             columnas: columnasVal,
             campoDeOrdenJQgrid: '',
@@ -233,7 +92,6 @@ const TableComponent = ({ onTableReady }) => {
         setExportPayload(payload);
     };
 
-
     const { data: exportData, loading: exportLoading, error: exportError } = useExportarDatosTable(exportPayload);
 
     useEffect(() => {
@@ -241,17 +99,10 @@ const TableComponent = ({ onTableReady }) => {
             onTableReady({
                 columns,
                 setColumnVisibility,
+                columnVisibility,
             });
         }
-    }, [onTableReady, data, columns]);
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
+    }, [onTableReady, data, columns, columnVisibility]);
 
     const handlePageChange = (newPage) => {
         if (newPage > 0 && newPage <= total) {
@@ -279,22 +130,16 @@ const TableComponent = ({ onTableReady }) => {
                                             <input
                                                 type="text"
                                                 placeholder={`Filtrar ${header.column.columnDef.header}`}
-                                                value={columnFilters[header.column.id]}
+                                                value={columnFilters[header.column.id] || ''}
                                                 onChange={(e) => handleFilterChange(header.column.id, e.target.value)}
                                             />
                                         ) : (
                                             <select className='container__tbl_select'
-                                                value={columnFilters[header.column.id]}
+                                                value={columnFilters[header.column.id] || ''}
                                                 onChange={(e) => handleFilterChange(header.column.id, e.target.value)}
                                             >
                                                 <option value="">Seleccione</option>
-                                                {data.length > 0 && data
-                                                    .map((row) => {
-                                                        const cellIndex = header.index;
-
-                                                        return row.cell[cellIndex];
-                                                    })
-                                                    .filter((value, index, self) => value && self.indexOf(value) === index)
+                                                {data.length > 0 && [...new Set(data.map((row) => row[header.column.id]).filter(Boolean))]
                                                     .map((uniqueValue, index) => (
                                                         <option key={`${header.column.id}-${index}`} value={uniqueValue}>
                                                             {uniqueValue}
@@ -369,7 +214,7 @@ const TableComponent = ({ onTableReady }) => {
                             <p>Filtros</p>
                             <select name="Filtros" id='tableFilterSelectExport'>
                                 <option value="tableEmpty">Toda la información</option>
-                                <option value="tableFiltersHeader">Los mismo filtros que el grid</option>
+                                <option value="tableFiltersHeader">Los mismos filtros que el grid</option>
                             </select>
                         </div>
                         <div className="container__field">
@@ -394,4 +239,5 @@ const TableComponent = ({ onTableReady }) => {
         </div>
     );
 };
+
 export default TableComponent;
