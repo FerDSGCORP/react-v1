@@ -51,7 +51,11 @@ const useFetchCuenFid = (numeroDeContrato,page = 1, rows = 80, filters = null) =
 						 headers: headers,
 					}
 				);
-
+				if (response.status === 204) {
+					setTotal(0); // Total de páginas
+					setRecords(0); // Total de registros
+					return;
+				}
 				if (!response.ok) {
 				// Registrar el error y la respuesta completa para mayor detalle
 				throw new Error(`Error en la respuesta del servidor: ${response.status} - ${response.statusText}`);

@@ -49,7 +49,9 @@ const useFideicomisosCard = () => {
           method: 'GET',
           headers: headers,
         });
-
+        if (response.status === 204) {
+          return;
+        }
 
         if (!response.ok) {
           const errorResponse = await response.json();
