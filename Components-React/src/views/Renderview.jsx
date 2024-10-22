@@ -16,23 +16,16 @@ import { IconFIdeicomisoSelect } from '../components/Icons';
 
 function RenderView() {
   const { data: fideicomisos, loading, error } = useFideicomisosCard();
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   const [idFidSelect, setIdFidSelect] = useState(() => localStorage.getItem('idFidSelect') || '');
 
-  // Actualizar idFidSelect cuando cambie la ubicación
+
   useEffect(() => {
-    const storedIdFidSelect = localStorage.getItem('idFidSelect');
-    console.log('RenderView - location changed:', location);
-    console.log('RenderView - updating idFidSelect from localStorage:', storedIdFidSelect);
     if (storedIdFidSelect) {
       setIdFidSelect(storedIdFidSelect);
     }
   }, [location]);
 
-  // Mantén el useEffect del EventEmitter si lo usas en otras partes
-  // Pero en este caso, no es necesario para este problema específico
-
-  // Preparar las opciones para react-select
   const options = fideicomisos
     ? fideicomisos.map(contrato => ({
         value: String(contrato.numeroDeContrato),
@@ -53,7 +46,6 @@ function RenderView() {
   const shouldHideSelectHeader = normalizedLocation === '/home' || normalizedLocation === '/home/user-perfil';
 
   const selectedOption = options.find(option => option.value === idFidSelect) || null;
-  console.log('RenderView - selectedOption:', selectedOption);
 
   return (
     <>

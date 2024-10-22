@@ -28,7 +28,6 @@ const TableComponent = ({ onTableReady }) => {
     const { data, total, records, loading, error } = useFetchContrato(page, rowsPerPage, filters);
 
     const handleRowClick = (numContract) => {
-        console.log('handleRowClick - numContract:', numContract);
         localStorage.setItem('idFidSelect', numContract);
         window.dispatchEvent(new CustomEvent('fidSelectChange', { detail: numContract }));
         navigate(`/home/contrato-info/${numContract}`);

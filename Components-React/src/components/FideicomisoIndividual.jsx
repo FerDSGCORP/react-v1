@@ -26,7 +26,6 @@ function FideicomisoHome() {
 
   const handleRowClick = (numContract) => {
     const numContractStr = String(numContract);
-    console.log('handleRowClick - numContract:', numContractStr);
     localStorage.setItem('idFidSelect', numContractStr);
     EventEmitter.dispatch('fidSelectChange', numContractStr);
     navigate(`/home/contrato-info/${numContractStr}`);
