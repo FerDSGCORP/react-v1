@@ -109,8 +109,8 @@ function RenderView() {
             <Route path="/home/instruccionpagoconcilia-envio/:idFidSelect">
               {params => <CartaInstruccion idFidSelect={idFidSelect} />}
             </Route>
-            <Route path="/home/user-perfil/:idFidSelect">
-              {params => <PerfilUserInfo idFidSelect={idFidSelect} />}
+            <Route path="/Home/user-perfil/">
+              {params => <PerfilUserInfo />}
             </Route>
           </Switch>
         </div>

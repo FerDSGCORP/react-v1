@@ -1,31 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import imagenUsuario from '../assets/img/User.png';
 import useUploadServerImg from '../services/useFetchServerImageUpload';
 import useChangeImg from '../services/useFetchChangeProfileImage';
 
 function PerfilUserInfo() {
-  const [selectedFile, setSelectedFile] = useState(null); // Estado para el archivo seleccionado
-  const [imagePreview, setImagePreview] = useState(imagenUsuario); // Vista previa de la imagen
-  const [isUploading, setIsUploading] = useState(false); // Estado de carga
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(imagenUsuario);
+  const [isUploading, setIsUploading] = useState(false);
+  const [nombreDeUsuario, setNombreDeUsuario] = useState('');
+  const [numeroDePerfil, setNumeroDePerfil] = useState('');
 
-  const uploadServerImg = useUploadServerImg(); // Hook para subir imagen al servidor
-  const changeImg = useChangeImg(); // Hook para confirmar el cambio de imagen
+  const uploadServerImg = useUploadServerImg();
+  const changeImg = useChangeImg();
 
-  // Manejar la selección del archivo
+
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    if (userData) {
+      setNombreDeUsuario(userData.nombreDeUsuario);
+      setNumeroDePerfil(userData.numeroDePerfil);
+    }
+  }, []);
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
       setSelectedFile(file);
-      setImagePreview(URL.createObjectURL(file)); // Mostrar vista previa de la imagen seleccionada
+      setImagePreview(URL.createObjectURL(file));
     }
   };
 
-  // Subir la imagen al servidor
   const handleUpload = async () => {
     if (selectedFile) {
       setIsUploading(true);
       try {
-        // Subir la imagen al servidor
         const response = await uploadServerImg(selectedFile);
         if (response.success) {
           alert('Imagen subida correctamente');
@@ -41,7 +49,6 @@ function PerfilUserInfo() {
     }
   };
 
-  // Confirmar el cambio de imagen
   const handleChangeProfileImg = async () => {
     try {
       const response = await changeImg();
@@ -65,8 +72,7 @@ function PerfilUserInfo() {
       <div className='card-content'>
         <div className='cardHorizontal'>
           <form className="card-50">
-            <h4><b>Perfil del Usuario:</b> 000 / usuario</h4>
-            {/* Imagen de usuario con vista previa */}
+            <h4 id='perfilUser'><b>Perfil del Usuario:</b> {numeroDePerfil} / {nombreDeUsuario}</h4>
             <img src={imagePreview} alt="Imagen de usuario" />
             <div className='card-form'>
               <span>Cambiar imagen de perfil</span>
@@ -77,7 +83,6 @@ function PerfilUserInfo() {
               {isUploading ? 'Subiendo...' : 'Subir imagen'}
             </button>
           </form>
-          {/* Resto del formulario */}
           <form className="card-50">
             <span className='tiempo-psw'>Último cambio de contraseña hace 38 días</span>
             <div className='card-form'>

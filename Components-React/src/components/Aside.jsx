@@ -40,6 +40,10 @@ const AsideMenu = () => {
         setLocation('/');
     };
 
+    const handleMenuItemClick = () => {
+        setActiveDropdown(null);
+    };
+
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth <= 1200 || location === '/' || location === '/Home/' || location === '/home/') {
@@ -71,9 +75,12 @@ const AsideMenu = () => {
     }
 
     const cleanPath = (path) => {
-        if (path.toLowerCase() === '/home/') {
+        const lowerPath = path.toLowerCase();
+        
+        if (lowerPath === '/home/' || lowerPath === '/home/user-perfil/') {
             return path;
         }
+    
         return idFidSelect ? `${path}/${idFidSelect}` : path;
     };
 
@@ -111,7 +118,7 @@ const AsideMenu = () => {
                 {item.subItems && activeDropdown === index && (
                     <ul className='dropdown__container__menu'>
                         {item.subItems.map((subItem, subIndex) => (
-                            <li key={subIndex}>
+                            <li key={subIndex} onClick={handleMenuItemClick}>
                                 <Link href={cleanPath(subItem.link)}>
                                     {subItem.name}
                                 </Link>
@@ -167,6 +174,5 @@ const AsideMenu = () => {
         </aside>
     );
 };
-
 
 export default AsideMenu;
