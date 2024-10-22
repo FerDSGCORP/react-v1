@@ -1,6 +1,8 @@
+import React from 'react';
 import { IconGoFideicomisoDetalle, IconFideicomisoListRow } from "./Icons";
 import FideicomisosCard from "../services/useFetchFideicomisosCard";
 import { useLocation } from 'wouter';
+import EventEmitter from '../hooks/Emitter';
 
 function FideicomisoHome() {
   const numeroDeUsuario = localStorage.getItem("numeroDeUsuario");
@@ -22,11 +24,12 @@ function FideicomisoHome() {
     return <div>No hay contratos disponibles.</div>;
   }
 
-  const handleIngresoClick = (numeroDeContrato) => {
-    localStorage.setItem('idFidSelect', numeroDeContrato);
-    window.dispatchEvent(new CustomEvent('fidSelectChange', { detail: numeroDeContrato }));
-
-    navigate(`/home/contrato-info/${numeroDeContrato}`);
+  const handleRowClick = (numContract) => {
+    const numContractStr = String(numContract);
+    console.log('handleRowClick - numContract:', numContractStr);
+    localStorage.setItem('idFidSelect', numContractStr);
+    EventEmitter.dispatch('fidSelectChange', numContractStr);
+    navigate(`/home/contrato-info/${numContractStr}`);
   };
 
   return (
@@ -44,17 +47,16 @@ function FideicomisoHome() {
               {contrato.textoClasificacionDeProducto}
             </span>
             <span
-              className={`InfoStatus ${contrato.textoEstatus === "ACTIVO"
-                  ? "--statusActivo"
-                  : "--statusPendiente"
-                }`}
+              className={`InfoStatus ${
+                contrato.textoEstatus === "ACTIVO" ? "--statusActivo" : "--statusPendiente"
+              }`}
             >
               {contrato.textoEstatus}
             </span>
           </div>
           <div
             className="IngresoFidei"
-            onClick={() => handleIngresoClick(contrato.numeroDeContrato)}
+            onClick={() => handleRowClick(contrato.numeroDeContrato)}
             style={{ cursor: 'pointer' }}
           >
             <IconGoFideicomisoDetalle />

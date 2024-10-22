@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Switch, useLocation } from 'wouter';
+import Select from 'react-select';
+import EventEmitter from '../hooks/Emitter';
 import AsideMenu from '../components/Aside';
 import ContentBodyRender from '../components/ContentBodyRender';
 import MenuNotifications from '../components/NotificationMenu';
@@ -14,29 +16,32 @@ import { IconFIdeicomisoSelect } from '../components/Icons';
 
 function RenderView() {
   const { data: fideicomisos, loading, error } = useFideicomisosCard();
-  const [location, setLocation] = useLocation();
-  const [idFidSelect, setIdFidSelect] = useState(null); 
+  const [location] = useLocation();
+  const [idFidSelect, setIdFidSelect] = useState(() => localStorage.getItem('idFidSelect') || '');
 
+  // Actualizar idFidSelect cuando cambie la ubicación
   useEffect(() => {
     const storedIdFidSelect = localStorage.getItem('idFidSelect');
+    console.log('RenderView - location changed:', location);
+    console.log('RenderView - updating idFidSelect from localStorage:', storedIdFidSelect);
     if (storedIdFidSelect) {
       setIdFidSelect(storedIdFidSelect);
     }
+  }, [location]);
 
-    const handleFidSelectChange = (event) => {
-      setIdFidSelect(event.detail); 
-    };
+  // Mantén el useEffect del EventEmitter si lo usas en otras partes
+  // Pero en este caso, no es necesario para este problema específico
 
-   
-    window.addEventListener('fidSelectChange', handleFidSelectChange);
+  // Preparar las opciones para react-select
+  const options = fideicomisos
+    ? fideicomisos.map(contrato => ({
+        value: String(contrato.numeroDeContrato),
+        label: contrato.nombreDeContratoU,
+      }))
+    : [];
 
-    return () => {
-      window.removeEventListener('fidSelectChange', handleFidSelectChange);
-    };
-  }, []);
-
-  const handleSelectChange = (event) => {
-    const selectedValue = event.target.value;
+  const handleSelectChange = (selectedOption) => {
+    const selectedValue = selectedOption ? String(selectedOption.value) : '';
     if (selectedValue) {
       setIdFidSelect(selectedValue);
       localStorage.setItem('idFidSelect', selectedValue);
@@ -44,8 +49,11 @@ function RenderView() {
     }
   };
 
-  const normalizedLocation = location.toLowerCase().replace(/\/$/, ''); 
+  const normalizedLocation = location.toLowerCase().replace(/\/$/, '');
   const shouldHideSelectHeader = normalizedLocation === '/home' || normalizedLocation === '/home/user-perfil';
+
+  const selectedOption = options.find(option => option.value === idFidSelect) || null;
+  console.log('RenderView - selectedOption:', selectedOption);
 
   return (
     <>
@@ -60,14 +68,16 @@ function RenderView() {
             ) : (
               <div className="select_Fideicomiso">
                 <IconFIdeicomisoSelect />
-                <select className="Fideicomiso_select" name="selectHeader" id="selectHeader" onChange={handleSelectChange} value={idFidSelect || ''}>
-                  <option value="">SELECCIONE UN CONTRATO</option>
-                  {fideicomisos && fideicomisos.map(contrato => (
-                    <option key={contrato.numeroDeContrato} value={contrato.numeroDeContrato}>
-                      {contrato.nombreDeContratoU}
-                    </option>
-                  ))}
-                </select>
+                <Select
+                  className="Fideicomiso_select"
+                  name="selectHeader"
+                  id="selectHeader"
+                  onChange={handleSelectChange}
+                  value={selectedOption}
+                  options={options}
+                  placeholder="SELECCIONE UN CONTRATO"
+                  isSearchable
+                />
               </div>
             )}
           </div>
