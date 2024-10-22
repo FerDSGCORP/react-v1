@@ -21,7 +21,9 @@ function RenderView() {
 
 
   useEffect(() => {
+    const storedIdFidSelect = localStorage.getItem('idFidSelect');
     if (storedIdFidSelect) {
+      
       setIdFidSelect(storedIdFidSelect);
     }
   }, [location]);
