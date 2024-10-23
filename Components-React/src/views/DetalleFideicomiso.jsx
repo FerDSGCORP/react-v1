@@ -62,7 +62,7 @@ function DetalleFideicomiso() {
         <>
             <div className="card">
                 <span className="card-enc"><b>General</b></span>
-                <svg width="100%" height="2" viewBox="0 0 1093 2" fill="none">
+                <svg viewBox="0 0 1093 2" fill="none">
                     <path d="M0 1H1093" stroke="#007AFF" strokeWidth="2" />
                 </svg>
                 <div className="card-content">
@@ -79,7 +79,7 @@ function DetalleFideicomiso() {
 
             <div className="card mt-5">
                 <span className="card-enc"><b>Características</b></span>
-                <svg width="100%" height="2" viewBox="0 0 1093 2" fill="none">
+                <svg viewBox="0 0 1093 2" fill="none">
                     <path d="M0 1H1093" stroke="#007AFF" strokeWidth="2" />
                 </svg>
                 <div id="frm_infoFideicomiso">
