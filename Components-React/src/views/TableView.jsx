@@ -2,15 +2,25 @@ import React, { useState, useMemo, useEffect } from 'react';
 import TableComponent from '../components/TableComponent';
 import MenuColumns from '../components/MenuColumns';
 import useFetchContrato from '../services/useFetchContrato';
+import useFilterTableChangeEvent from '../hooks/FilterTableChangeEvent';
 
 const MainComponent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tableState, setTableState] = useState(null);
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(80);
-  const [filters, setFilters] = useState(null);
-  const [columnFilters, setColumnFilters] = useState({});
 
+
+  const {
+    columnFilters,
+    setColumnFilters,
+    filters,
+    setFilters,
+    handleFilterChange,
+  } = useFilterTableChangeEvent();
+  
+  
+  
   const { data: fetchData, total, loading, error } = useFetchContrato(page, rowsPerPage, filters);
 
 
@@ -116,37 +126,6 @@ const MainComponent = () => {
   }, [fetchData]);
 
 
-  const handleFilterChange = (accessorKey, value) => {
-    setColumnFilters(prev => ({
-      ...prev,
-      [accessorKey]: value,
-    }));
-
-
-    const newRule = {
-      field: accessorKey,
-      op: "eq",
-      data: value
-    };
-
-    setFilters(prev => {
-      const updatedFilters = {
-        groupOp: "AND",
-        rules: [],
-        groups: []
-      };
-
-      const updatedRules = prev?.rules?.filter(rule => rule.field !== accessorKey) || [];
-
-      if (value !== "") {
-        updatedRules.push(newRule);
-      }
-
-      updatedFilters.rules = updatedRules;
-
-      return updatedFilters;
-    });
-  };
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
