@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useRoute } from 'wouter';
 import useFetchContratoInfo from '../services/useFetchContratoInfo';
 import ControlDocumentalModal from '../components/ControlDocumentalModal'
+import ModalComponent from '../components/ModalComponent';
 
 function DetalleFideicomiso() {
 
@@ -10,8 +11,62 @@ function DetalleFideicomiso() {
     const tablaNum = 134;
     const { data, loading, error } = useFetchContratoInfo(idFid);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isModalPublicOpen, setisModalPublicOpen] = useState(false);
     const [showControlDocumentalModal, setShowControlDocumentalModal] = useState(false);
+    const [modalContentKey, setModalContentKey] = useState('caracteristicasAdicionales');
+
+    const displayData = (value) => {
+        if (typeof value === 'string') {
+            return value.trim() ? value : '-';
+        } else if (value == null || value === "") {
+            return '-';
+        } else {
+            return value;
+        }
+    };
+
+
+    const modalContentData = {
+            caracteristicasAdicionales: {
+                modalTitle: "Características Adicionales",
+                modalContent: [
+                    { campoTexto: "Genera Informativa 32b", campoValor: displayData(data?.textoInformativaSAT), isGroup: false, positionDiv: [0] },
+                    { campoTexto: "Omite Requeridos", campoValor: displayData(data?.textoOmiteRequeridos), isGroup: true, positionDiv: [1] },
+                    { campoTexto: "Carga Saldos Mediante Estados de Financieros", campoValor: displayData(data?.textoSaldoEstadoFinanciero), isGroup: true, positionDiv: [2] },
+                    { campoTexto: "Forma de manejo", campoValor: displayData(data?.textoFormaDeManejo), isGroup: true, positionDiv: [3] },
+                    { campoTexto: "Tipo de actividad", campoValor: displayData(data?.textoGerencia), isGroup: true, positionDiv: [4] },
+                    { campoTexto: "Actividad económica", campoValor: displayData(data?.nombreDeActividad), isGroup: true, positionDiv: [5] },
+                    { campoTexto: "Maneja SubContrato", campoValor: displayData(data?.textoSubContrato), isGroup: true, positionDiv: [6] },
+                    { campoTexto: "Revocable", campoValor: displayData(data?.textoRevocable), isGroup: true, positionDiv: [7] },
+                    { campoTexto: "Regional", campoValor: displayData(data?.textoRegional), isGroup: true, positionDiv: [8] },
+                    { campoTexto: "Institución donde se apertura", campoValor: displayData(data?.textoInstApertura), isGroup: false, positionDiv: [9] },
+                    { campoTexto: "Plaza", campoValor: displayData(data?.textoPlaza), isGroup: true, positionDiv: [10] },
+                    { campoTexto: "No. Per. S.R.E.", campoValor: displayData(data?.noPerSre), isGroup: true, positionDiv: [11] },
+                    { campoTexto: "Fecha Per. S.R.E.", campoValor: data?.fechaPerSre && data.fechaPerSre !== "1900-01-01T00:00:00" ? new Date(data.fechaPerSre).toLocaleDateString() : '-', isGroup: true, positionDiv: [12] },
+                    { campoTexto: "Actividad de riesgo", campoValor: displayData(data?.textoActividadRiesgo), isGroup: true, positionDiv: [13] },
+                    { campoTexto: "Sucursal", campoValor: "-", isGroup: true, positionDiv: [14] },
+                    { campoTexto: "Tipo de Cliente", campoValor: displayData(data?.textoTipoDeCliente), isGroup: true, positionDiv: [15] },
+                    { campoTexto: "Dirección Fiscal", campoValor: displayData(data?.direccionFiscalCompleto), isGroup: false, positionDiv: [16] }
+                ]
+            },
+            caracteristicasEscrituraPublica: {
+                modalTitle: "Escritura Pública",
+                modalContent: [
+                    { campoTexto: "Tipo de contrato Público", campoValor: displayData(data?.textoTipoDeContratoPublico), visibleField: false, isGroup: true, positionDiv: [0] },
+                    { campoTexto: "Oficio de Extención", campoValor: displayData(data?.oficioExencion), visibleField: true, isGroup: true, positionDiv: [1] },
+                    { campoTexto: "Reg. Nal. Inv. Ex.", campoValor: displayData(data?.regNalInvEx), visibleField: true, isGroup: true, positionDiv: [2] },
+                    { campoTexto: "GIIN", campoValor: displayData(data?.textoSHCP), visibleField: true, isGroup: true, positionDiv: [3] },
+                    { campoTexto: "Tiene Reg. Gob. DF", campoValor: displayData(data?.textoGobDF), visibleField: true, isGroup: true, positionDiv: [4] },
+                    { campoTexto: "Fecha de inscripción Reg. Nal. Inv. Ex.", campoValor: displayData(data?.fechaDeInscripcionRegNalInvEx), visibleField: false, isGroup: true, positionDiv: [5] },
+                    { campoTexto: "Número de GIIN", campoValor: displayData(data?.regSHCP), visibleField: false, isGroup: true, positionDiv: [6] },
+                    { campoTexto: "Reg. Gob. DF", campoValor: displayData(data?.regGobDF), visibleField: false, isGroup: true, positionDiv: [7] },
+                    { campoTexto: "Fecha de Registro Público", campoValor: displayData(data?.fechaDeRegistroPublico), visibleField: false, isGroup: true, positionDiv: [8] },
+                    { campoTexto: "Escritura", campoValor: displayData(data?.escritura), visibleField: false, isGroup: true, positionDiv: [9] },
+                    { campoTexto: "Notario", campoValor: displayData(data?.nombreDeNotario), visibleField: false, isGroup: false, positionDiv: [10] }
+                ]
+            }
+        };
+
+
 
     useEffect(() => {
         if (data?.textoTipoDeContrato === "ESCRITURA PUBLICA") {
@@ -23,7 +78,8 @@ function DetalleFideicomiso() {
         }
     }, [data]);
 
-    const openModal = () => {
+    const openModal = (e) => {
+        setModalContentKey(e.target.value);
         setIsModalOpen(true);
     };
 
@@ -31,14 +87,6 @@ function DetalleFideicomiso() {
         setIsModalOpen(false);
     };
 
-
-    const openModalPublicContato = () => {
-        setisModalPublicOpen(true);
-    };
-
-    const closeModalPublicContato = () => {
-        setisModalPublicOpen(false);
-    };
 
     const openDocumentalModal = () => {
         setShowControlDocumentalModal(true);
@@ -49,15 +97,7 @@ function DetalleFideicomiso() {
 
     if (error) return <p>Error al cargar los datos: {error}</p>;
 
-    const displayData = (value) => {
-        if (typeof value === 'string') {
-            return value.trim() ? value : '-';
-        } else if (value == null || value === "") {
-            return '-';
-        } else {
-            return value;
-        }
-    };
+
     return (
         <>
             <div className="card">
@@ -130,110 +170,31 @@ function DetalleFideicomiso() {
                         <p>Tipo de contrato</p><span>{displayData(data?.textoTipoDeContrato)}</span>
                     </div>
                     <div className="buttons_container">
-                        <button onClick={openModal}>Características Adicionales</button>
-                        <button id='botonEscrituraPublica' className='hide' onClick={openModalPublicContato}>Características escritura pública</button>
+                        <button onClick={openModal} id='botonCaracteristicasAdicionales' value="caracteristicasAdicionales">Características Adicionales</button>
+                        <button id='botonEscrituraPublica' className='hide' onClick={openModal} value="caracteristicasEscrituraPublica">Características escritura pública</button>
                         <button id='openModalDocumentos' onClick={openDocumentalModal}>Documentos</button>
                     </div>
                 </div>
             </div>
-            {isModalOpen && (
-                <div className="modal">
-                    <div className="modal-content __long">
-                        <div className='modal-content-head'>
-                            <h2>Características Adicionales</h2>
-                            <button type='button' className="close-button" onClick={closeModal}>&times;</button>
 
-                        </div>
-
-                        <div className="container__field __Reg_indiv">
-                            <p>Genera Informativa 32b</p><span>{displayData(data?.textoInformativaSAT)}</span>
-                        </div>
-                        <div className="container__field">
-                            <p>Omite Requeridos</p><span>{displayData(data?.textoOmiteRequeridos)}</span>
-                            <p>Carga Saldos Mediante Estados de Financieros</p><span>{displayData(data?.textoSaldoEstadoFinanciero)}</span>
-                        </div>
-                        <div className="container__field">
-                            <p>Forma de manejo</p><span>{displayData(data?.textoFormaDeManejo)}</span>
-                            <p>Tipo de actividad</p><span>{displayData(data?.textoGerencia)}</span>
-                        </div>
-                        <div className="container__field">
-                            <p>Actividad económica</p><span>{displayData(data?.nombreDeActividad)}</span>
-                            <p>Maneja SubContrato</p><span>{displayData(data?.textoSubContrato)}</span>
-                        </div>
-                        <div className="container__field">
-                            <p>Revocable</p><span>{displayData(data?.textoRevocable)}</span>
-                            <p>Regional</p><span>{displayData(data?.textoRegional)}</span>
-                        </div>
-                        <div className="container__field __Reg_indiv">
-                            <p>Institución donde se apertura</p><span>{displayData(data?.textoInstApertura)}</span>
-                        </div>
-                        <div className="container__field">
-                            <p>Plaza</p><span>{displayData(data?.textoPlaza)}</span>
-                            <p>No. Per. S.R.E.</p><span>{displayData(data?.noPerSre)}</span>
-                        </div>
-                        <div className="container__field">
-                            <p>Fecha Per. S.R.E.</p><span>{data?.fechaPerSre && data.fechaPerSre !== "1900-01-01T00:00:00" ? new Date(data.fechaPerSre).toLocaleDateString() : '-'}</span>
-                            <p>Actividad de riesgo</p><span>{displayData(data?.textoActividadRiesgo)}</span>
-                        </div>
-                        <div className="container__field">
-                            <p>Sucursal</p><span>-</span>
-                            <p>Tipo de Cliente</p><span>{displayData(data?.textoTipoDeCliente)}</span>
-
-                        </div>
-
-                        <div className="container__field __Reg_indiv">
-                            <p>Dirección Fiscal</p><span>{displayData(data?.direccionFiscalCompleto)}</span>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {isModalPublicOpen && (
-                <div className="modal">
-                    <div className="modal-content">
-                        <div className='modal-content-head'>
-                            <h2>Características Escritura Pública</h2>
-                            <button type='button' className="close-button" onClick={closeModalPublicContato}>&times;</button>
-
-                        </div>
-
-                        {/* <div className="container__field">
-                            <p>Tipo de contrato Publico<span>{displayData(data?.textoTipoDeContratoPublico)}</span></p>
-                        </div> */}
-                        <div className="container__field">
-                            {/* <p>Tipo de contrato Publico<span>{displayData(data?.textoTipoDeContratoPublico)}</span></p> */}
-                            <p>Oficio de Extención</p><span>{displayData(data?.oficioExencion)}</span>
-                        </div>
-                        <div className="container__field">
-                            <p>Reg. Nal. Inv. Ex.</p><span>{displayData(data?.regNalInvEx)}</span>
-                            {/* <p>Fecha de inscripcion Reg. Nal. Inv. Ex.<span>{displayData(data?.fechaDeInscripcionRegNalInvEx)}</span></p> */}
-                        </div>
-                        <div className="container__field">
-                            <p>GIIN</p><span>{displayData(data?.textoSHCP)}</span>
-                            {/* <p>Número de GIIN<span>{displayData(data?.regSHCP)}</span></p> */}
-
-                        </div>
-                        <div className="container__field">
-                            <p>Tiene Reg. Gob. DF</p><span>{displayData(data?.textoGobDF)}</span>
-                            {/* <p>Reg. Gob. DF<span>{displayData(data?.regGobDF)}</span></p> */}
-                        </div>
-                        <div className="container__field">
-                            {/* <p>Fecha de Registro Público<span>{displayData(data?.fechaDeRegistroPublico)}</span></p> */}
-                            {/* <p>Escritura <span>{displayData(data?.escritura)}</span></p> */}
-                        </div>
-                        <div className="container__field">
-                            {/* <p>Notario <span>{displayData(data?.nombreDeNotario)}</span></p> */}
-                        </div>
-                    </div>
-                </div>
-
-            )}
             {showControlDocumentalModal && (
                 <ControlDocumentalModal
                     isOpen={showControlDocumentalModal}
                     closeModal={() => setShowControlDocumentalModal(false)}
                     tablaNum={tablaNum}
                 />
+            )}
+            {isModalOpen && (
+                <>
+                    {modalContentData[modalContentKey] && (
+                        <ModalComponent
+                            isOpen={isModalOpen}
+                            closeModal={() => setIsModalOpen(false)}
+                            modalTitle={modalContentData[modalContentKey].modalTitle}
+                            dataLoad={modalContentData[modalContentKey].modalContent}
+                        />
+                    )}
+                </>
             )}
 
         </>
