@@ -3,6 +3,7 @@ import { useRoute } from 'wouter';
 import useFetchContratoInfo from '../services/useFetchContratoInfo';
 import ControlDocumentalModal from '../components/ControlDocumentalModal'
 import ModalComponent from '../components/ModalComponent';
+import useReplaceEmptyValue from '../hooks/ReplaceEmptyValue';
 
 function DetalleFideicomiso() {
 
@@ -14,15 +15,7 @@ function DetalleFideicomiso() {
     const [showControlDocumentalModal, setShowControlDocumentalModal] = useState(false);
     const [modalContentKey, setModalContentKey] = useState('caracteristicasAdicionales');
 
-    const displayData = (value) => {
-        if (typeof value === 'string') {
-            return value.trim() ? value : '-';
-        } else if (value == null || value === "") {
-            return '-';
-        } else {
-            return value;
-        }
-    };
+    const displayData = useReplaceEmptyValue();
 
 
     const modalContentData = {
