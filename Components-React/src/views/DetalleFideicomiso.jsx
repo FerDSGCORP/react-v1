@@ -13,7 +13,7 @@ function DetalleFideicomiso() {
     const { data, loading, error } = useFetchContratoInfo(idFid);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [showControlDocumentalModal, setShowControlDocumentalModal] = useState(false);
-    const [modalContentKey, setModalContentKey] = useState('caracteristicasAdicionales');
+    const [modalContentKey, setModalContentKey] = useState('estadoInicial');
 
     const displayData = useReplaceEmptyValue();
 
