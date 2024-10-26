@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useFetchConfig } from './useFetchConfig';
+
 
 const useControlDocumental = (tablaNum) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const config = useFetchConfig();
+
 
   useEffect(() => {
     const numContrato = localStorage.getItem('idFidSelect');
@@ -29,12 +29,8 @@ const useControlDocumental = (tablaNum) => {
           'X-User-Id': `${idUser}`,
         };
 
-        if (!config || !config.apiUri) {
-          throw new Error('Configuración de API no disponible');
-        }
 
-        const uriApi = config.apiUri;
-        const response = await fetch(`${uriApi}/api/hojacontroldet/documentos/numeroDeTabla/${tablaNum}/liga/${numContrato}`, {
+        const response = await fetch(`http://win-k3v3h0qliq2:8112/api/hojacontroldet/documentos/numeroDeTabla/${tablaNum}/liga/${numContrato}`, {
           method: 'GET',
           headers: headers,
         });
@@ -44,7 +40,8 @@ const useControlDocumental = (tablaNum) => {
         }
 
         const jsonData = await response.json();
-        setData(jsonData);
+
+        setData(Array.isArray(jsonData.documentos) ? jsonData.documentos : []);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -53,7 +50,7 @@ const useControlDocumental = (tablaNum) => {
     };
 
     fetchData();
-  }, [tablaNum, config]);
+  }, [tablaNum]);
 
   return { data, loading, error };
 };
