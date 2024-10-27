@@ -14,7 +14,7 @@ function App() {
 
     if (!expiraEn || error) {
       setIsSessionValid(false);
-      clearStorage();  // Limpia localStorage y sessionStorage si hay error
+      clearStorage();
       return;
     }
 
@@ -31,29 +31,27 @@ function App() {
 
       if (fechaActualObj > fechaExpiracion) {
         setIsSessionValid(false);
-        clearStorage();  // Limpia localStorage y sessionStorage si la sesión ha expirado
+        clearStorage();
       } else {
         setIsSessionValid(true);
       }
     }
   }, [data, error]);
 
-  // Función para limpiar localStorage y sessionStorage
   const clearStorage = () => {
     localStorage.clear();
     sessionStorage.clear();
-    navigate("/"); // Redirigir al login
+    navigate("/");
   };
 
-  // Validar si hubo un error 401 Unauthorized
   useEffect(() => {
     if (error && error.includes('401')) {
-      clearStorage();  // Limpia localStorage y sessionStorage si es un error 401
+      clearStorage();
     }
   }, [error]);
 
   if (isSessionValid === null || loading) {
-    return <div>Loading...</div>; // Mientras se espera la respuesta del servicio
+    return <div>Loading...</div>;
   }
 
   return (

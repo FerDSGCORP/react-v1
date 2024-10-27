@@ -37,13 +37,19 @@ const AsideMenu = () => {
     const handleLogout = () => {
         localStorage.clear();
         sessionStorage.clear();
-        setLocation('/');
+        setTimeout(() => {
+            setLocation('/'); 
+        }, 50);
     };
 
     const handleMenuItemClick = () => {
         setActiveDropdown(null);
     };
-
+    useEffect(() => {
+        if (!sessionStorage.getItem('expiraEn') && !localStorage.getItem('userData')) {
+            navigate("/");
+        }
+    }, []);
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth <= 1200 || location === '/' || location === '/Home/' || location === '/home/') {
