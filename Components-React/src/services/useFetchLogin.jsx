@@ -3,13 +3,18 @@ import {useFetchConfig} from './useFetchConfig';
 const useFetchLogin = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const { config, loadingConfig, errorConfig } = useFetchConfig();
 
     const login = async ({ nombreDeUsuario, password }) => {
+        if (!config) {
+            setError('La configuración no ha sido cargada aún.');
+            return { success: false, error: 'La configuración no ha sido cargada aún.' };
+        }
         setLoading(true);
         setError(null);
 
         try {
-            const config=await useFetchConfig();
+            
             const uriApi=config.apiUri;
             const response = await fetch(`${uriApi}/api/auth/login`, {
                 method: "POST",

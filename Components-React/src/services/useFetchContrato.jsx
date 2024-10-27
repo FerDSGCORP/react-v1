@@ -7,20 +7,24 @@ const useFetchContrato = (page = 1, rows = 80, filters = null) => {
   const [error, setError] = useState(null);
   const [total, setTotal] = useState(0);
   const [records, setRecords] = useState(0);
-
+  const { config } = useFetchConfig();
  
   useEffect(() => {
+    if (!config) {
+      setLoading(true);
+      return;
+    }
+
     const fetchData = async () => {
       setLoading(true);
       try {
-        // Obtener el token de sessionStorage
-        //console.log(uriApi.apiUrl);
+        const uriApi = config.apiUri;
+        
         const token = sessionStorage.getItem('token');
         if (!token) {
           throw new Error('Token no encontrado. Por favor, inicia sesión nuevamente.');
         }
 
-        // Obtener el numeroDeUsuario de localStorage
         const userData = localStorage.getItem('userData');
         if (!userData) {
           throw new Error('Datos del usuario no encontrados. Por favor, inicia sesión nuevamente.');
@@ -31,22 +35,16 @@ const useFetchContrato = (page = 1, rows = 80, filters = null) => {
           throw new Error('Número de usuario no encontrado. Por favor, verifica los datos de usuario.');
         }
 
-        // Configurar los headers, incluyendo Authorization y X-User-Id
         const headers = {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
-          'X-User-Id': numeroDeUsuario, // Incluir el número de usuario en el header
+          'X-User-Id': numeroDeUsuario,
         };
 
-        // Si se reciben filtros, los convertimos en JSON y los añadimos al header
         if (filters) {
           headers['filters'] = JSON.stringify(filters);
         }
-        
-        //const uriApi=data.config.API_URL;
-        // Hacer la petición GET al servidor con los headers y la URL adecuada
-        const config=await useFetchConfig();
-        const uriApi=config.apiUri;
+
         const response = await fetch(
           `${uriApi}/api/contrato/sidx/NumeroDeContrato/sord/asc/page/${page}/rows/${rows}`, 
           {
@@ -55,22 +53,20 @@ const useFetchContrato = (page = 1, rows = 80, filters = null) => {
           }
         );
         if (response.status === 204) {
-					setTotal(0); // Total de páginas
-					setRecords(0); // Total de registros
+					setTotal(0);
+					setRecords(0);
 					return;
 				}
         if (!response.ok) {
-          // Registrar el error y la respuesta completa para mayor detalle
           console.error('Error en la respuesta del servidor', response);
           throw new Error(`Error en la respuesta del servidor: ${response.status} - ${response.statusText}`);
         }
 
         const jsonData = await response.json();
         setData(jsonData.rows);
-        setTotal(Math.ceil(jsonData.records / rows)); // Total de páginas
-        setRecords(jsonData.records); // Total de registros
+        setTotal(Math.ceil(jsonData.records / rows));
+        setRecords(jsonData.records);
       } catch (err) {
-        // Registrar el error capturado para inspección
         console.error('Error en la solicitud:', err);
         setError(err.message);
       } finally {
@@ -79,7 +75,7 @@ const useFetchContrato = (page = 1, rows = 80, filters = null) => {
     };
 
     fetchData();
-  }, [page, rows, filters]); // Reaccionar a los cambios en page, rows o filters
+  }, [config, page, rows, filters]);
 
   return { data, total, records, loading, error };
 };

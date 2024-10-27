@@ -4,15 +4,20 @@ import { useFetchConfig } from './useFetchConfig';
 const useExportarDatosTable = (payload) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const { config } = useFetchConfig();
+  
   useEffect(() => {
     let isMounted = true;
 
     const fetchData = async () => {
-      if (!payload) return;
+      if (!config || !payload) {
+        setLoading(true);
+        return;
+      }
 
       setLoading(true);
       try {
+        const uriApi = config.apiUri;
         const token = sessionStorage.getItem('token');
         const userDataStr = localStorage.getItem('userData');
         if (!token) {
@@ -28,8 +33,7 @@ const useExportarDatosTable = (payload) => {
           'X-User-Id': `${idUser}`, 
         };
 
-        const config = await useFetchConfig();
-        const uriApi = config.apiUri;
+        
 
         const response = await fetch(`${uriApi}/api/contrato/exporta`, {
           method: 'POST',

@@ -1,20 +1,24 @@
 import { useState, useEffect } from 'react';
-
+import { useFetchConfig } from './useFetchConfig';
 
 const useControlDocumental = (tablaNum) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const { config } = useFetchConfig();
 
   useEffect(() => {
     const numContrato = localStorage.getItem('idFidSelect');
-
+    if (!config) {
+      setLoading(true);
+      return;
+    }
     if (!tablaNum || !numContrato) return;
 
     const fetchData = async () => {
       setLoading(true);
       try {
+        const uriApi = config.apiUri;
         const userDataStr = localStorage.getItem('userData');
         const token = sessionStorage.getItem('token');
         if (!token) {
@@ -30,7 +34,7 @@ const useControlDocumental = (tablaNum) => {
         };
 
 
-        const response = await fetch(`http://win-k3v3h0qliq2:8112/api/hojacontroldet/documentos/numeroDeTabla/${tablaNum}/liga/${numContrato}`, {
+        const response = await fetch(`${uriApi}/api/hojacontroldet/documentos/numeroDeTabla/${tablaNum}/liga/${numContrato}`, {
           method: 'GET',
           headers: headers,
         });
@@ -50,7 +54,7 @@ const useControlDocumental = (tablaNum) => {
     };
 
     fetchData();
-  }, [tablaNum]);
+  }, [tablaNum,config]);
 
   return { data, loading, error };
 };
