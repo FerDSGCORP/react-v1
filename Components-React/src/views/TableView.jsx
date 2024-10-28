@@ -3,8 +3,10 @@ import TableComponent from '../components/TableComponent';
 import MenuColumns from '../components/MenuColumns';
 import useFetchContrato from '../services/useFetchContrato';
 import useFilterTableChangeEvent from '../hooks/FilterTableChangeEvent';
+import { useLocation } from 'wouter';
 
 const MainComponent = () => {
+  const [location, navigate] = useLocation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tableState, setTableState] = useState(null);
   const [page, setPage] = useState(1);
@@ -19,7 +21,13 @@ const MainComponent = () => {
     handleFilterChange,
   } = useFilterTableChangeEvent();
   
-  
+  const navigateURL = "/home/contrato-info/";
+    
+  const handleRowClick = (numContract) => {
+      localStorage.setItem('idFidSelect', numContract);
+      window.dispatchEvent(new CustomEvent('fidSelectChange', { detail: numContract }));
+      navigate(`${navigateURL}${numContract.trim()}`);
+  };
   
   const { data: fetchData, total, loading, error } = useFetchContrato(page, rowsPerPage, filters);
 
@@ -162,6 +170,7 @@ const MainComponent = () => {
         columnFilters={columnFilters}
         handleFilterChange={handleFilterChange}
         onTableReady={setTableState} 
+        handleRowClick={handleRowClick} 
       />
 
     </div>

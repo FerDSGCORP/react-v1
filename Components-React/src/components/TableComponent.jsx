@@ -12,18 +12,13 @@ import {
 } from '@tanstack/react-table';
 import { IconActualizarTabla, IconBtnExportar, IconColumnsSelect, IconFiltersCom, IconTableCLose, IconTableNext, IconTablePrevious } from './Icons.jsx';
 
-const TableComponent = ({ data, columns, total, page, setPage, filters, setFilters, columnFilters, handleFilterChange, onTableReady }) => {
+const TableComponent = ({ data, columns, total, page, setPage, filters, setFilters, columnFilters, handleFilterChange, onTableReady,handleRowClick }) => {
     const [location, navigate] = useLocation();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModalExportarOpen, setModalExportarOpen] = useState(false);
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
     const [exportPayload, setExportPayload] = useState(null); 
-
-    const handleRowClick = (numContract) => {
-        localStorage.setItem('idFidSelect', numContract);
-        window.dispatchEvent(new CustomEvent('fidSelectChange', { detail: numContract }));
-        navigate(`/home/contrato-info/${numContract}`);
-    };
+ 
     
     const closeModalExport = () => {
         setModalExportarOpen(false);
