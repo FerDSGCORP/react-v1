@@ -1825,3 +1825,12 @@ select#selectProblema {
 .container__selectHeader {
   position: absolute;
 }
+
+.rbc-day-bg + .rbc-day-bg {
+  border-left: 0px;
+  z-index: 3;
+}
+
+.rbc-day-bg:hover {
+  border: solid 2px var(--primary-color);
+}
