@@ -20,6 +20,7 @@ const useExportarDatosTable = (payload) => {
         const uriApi = config.apiUri;
         const token = sessionStorage.getItem('token');
         const userDataStr = localStorage.getItem('userData');
+        const ligaServer = "contrato";
         if (!token) {
           throw new Error('Token no encontrado en sessionStorage. Por favor, inicia sesión nuevamente.');
         }
@@ -35,7 +36,7 @@ const useExportarDatosTable = (payload) => {
 
         
 
-        const response = await fetch(`${uriApi}/api/contrato/exporta`, {
+        const response = await fetch(`${uriApi}/api/${ligaServer}/exporta`, {
           method: 'POST',
           headers: headers,
           body: JSON.stringify(payload),
