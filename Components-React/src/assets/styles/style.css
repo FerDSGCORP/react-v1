@@ -1834,3 +1834,20 @@ select#selectProblema {
 .rbc-day-bg:hover {
   border: solid 2px var(--primary-color);
 }
+.fileCharge span {
+  width: 100%;
+}
+
+.fileCharge {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  width: 80px;
+}
+
+.filesloaded {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}   
