@@ -1,7 +1,7 @@
-//Generado Automáticamente, Versión del generador: 4.2
+//Generado Automï¿½ticamente, Versiï¿½n del generador: 4.2
 import { useState, useEffect } from 'react';
 import {useFetchConfig} from './useFetchConfig';
-const useFetchCuenFid Info = (numeroDeContrato, numeroDeSubContrato, numeroDePais, numeroDeMoneda, numeroDeCuenta, cveProductoCuenta, subProductoCuenta, cuentaVista, secuencial) => {
+const useFetchCuenFidInfo = (numeroDeContrato, numeroDeSubContrato, numeroDePais, numeroDeMoneda, numeroDeCuenta, cveProductoCuenta, subProductoCuenta, cuentaVista, secuencial) => {
 	const [data, setData] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -10,34 +10,33 @@ const useFetchCuenFid Info = (numeroDeContrato, numeroDeSubContrato, numeroDePai
 		const fetchData = async () => {
 			setLoading(true);
 			try {
-				// Obtener el token de sessionStorage
+				const uriApi=config.apiUri;
 				const token = sessionStorage.getItem('token');
 				if (!token) {
-					throw new Error('Token no encontrado. Por favor, inicia sesión nuevamente.');
+					throw new Error('Token no encontrado. Por favor, inicia sesiï¿½n nuevamente.');
 				}
-
+				const userData = localStorage.getItem('userData');
+				if (!userData) {
+					throw new Error('Datos del usuario no encontrados. Por favor, inicia sesiÃ³n nuevamente.');
+				}
+				const { numeroDeUsuario } = JSON.parse(userData);
+				if (!numeroDeUsuario) {
+					throw new Error('NÃºmero de usuario no encontrado. Por favor, verifica los datos de usuario.');
+				}
 				// Configurar los headers, incluyendo Authorization y X-User-Id
 				const headers = {
 					'Content-Type': 'application/json',
 					'Authorization': `Bearer ${token}`,
 					'X-User-Id': numeroDeUsuario,
 				};
-				const config=await useFetchConfig();
-				const uriApi=config.apiUri;
-				// Hacer la petición GET al servidor con los headers y la URL adecuada
-				const response = await fetch(`${uriApi}/api/CuenFid/info/${numeroDeContrato}/subcontrato/${numeroDeSubContrato}/pais/${numeroDePais}/moneda/${numeroDeMoneda}/cuenta/${numeroDeCuenta}/cta/${cveProductoCuenta}/cta/${subProductoCuenta}/vista/${cuentaVista}/secuencial/${secuencial}`, {
-					method: 'GET',
-					'Authorization': `Bearer ${token}`,
-				};
-				const config=await useFetchConfig();
-				const uriApi=config.apiUri;
-				// Hacer la petición GET al servidor con los headers y la URL adecuada
-				const response = await fetch(`${uriApi}/api/contrato/info/${idFid}`, {
-					method: 'GET',
-					headers: headers,
-				 });
-
-				if (!response.ok) {
+				// Hacer la peticiï¿½n GET al servidor con los headers y la URL adecuada
+				const response = await fetch(`${uriApi}/api/CuenFid/info/${numeroDeContrato}/subcontrato/${numeroDeSubContrato}/pais/${numeroDePais}/moneda/${numeroDeMoneda}/cuenta/${numeroDeCuenta}/cta/${cveProductoCuenta}/cta/${subProductoCuenta}/vista/${cuentaVista}/secuencial/${secuencial}`, 
+					{
+						method: 'GET',
+						headers: headers,
+					}
+				);
+				if(!response.ok) {
 					throw new Error('Error en la respuesta del servidor');
 				}
 

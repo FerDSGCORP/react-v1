@@ -94,7 +94,7 @@ function DetalleFideicomiso() {
     return (
         <>
             <div className="card">
-                <span className="card-enc"><b>General</b></span>
+                <span className="card-enc"><b>General {data?.nombreDeProducto} {data?.textoComiteTecnico}</b></span>
                 <svg viewBox="0 0 1093 2" fill="none">
                     <path d="M0 1H1093" stroke="#007AFF" strokeWidth="2" />
                 </svg>
