@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IconPDF, IconErrorModal } from '../components/Icons';
+import { IconPDFv, IconErrorModal } from '../components/Icons';
 import useEnvioInstruction from '../services/useFetchSendCartaInstruccion';
 
 function CartaInstruccion() {
@@ -82,7 +82,7 @@ function CartaInstruccion() {
                                 htmlFor="subirArchivoPDF"
                                 className={`uploadComponent ${isFileLoaded ? '--uploadFile' : ''}`}
                             >
-                                <IconPDF />
+                                <IconPDFv />
                                 <span>Carga tu archivo .pdf</span>
                             </label>
                             <button
