@@ -5,7 +5,6 @@ import MenuColumns from '../components/MenuColumns';
 import useFetchCInterFid from '../services/useFetchCInterFid';
 import useFilterTableChangeEvent from '../hooks/FilterTableChangeEvent';
 import { useLocation } from 'wouter';
-import { useRoute } from 'wouter';
 
 function GridCInterFid() {
 	const [location, navigate] = useLocation();
@@ -24,8 +23,7 @@ function GridCInterFid() {
 
 	const handleRowClick = () => {
 	};
-	const [match, params] = useRoute('/home/cinterfid-info/:numeroDeContrato');
-	const numeroDeContrato = match ? params.numeroDeContrato : null;//TOMAR VALOR DEL COMBO
+	const numeroDeContrato = localStorage.getItem('idFidSelect');//falta generador
 	const { data: fetchData, total, loading, error }= useFetchCInterFid(numeroDeContrato,page, rowsPerPage, filters);
 
 	const columns = useMemo(() => [

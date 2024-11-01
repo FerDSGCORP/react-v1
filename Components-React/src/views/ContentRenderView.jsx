@@ -6,6 +6,8 @@ import MisFIdeicomisosCrd from '../components/MisFideicomisos';
 import FideicomisosCard from '../services/useFetchFideicomisosCard';
 import CartaInstruccion from './CartaInstruccion';
 import GridCuenFid from './IndexCuenFid';
+import cuenFidMultiple from '../services/useFetchCuenFidMultiple';
+import DetalleCuenFid from './DetalleCuenFid';
 
 
 function ContentRenderView() {
@@ -15,7 +17,9 @@ function ContentRenderView() {
   const { numeroDeUsuario } = userData ? JSON.parse(userData) : {};
 
   const { records, loading, error } = FideicomisosCard(numeroDeUsuario);
-
+  const numeroDeContrato = localStorage.getItem('idFidSelect');
+  const { data, loading: loadingCuenFid, error: errorCuenFid } = numeroDeContrato ? cuenFidMultiple(numeroDeContrato) : {};
+ 
   useEffect(() => {
     const token = sessionStorage.getItem('token');
     if (!token) {
@@ -37,6 +41,14 @@ function ContentRenderView() {
     return <p>Error: {error}</p>;
   }
 
+  if (loadingCuenFid) {
+    return <p>Cargando información...</p>;
+  }
+
+  if (errorCuenFid) {
+    return <p>Error: {errorCuenFid}</p>;
+  }
+
   return (
     <div className='bodyView'>
       <Switch>
@@ -50,8 +62,8 @@ function ContentRenderView() {
             {params => <CartaInstruccion idFid={params.idFid}/>}
         </Route>
         <Route path="/home/cuenfid-info/:numeroDeContrato">
-          {params => <GridCuenFid numeroDeContrato={params.idFid}/>}
-          {/* {params =>  (recordsCuenFid > 11 ? <GridCuenFid numeroDeContrato={params.idFid}/>: <DetalleCuenFId numeroDeContrato={params.idFid}/>)} */}
+          {params => <DetalleCuenFid idFid={params.idFid}/>}
+          {/* {params =>  (data?.lenght > 11 ? <GridCuenFid numeroDeContrato={params.idFid}/>: <DetalleCuenFid numeroDeContrato={params.idFid}/>)} */}
         </Route>
         <Route path="/home/cinterfid-info/:numeroDeContrato">
           {params => <GridCInterFid numeroDeContrato={params.idFid}/>}

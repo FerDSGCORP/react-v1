@@ -1,13 +1,14 @@
-//Generado Automáticamente, Versión del generador: 5.0
+﻿//Generado Automáticamente, Versión del generador: 5.0
 import { useState, useEffect } from 'react';
 import {useFetchConfig} from './useFetchConfig';
-const useFetchCuenFidInfo = (numeroDeContrato, numeroDeSubContrato, numeroDePais, numeroDeMoneda, numeroDeCuenta, cveProductoCuenta, subProductoCuenta, cuentaVista, secuencial) => {
+const useFetchCuenFidInfoMultiple = (numeroDeContrato) => {
+	console.log("Multiple cuentas");
 	const [data, setData] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const { config } = useFetchConfig();
 	useEffect(() => {
-		if(!numeroDeContrato&&!numeroDeSubContrato&&!numeroDePais&&!numeroDeMoneda&&!numeroDeCuenta&&!cveProductoCuenta&&!subProductoCuenta&&!cuentaVista&&!secuencial||!config){
+		if(!numeroDeContrato||!config){
 			setLoading(true);
 			return;
 		}
@@ -35,10 +36,14 @@ const useFetchCuenFidInfo = (numeroDeContrato, numeroDeSubContrato, numeroDePais
 					'X-User-Id': numeroDeUsuario,
 				};
 				// Hacer la petición GET al servidor con los headers y la URL adecuada
-				const response = await fetch(`${uriApi}/api/cuenfid/info/${numeroDeContrato}/subcontrato/${numeroDeSubContrato}/pais/${numeroDePais}/moneda/${numeroDeMoneda}/cuenta/${numeroDeCuenta}/cta/${cveProductoCuenta}/cta/${subProductoCuenta}/vista/${cuentaVista}/secuencial/${secuencial}`, {
+				const response = await fetch(`${uriApi}/api/cuenfid/infoMultiple/${numeroDeContrato}`, {//FALTA GENERADOR
 					method: 'GET',
 					headers: headers,
 				});
+
+				if (response.status === 204) {//fata generador
+					return;
+				}
 
 				if (!response.ok) {
 					throw new Error('Error en la respuesta del servidor');
@@ -54,10 +59,10 @@ const useFetchCuenFidInfo = (numeroDeContrato, numeroDeSubContrato, numeroDePais
 		}
 
 		fetchData();
-	}, [numeroDeContrato, numeroDeSubContrato, numeroDePais, numeroDeMoneda, numeroDeCuenta, cveProductoCuenta, subProductoCuenta, cuentaVista, secuencial, config]);
+	}, [numeroDeContrato, config]);
 
 	return { data, loading, error };
 
 };
 
-export default useFetchCuenFidInfo;
+export default useFetchCuenFidInfoMultiple;//fata generador

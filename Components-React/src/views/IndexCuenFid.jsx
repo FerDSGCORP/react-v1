@@ -5,7 +5,7 @@ import MenuColumns from '../components/MenuColumns';
 import useFetchCuenFid from '../services/useFetchCuenFid';
 import useFilterTableChangeEvent from '../hooks/FilterTableChangeEvent';
 import { useLocation } from 'wouter';
-import { useRoute } from 'wouter';
+
 
 function GridCuenFid() {
 	const [location, navigate] = useLocation();
@@ -24,8 +24,7 @@ function GridCuenFid() {
 
 	const handleRowClick = () => {
 	};
-	const [match, params] = useRoute('/home/cuenfid-info/:numeroDeContrato');
-	const numeroDeContrato = match ? params.numeroDeContrato : null;//TOMAR VALOR DEL COMBO
+	const numeroDeContrato = localStorage.getItem('idFidSelect');//falta generador
 	const { data: fetchData, total, loading, error }= useFetchCuenFid(numeroDeContrato,page, rowsPerPage, filters);
 
 	const columns = useMemo(() => [

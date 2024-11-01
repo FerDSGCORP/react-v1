@@ -15,6 +15,7 @@ import useFideicomisosCard from "../services/useFetchFideicomisosCard";
 import { IconFIdeicomisoSelect } from '../components/Icons';
 import GridCuenFid from './IndexCuenFid';
 import GridCInterFid from './IndexCInterFid';
+import DetalleCuenFid from './DetalleCuenFid';
 
 function RenderView() {
   const { data: fideicomisos, loading, error } = useFideicomisosCard();
@@ -115,7 +116,7 @@ function RenderView() {
               {params => <PerfilUserInfo />}
             </Route>
             <Route path="/home/cuenfid-info/:idFidSelect">
-             {params => <GridCuenFid idFidSelect={idFidSelect} />}
+             {params => <DetalleCuenFid idFidSelect={idFidSelect} />}
              </Route>
              <Route path="/home/cinterfid-info/:idFidSelect">
              {params => <GridCInterFid idFidSelect={idFidSelect} />}

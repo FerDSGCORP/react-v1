@@ -44,7 +44,7 @@ const useFetchCuenFid = (numeroDeContrato, page = 1, rows = 80, filters = null) 
 				}
 
 				const response = await fetch(
-					`${uriApi}/api/CuenFid/sidx/NumeroDeContrato/sord/asc/page/${page}/rows/${rows}/${numeroDeContrato}`,
+					`${uriApi}/api/cuenfid/sidx/NumeroDeContrato/sord/asc/page/${page}/rows/${rows}/${numeroDeContrato}`,
 					{
 						method: 'GET',
 						 headers: headers,
