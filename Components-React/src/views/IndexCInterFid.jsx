@@ -1,20 +1,31 @@
-﻿//Generado Automáticamente, Versión del generador: 4.2
+﻿//Generado Automáticamente, Versión del generador: 5.0
 import { useState, useMemo,useEffect } from 'react';
 import TableComponent from '../components/TableComponent';
 import MenuColumns from '../components/MenuColumns';
 import useFetchCInterFid from '../services/useFetchCInterFid';
+import useFilterTableChangeEvent from '../hooks/FilterTableChangeEvent';
+import { useLocation } from 'wouter';
 import { useRoute } from 'wouter';
+
 function GridCInterFid() {
+	const [location, navigate] = useLocation();
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [tableState, setTableState] = useState(null);
 	const [page, setPage] = useState(1);
 	const [rowsPerPage, setRowsPerPage] = useState(80);
-	const [filters, setFilters] = useState(null);
-	const [columnFilters, setColumnFilters] = useState({});
 
-	// Utilizamos `useRoute` para obtener el parámetro `numeroDeContrato` de la URL
+	const {
+		columnFilters,
+		setColumnFilters,
+		filters,
+		setFilters,
+		handleFilterChange,
+	} = useFilterTableChangeEvent();
+
+	const handleRowClick = () => {
+	};
 	const [match, params] = useRoute('/home/cinterfid-info/:numeroDeContrato');
-	const numeroDeContrato = match ? params.numeroDeContrato : null;//TOMAR LO DEL COMBO
+	const numeroDeContrato = match ? params.numeroDeContrato : null;//TOMAR VALOR DEL COMBO
 	const { data: fetchData, total, loading, error }= useFetchCInterFid(numeroDeContrato,page, rowsPerPage, filters);
 
 	const columns = useMemo(() => [
@@ -89,37 +100,6 @@ function GridCInterFid() {
 		});
 	}, [fetchData]);
 
-	const handleFilterChange = (accessorKey, value) => {
-		setColumnFilters(prev => ({
-			...prev,
-			[accessorKey]: value,
-		}));
-
-		const newRule = {
-			field: accessorKey,
-			op: "eq",
-			data: value
-		};
-
-		setFilters(prev => {
-			const updatedFilters = {
-				groupOp: "AND",
-				rules: [],
-				groups: []
-			};
-
-			 const updatedRules = prev?.rules?.filter(rule => rule.field !== accessorKey) || [];
-
-			 if (value !== "") {
-				updatedRules.push(newRule);
-			}
-
-			updatedFilters.rules = updatedRules;
-
-			return updatedFilters;
-		});
-	};
-
 	const toggleModal = () => {
 		setIsModalOpen(!isModalOpen);
 	};
@@ -130,7 +110,6 @@ function GridCInterFid() {
 	return (
 		<div className='container_tblView'>
 
-		{/* Modal */}
 		{isModalOpen && tableState && (
 			<div className="modal">
 				<div className="modal-content">
@@ -154,7 +133,8 @@ function GridCInterFid() {
 			setFilters={setFilters}
 			columnFilters={columnFilters}
 			handleFilterChange={handleFilterChange}
-			onTableReady={setTableState} 
+			onTableReady={setTableState}
+			handleRowClick={handleRowClick}
 		/>
 		</div>
 	);

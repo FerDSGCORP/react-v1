@@ -51,6 +51,7 @@ function ContentRenderView() {
         </Route>
         <Route path="/home/cuenfid-info/:numeroDeContrato">
           {params => <GridCuenFid numeroDeContrato={params.idFid}/>}
+          {/* {params =>  (recordsCuenFid > 11 ? <GridCuenFid numeroDeContrato={params.idFid}/>: <DetalleCuenFId numeroDeContrato={params.idFid}/>)} */}
         </Route>
         <Route path="/home/cinterfid-info/:numeroDeContrato">
           {params => <GridCInterFid numeroDeContrato={params.idFid}/>}
