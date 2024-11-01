@@ -1851,3 +1851,9 @@ select#selectProblema {
   align-items: center;
   gap: 15px;
 }   
+
+.container__Buttons__paginations {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
