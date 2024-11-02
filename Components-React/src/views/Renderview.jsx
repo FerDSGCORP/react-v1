@@ -16,6 +16,10 @@ import { IconFIdeicomisoSelect } from '../components/Icons';
 import GridCuenFid from './IndexCuenFid';
 import GridCInterFid from './IndexCInterFid';
 import DetalleCuenFid from './DetalleCuenFid';
+import cuenFidMultiple from '../services/useFetchCuenFidMultiple';
+import { CuenFidInfoRoute } from './ContentRenderView';
+
+
 
 function RenderView() {
   const { data: fideicomisos, loading, error } = useFideicomisosCard();
@@ -26,16 +30,16 @@ function RenderView() {
   useEffect(() => {
     const storedIdFidSelect = localStorage.getItem('idFidSelect');
     if (storedIdFidSelect) {
-      
+
       setIdFidSelect(storedIdFidSelect);
     }
   }, [location]);
 
   const options = fideicomisos
     ? fideicomisos.map(contrato => ({
-        value: String(contrato.numeroDeContrato),
-        label: contrato.nombreDeContratoU,
-      }))
+      value: String(contrato.numeroDeContrato),
+      label: contrato.nombreDeContratoU,
+    }))
     : [];
 
   const handleSelectChange = (selectedOption) => {
@@ -58,13 +62,13 @@ function RenderView() {
       ...style,
       height: "150px",
     }),
-    
+
     option: (styles, state) => ({
       ...styles,
       background: "#062C62",
       padding: "15px",
 
-      "&:hover" : {
+      "&:hover": {
         background: "#007AFF",
       }
     }),
@@ -86,7 +90,7 @@ function RenderView() {
                 <IconFIdeicomisoSelect />
                 <Select
                   unstyled
-                  styles={colorStyles}            
+                  styles={colorStyles}
                   className="Fideicomiso_select"
                   name="selectHeader"
                   id="selectHeader"
@@ -115,12 +119,10 @@ function RenderView() {
             <Route path="/Home/user-perfil/">
               {params => <PerfilUserInfo />}
             </Route>
-            <Route path="/home/cuenfid-info/:idFidSelect">
-             {params => <DetalleCuenFid idFidSelect={idFidSelect} />}
-             </Route>
-             <Route path="/home/cinterfid-info/:idFidSelect">
-             {params => <GridCInterFid idFidSelect={idFidSelect} />}
-             </Route>
+            <Route path="/home/cuenfid-info/:numeroDeContrato" component={CuenFidInfoRoute} />
+            <Route path="/home/cinterfid-info/:idFidSelect">
+              {params => <GridCInterFid idFidSelect={idFidSelect} />}
+            </Route>
           </Switch>
         </div>
         <div className="container__notifications">

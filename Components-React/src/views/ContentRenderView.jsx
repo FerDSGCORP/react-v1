@@ -9,6 +9,18 @@ import GridCuenFid from './IndexCuenFid';
 import cuenFidMultiple from '../services/useFetchCuenFidMultiple';
 import DetalleCuenFid from './DetalleCuenFid';
 
+function CuenFidInfoRoute({ params }) {
+  const numeroDeContrato = params.numeroDeContrato || localStorage.getItem('idFidSelect') || '';
+  const { data, loading: loadingCuenFid, error: errorCuenFid } = cuenFidMultiple(numeroDeContrato);
+
+  if (loadingCuenFid) return <div>Loading...</div>;
+  if (errorCuenFid) return <div>Error: {errorCuenFid.message}</div>;
+
+  return data?.length > 11
+    ? <GridCuenFid numeroDeContrato={numeroDeContrato} />
+    : <DetalleCuenFid numeroDeContrato={numeroDeContrato} />;
+}
+
 
 function ContentRenderView() {
   const [, navigate] = useLocation();
@@ -17,8 +29,6 @@ function ContentRenderView() {
   const { numeroDeUsuario } = userData ? JSON.parse(userData) : {};
 
   const { records, loading, error } = FideicomisosCard(numeroDeUsuario);
-  const numeroDeContrato = localStorage.getItem('idFidSelect');
-  const { data, loading: loadingCuenFid, error: errorCuenFid } = numeroDeContrato ? cuenFidMultiple(numeroDeContrato) : {};
  
   useEffect(() => {
     const token = sessionStorage.getItem('token');
@@ -41,14 +51,6 @@ function ContentRenderView() {
     return <p>Error: {error}</p>;
   }
 
-  if (loadingCuenFid) {
-    return <p>Cargando información...</p>;
-  }
-
-  if (errorCuenFid) {
-    return <p>Error: {errorCuenFid}</p>;
-  }
-
   return (
     <div className='bodyView'>
       <Switch>
@@ -61,10 +63,8 @@ function ContentRenderView() {
         <Route path="/home/instruccionpagoconcilia-envio/:idFid">
             {params => <CartaInstruccion idFid={params.idFid}/>}
         </Route>
-        <Route path="/home/cuenfid-info/:numeroDeContrato">
-          {params => <DetalleCuenFid idFid={params.idFid}/>}
-          {/* {params =>  (data?.lenght > 11 ? <GridCuenFid numeroDeContrato={params.idFid}/>: <DetalleCuenFid numeroDeContrato={params.idFid}/>)} */}
-        </Route>
+        <Route path="/home/cuenfid-info/:numeroDeContrato" component={CuenFidInfoRoute} />
+
         <Route path="/home/cinterfid-info/:numeroDeContrato">
           {params => <GridCInterFid numeroDeContrato={params.idFid}/>}
         </Route>
@@ -72,5 +72,5 @@ function ContentRenderView() {
     </div>
   );
 }
-
+export { CuenFidInfoRoute };
 export default ContentRenderView;
