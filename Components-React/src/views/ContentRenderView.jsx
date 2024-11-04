@@ -9,8 +9,13 @@ import GridCuenFid from './IndexCuenFid';
 import cuenFidMultiple from '../services/useFetchCuenFidMultiple';
 import DetalleCuenFid from './DetalleCuenFid';
 
+function getNumContratoLocalST() {
+  return localStorage.getItem('idFidSelect');
+}
+
+
 function CuenFidInfoRoute({ params }) {
-  const numeroDeContrato = params.numeroDeContrato || localStorage.getItem('idFidSelect') || '';
+  const numeroDeContrato = params.numeroDeContrato || getNumContratoLocalST() || '';
   const { data, loading: loadingCuenFid, error: errorCuenFid } = cuenFidMultiple(numeroDeContrato);
 
   if (loadingCuenFid) return <div>Loading...</div>;
