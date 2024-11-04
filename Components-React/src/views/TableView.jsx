@@ -20,66 +20,68 @@ const MainComponent = () => {
     setFilters,
     handleFilterChange,
   } = useFilterTableChangeEvent();
-  
-  const navigateURL = "/home/contrato-info/";
-    
-  const handleRowClick = (numContract) => {
-      localStorage.setItem('idFidSelect', numContract);
-      window.dispatchEvent(new CustomEvent('fidSelectChange', { detail: numContract }));
-      navigate(`${navigateURL}${numContract.trim()}`);
+
+  const navigateURL = "/home/contrato-info";
+
+  const handleRowClick = (rowData) => {
+    const { NumeroDeContrato } = rowData; //PASAR PARAMETROS TAL Y COMO ESTA EN EL SERVICIO 
+    localStorage.setItem('idFidSelect', NumeroDeContrato);
+    window.dispatchEvent(new CustomEvent('fidSelectChange', { detail: NumeroDeContrato }));
+    const url = `${navigateURL}/${NumeroDeContrato}`;
+    navigate(url);
   };
-  
+
   const { data: fetchData, total, loading, error } = useFetchContrato(page, rowsPerPage, filters);
 
 
   const columns = useMemo(() => [
-    { id:"NumeroDeContrato",header: "NumeroDeContrato", accessorKey: "NumeroDeContrato", field: "text", visibilityCol: true },
-    { id:"NombreDeContrato",header: "NombreDeContrato", accessorKey: "NombreDeContrato", field: "select", visibilityCol: true },
-    { id:"OficioExencion",header: "OficioExencion", accessorKey: "OficioExencion", field: "select", visibilityCol: true },
-    { id:"RegSHCP",header: "RegSHCP", accessorKey: "RegSHCP", field: "select", visibilityCol: true },
-    { id:"RegGobDF",header: "RegGobDF", accessorKey: "RegGobDF", field: "select", visibilityCol: true },
-    { id:"TextoRegional",header: "TextoRegional", accessorKey: "TextoRegional", field: "select", visibilityCol: true },
-    { id:"Escritura",header: "Escritura", accessorKey: "Escritura", field: "select", visibilityCol: true },
-    { id:"TextoSucursal",header: "TextoSucursal", accessorKey: "TextoSucursal", field: "select", visibilityCol: true },
-    { id:"FechaDeRegistroPublico",header: "FechaDeRegistroPublico", accessorKey: "FechaDeRegistroPublico", field: "select", visibilityCol: true },
-    { id:"FechaDeApertura",header: "FechaDeApertura", accessorKey: "FechaDeApertura", field: "select", visibilityCol: true },
-    { id:"FechaDeCancelacion",header: "FechaDeCancelacion", accessorKey: "FechaDeCancelacion", field: "select", visibilityCol: true },
-    { id:"FechaDeInscripcionRegNalInvEx",header: "FechaDeInscripcionRegNalInvEx", accessorKey: "FechaDeInscripcionRegNalInvEx", field: "select", visibilityCol: true },
-    { id:"NombreDeCliente",header: "NombreDeCliente", accessorKey: "NombreDeCliente", field: "select", visibilityCol: true },
-    { id:"TextoESustitucion",header: "TextoESustitucion", accessorKey: "TextoESustitucion", field: "select", visibilityCol: true },
-    { id:"TextoSustitucion",header: "TextoSustitucion", accessorKey: "TextoSustitucion", field: "select", visibilityCol: true },
-    { id:"TextoESustitucionEje",header: "TextoESustitucionEje", accessorKey: "TextoESustitucionEje", field: "select", visibilityCol: true },
-    { id:"TextoNombreDeContratoEje",header: "TextoNombreDeContratoEje", accessorKey: "TextoNombreDeContratoEje", field: "select", visibilityCol: true },
-    { id:"TextoTipoDeNegocio",header: "TextoTipoDeNegocio", accessorKey: "TextoTipoDeNegocio", field: "select", visibilityCol: true },
-    { id:"TextoClasificacionDeProducto",header: "TextoClasificacionDeProducto", accessorKey: "TextoClasificacionDeProducto", field: "select", visibilityCol: true },
-    { id:"TextoNombreDeProducto",header: "TextoNombreDeProducto", accessorKey: "TextoNombreDeProducto", field: "select", visibilityCol: true },
-    { id:"TextoFormaDeManejo",header: "TextoFormaDeManejo", accessorKey: "TextoFormaDeManejo", field: "select", visibilityCol: true },
-    { id:"TextoComiteTecnico",header: "TextoComiteTecnico", accessorKey: "TextoComiteTecnico", field: "select", visibilityCol: true },
-    { id:"TextoRevocable",header: "TextoRevocable", accessorKey: "TextoRevocable", field: "select", visibilityCol: true },
-    { id:"TextoSHCP",header: "TextoSHCP", accessorKey: "TextoSHCP", field: "select", visibilityCol: true },
-    { id:"TextoGobDF",header: "TextoGobDF", accessorKey: "TextoGobDF", field: "select", visibilityCol: true },
-    { id:"TextoTipoDeCliente",header: "TextoTipoDeCliente", accessorKey: "TextoTipoDeCliente", field: "select", visibilityCol: true },
-    { id:"TextoTipoDeContratoPublico",header: "TextoTipoDeContratoPublico", accessorKey: "TextoTipoDeContratoPublico", field: "select", visibilityCol: true },
-    { id:"TextoTipoDeContrato",header: "TextoTipoDeContrato", accessorKey: "TextoTipoDeContrato", field: "select", visibilityCol: true },
-    { id:"TextoSubContrato",header: "TextoSubContrato", accessorKey: "TextoSubContrato", field: "select", visibilityCol: true },
-    { id:"TextoNombreDeNotario",header: "TextoNombreDeNotario", accessorKey: "TextoNombreDeNotario", field: "select", visibilityCol: false },
-    { id:"TextoDeTipoDeAdministracion",header: "TextoDeTipoDeAdministracion", accessorKey: "TextoDeTipoDeAdministracion", field: "select", visibilityCol: false },
-    { id:"TextoCentroDeCostos",header: "TextoCentroDeCostos", accessorKey: "TextoCentroDeCostos", field: "select", visibilityCol: false },
-    { id:"TextoActividadEmpresarial",header: "TextoActividadEmpresarial", accessorKey: "TextoActividadEmpresarial", field: "select", visibilityCol: false },
-    { id:"TextoPatrimonio",header: "TextoPatrimonio", accessorKey: "TextoPatrimonio", field: "select", visibilityCol: false },
-    { id:"TextoRegLasDeOperacion",header: "TextoRegLasDeOperacion", accessorKey: "TextoRegLasDeOperacion", field: "select", visibilityCol: false },
-    { id:"TextoNombreDeActividad",header: "TextoNombreDeActividad", accessorKey: "TextoNombreDeActividad", field: "select", visibilityCol: false },
-    { id:"RFCActividadEmpresarial",header: "RFCActividadEmpresarial", accessorKey: "RFCActividadEmpresarial", field: "select", visibilityCol: false },
-    { id:"TextoGerencia",header: "TextoGerencia", accessorKey: "TextoGerencia", field: "select", visibilityCol: false },
-    { id:"TextoClasificacionProducto",header: "TextoClasificacionProducto", accessorKey: "TextoClasificacionProducto", field: "select", visibilityCol: false },
-    { id:"RegistroPublicoDeLaPropiedad",header: "RegistroPublicoDeLaPropiedad", accessorKey: "RegistroPublicoDeLaPropiedad", field: "select", visibilityCol: false },
-    { id:"TextoRegistroPresupuestal",header: "TextoRegistroPresupuestal", accessorKey: "TextoRegistroPresupuestal", field: "select", visibilityCol: false },
-    { id:"TextoRenovacionRegPresupuestal",header: "TextoRenovacionRegPresupuestal", accessorKey: "TextoRenovacionRegPresupuestal", field: "select", visibilityCol: false },
-    { id:"RenovacionRegPresupuestal",header: "RenovacionRegPresupuestal", accessorKey: "RenovacionRegPresupuestal", field: "select", visibilityCol: false },
-    { id:"TextoInformativaSAT",header: "TextoInformativaSAT", accessorKey: "TextoInformativaSAT", field: "select", visibilityCol: false },
+    { id: "NumeroDeContrato", header: "NumeroDeContrato", accessorKey: "NumeroDeContrato", field: "text", visibilityCol: true },
+    { id: "NombreDeContrato", header: "NombreDeContrato", accessorKey: "NombreDeContrato", field: "select", visibilityCol: true },
+    { id: "OficioExencion", header: "OficioExencion", accessorKey: "OficioExencion", field: "select", visibilityCol: true },
+    { id: "RegSHCP", header: "RegSHCP", accessorKey: "RegSHCP", field: "select", visibilityCol: true },
+    { id: "RegGobDF", header: "RegGobDF", accessorKey: "RegGobDF", field: "select", visibilityCol: true },
+    { id: "TextoRegional", header: "TextoRegional", accessorKey: "TextoRegional", field: "select", visibilityCol: true },
+    { id: "Escritura", header: "Escritura", accessorKey: "Escritura", field: "select", visibilityCol: true },
+    { id: "TextoSucursal", header: "TextoSucursal", accessorKey: "TextoSucursal", field: "select", visibilityCol: true },
+    { id: "FechaDeRegistroPublico", header: "FechaDeRegistroPublico", accessorKey: "FechaDeRegistroPublico", field: "select", visibilityCol: true },
+    { id: "FechaDeApertura", header: "FechaDeApertura", accessorKey: "FechaDeApertura", field: "select", visibilityCol: true },
+    { id: "FechaDeCancelacion", header: "FechaDeCancelacion", accessorKey: "FechaDeCancelacion", field: "select", visibilityCol: true },
+    { id: "FechaDeInscripcionRegNalInvEx", header: "FechaDeInscripcionRegNalInvEx", accessorKey: "FechaDeInscripcionRegNalInvEx", field: "select", visibilityCol: true },
+    { id: "NombreDeCliente", header: "NombreDeCliente", accessorKey: "NombreDeCliente", field: "select", visibilityCol: true },
+    { id: "TextoESustitucion", header: "TextoESustitucion", accessorKey: "TextoESustitucion", field: "select", visibilityCol: true },
+    { id: "TextoSustitucion", header: "TextoSustitucion", accessorKey: "TextoSustitucion", field: "select", visibilityCol: true },
+    { id: "TextoESustitucionEje", header: "TextoESustitucionEje", accessorKey: "TextoESustitucionEje", field: "select", visibilityCol: true },
+    { id: "TextoNombreDeContratoEje", header: "TextoNombreDeContratoEje", accessorKey: "TextoNombreDeContratoEje", field: "select", visibilityCol: true },
+    { id: "TextoTipoDeNegocio", header: "TextoTipoDeNegocio", accessorKey: "TextoTipoDeNegocio", field: "select", visibilityCol: true },
+    { id: "TextoClasificacionDeProducto", header: "TextoClasificacionDeProducto", accessorKey: "TextoClasificacionDeProducto", field: "select", visibilityCol: true },
+    { id: "TextoNombreDeProducto", header: "TextoNombreDeProducto", accessorKey: "TextoNombreDeProducto", field: "select", visibilityCol: true },
+    { id: "TextoFormaDeManejo", header: "TextoFormaDeManejo", accessorKey: "TextoFormaDeManejo", field: "select", visibilityCol: true },
+    { id: "TextoComiteTecnico", header: "TextoComiteTecnico", accessorKey: "TextoComiteTecnico", field: "select", visibilityCol: true },
+    { id: "TextoRevocable", header: "TextoRevocable", accessorKey: "TextoRevocable", field: "select", visibilityCol: true },
+    { id: "TextoSHCP", header: "TextoSHCP", accessorKey: "TextoSHCP", field: "select", visibilityCol: true },
+    { id: "TextoGobDF", header: "TextoGobDF", accessorKey: "TextoGobDF", field: "select", visibilityCol: true },
+    { id: "TextoTipoDeCliente", header: "TextoTipoDeCliente", accessorKey: "TextoTipoDeCliente", field: "select", visibilityCol: true },
+    { id: "TextoTipoDeContratoPublico", header: "TextoTipoDeContratoPublico", accessorKey: "TextoTipoDeContratoPublico", field: "select", visibilityCol: true },
+    { id: "TextoTipoDeContrato", header: "TextoTipoDeContrato", accessorKey: "TextoTipoDeContrato", field: "select", visibilityCol: true },
+    { id: "TextoSubContrato", header: "TextoSubContrato", accessorKey: "TextoSubContrato", field: "select", visibilityCol: true },
+    { id: "TextoNombreDeNotario", header: "TextoNombreDeNotario", accessorKey: "TextoNombreDeNotario", field: "select", visibilityCol: false },
+    { id: "TextoDeTipoDeAdministracion", header: "TextoDeTipoDeAdministracion", accessorKey: "TextoDeTipoDeAdministracion", field: "select", visibilityCol: false },
+    { id: "TextoCentroDeCostos", header: "TextoCentroDeCostos", accessorKey: "TextoCentroDeCostos", field: "select", visibilityCol: false },
+    { id: "TextoActividadEmpresarial", header: "TextoActividadEmpresarial", accessorKey: "TextoActividadEmpresarial", field: "select", visibilityCol: false },
+    { id: "TextoPatrimonio", header: "TextoPatrimonio", accessorKey: "TextoPatrimonio", field: "select", visibilityCol: false },
+    { id: "TextoRegLasDeOperacion", header: "TextoRegLasDeOperacion", accessorKey: "TextoRegLasDeOperacion", field: "select", visibilityCol: false },
+    { id: "TextoNombreDeActividad", header: "TextoNombreDeActividad", accessorKey: "TextoNombreDeActividad", field: "select", visibilityCol: false },
+    { id: "RFCActividadEmpresarial", header: "RFCActividadEmpresarial", accessorKey: "RFCActividadEmpresarial", field: "select", visibilityCol: false },
+    { id: "TextoGerencia", header: "TextoGerencia", accessorKey: "TextoGerencia", field: "select", visibilityCol: false },
+    { id: "TextoClasificacionProducto", header: "TextoClasificacionProducto", accessorKey: "TextoClasificacionProducto", field: "select", visibilityCol: false },
+    { id: "RegistroPublicoDeLaPropiedad", header: "RegistroPublicoDeLaPropiedad", accessorKey: "RegistroPublicoDeLaPropiedad", field: "select", visibilityCol: false },
+    { id: "TextoRegistroPresupuestal", header: "TextoRegistroPresupuestal", accessorKey: "TextoRegistroPresupuestal", field: "select", visibilityCol: false },
+    { id: "TextoRenovacionRegPresupuestal", header: "TextoRenovacionRegPresupuestal", accessorKey: "TextoRenovacionRegPresupuestal", field: "select", visibilityCol: false },
+    { id: "RenovacionRegPresupuestal", header: "RenovacionRegPresupuestal", accessorKey: "RenovacionRegPresupuestal", field: "select", visibilityCol: false },
+    { id: "TextoInformativaSAT", header: "TextoInformativaSAT", accessorKey: "TextoInformativaSAT", field: "select", visibilityCol: false },
   ], []);
 
-  
+
   const transformedData = useMemo(() => {
     if (!fetchData) return [];
     return fetchData.map(row => {
@@ -150,7 +152,7 @@ const MainComponent = () => {
         <div className="modal">
           <div className="modal-content">
             <span className="close" onClick={toggleModal}>&times;</span>
-            <MenuColumns 
+            <MenuColumns
               columns={tableState.columns}
               setColumnVisibility={tableState.setColumnVisibility}
               columnVisibility={tableState.columnVisibility}
@@ -159,8 +161,8 @@ const MainComponent = () => {
         </div>
       )}
 
-      <TableComponent 
-        data={transformedData} 
+      <TableComponent
+        data={transformedData}
         columns={columns}
         total={total}
         page={page}
@@ -169,8 +171,8 @@ const MainComponent = () => {
         setFilters={setFilters}
         columnFilters={columnFilters}
         handleFilterChange={handleFilterChange}
-        onTableReady={setTableState} 
-        handleRowClick={handleRowClick} 
+        onTableReady={setTableState}
+        handleRowClick={handleRowClick}
       />
 
     </div>

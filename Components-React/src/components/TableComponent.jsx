@@ -153,7 +153,7 @@ const TableComponent = ({ data, columns, total, page, setPage, filters, setFilte
                     </thead>
                     <tbody>
                         {table.getRowModel().rows.map(row => (
-                            <tr key={row.id} onClick={() => handleRowClick(row.original.NumeroDeContrato)}>
+                            <tr key={row.id} onClick={() => handleRowClick(row.original)}>
                                 {row.getVisibleCells().map(cell => (
                                     <td key={cell.id}>
                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
