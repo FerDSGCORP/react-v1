@@ -19,7 +19,9 @@ const MainComponent = () => {
     filters,
     setFilters,
     handleFilterChange,
+    reloadTable
   } = useFilterTableChangeEvent();
+
 
   const navigateURL = "/home/contrato-info";
 
@@ -33,6 +35,11 @@ const MainComponent = () => {
 
   const { data: fetchData, total, loading, error } = useFetchContrato(page, rowsPerPage, filters);
 
+
+  const handleReloadTable = () => {
+    reloadTable();
+    setPage(1);
+  };
 
   const columns = useMemo(() => [
     { id: "NumeroDeContrato", header: "NumeroDeContrato", accessorKey: "NumeroDeContrato", field: "text", visibilityCol: true },
@@ -173,6 +180,7 @@ const MainComponent = () => {
         handleFilterChange={handleFilterChange}
         onTableReady={setTableState}
         handleRowClick={handleRowClick}
+        reloadTable = {handleReloadTable}
       />
 
     </div>

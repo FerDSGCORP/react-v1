@@ -35,12 +35,22 @@ const useFilterTableChangeEvent = () => {
     });
   };
 
+  const reloadTable = () => {
+    setFilters({
+      groupOp: "AND",
+      rules: [],
+      groups: []
+    });
+    setColumnFilters({});
+  };
+
   return {
     columnFilters,
     setColumnFilters,
     filters,
     setFilters,
     handleFilterChange,
+    reloadTable,
   };
 };
 

@@ -10,9 +10,9 @@ import {
     getFilteredRowModel,
     flexRender,
 } from '@tanstack/react-table';
-import { IconActualizarTabla, IconBtnExportar, IconColumnsSelect, IconFiltersCom, IconTableCLose, IconTableNext, IconTablePrevious } from './Icons.jsx';
+import { IconActualizarTabla, IconBtnExportar, IconColumnsSelect, IconFiltersCom, IconTableCLose, IconTableNext, IconTablePrevious,IconReload } from './Icons.jsx';
 
-const TableComponent = ({ data, columns, total, page, setPage, filters, setFilters, columnFilters, handleFilterChange, onTableReady,handleRowClick }) => {
+const TableComponent = ({ data, columns, total, page, setPage, filters, setFilters, columnFilters, handleFilterChange, onTableReady,handleRowClick,reloadTable }) => {
     const [location, navigate] = useLocation();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModalExportarOpen, setModalExportarOpen] = useState(false);
@@ -108,6 +108,7 @@ const TableComponent = ({ data, columns, total, page, setPage, filters, setFilte
     return (
         <div className='container__tbl'>
             <div className='container_tbl_buttons'>
+                <button id='reloadtable'  onClick={reloadTable}><IconReload/>Actualizar tabla</button>
                 <button onClick={() => setIsModalOpen(true)}><IconColumnsSelect />Orden y columnas</button>
                 <button onClick={() => setIsFilterModalOpen(true)}><IconFiltersCom />Filtros Avanzados</button>
                 <button onClick={() => setModalExportarOpen(true)}><IconBtnExportar/>Exportar</button>
