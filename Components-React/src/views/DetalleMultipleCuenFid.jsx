@@ -8,6 +8,7 @@ import useReplaceEmptyValue from '../hooks/ReplaceEmptyValue';
 function DetalleCuenFidMultiple() {
   const numeroDeContrato = localStorage.getItem('idFidSelect');
   const tablaNum = 17;
+  let actualkeyIncrement = 0;
   const { data, loading, error } = useFetchCuenFidInfoMultiple(numeroDeContrato);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showControlDocumentalModal, setShowControlDocumentalModal] = useState(false);
@@ -23,6 +24,7 @@ function DetalleCuenFidMultiple() {
   return (
     <>
       {data?.map((cuenfid) => {
+        let actualkey = actualkeyIncrement ++;
         // Definir modalContentData dentro del .map para acceder a cuenfid de cada card, importante para que cada modal muestre la informacion de acuerdo al seervicio
 		const modalContentData = {
 			detalleCuenta: {
@@ -83,7 +85,7 @@ function DetalleCuenFidMultiple() {
 
         return (
 			//SE LE PASA numeroDeCuenta como key por que NumeroDeContrato causa conflicto en la key ya que por cada card se usa el mismo numeroDeContrato y debe ser una key unica por cada card y tampoco se usa index ya que no hay un id definido en el servicio
-           <div key={cuenfid.numeroDeCuenta} className="card">  
+           <div key={actualkey} className="card">  
             <span className="card-enc"><b>Información de la cuenta {cuenfid?.numeroDeCuenta}</b></span>
             <svg viewBox="0 0 1093 2" fill="none">
               <path d="M0 1H1093" stroke="#007AFF" strokeWidth="2" />
