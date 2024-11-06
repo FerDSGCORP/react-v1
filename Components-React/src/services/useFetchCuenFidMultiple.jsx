@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import {useFetchConfig} from './useFetchConfig';
 const useFetchCuenFidInfoMultiple = (numeroDeContrato) => {
-	console.log("Multiple cuentas");
 	const [data, setData] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -36,14 +35,15 @@ const useFetchCuenFidInfoMultiple = (numeroDeContrato) => {
 					'X-User-Id': numeroDeUsuario,
 				};
 				// Hacer la petición GET al servidor con los headers y la URL adecuada
-				const response = await fetch(`${uriApi}/api/cuenfid/infoMultiple/${numeroDeContrato}`, {//FALTA GENERADOR
+				const response = await fetch(`${uriApi}/api/cuenfid/infoMultiple/${numeroDeContrato}`, {
 					method: 'GET',
 					headers: headers,
 				});
 
-				if (response.status === 204) {//fata generador
+				if (response.status === 204) {
 					return;
 				}
+
 
 				if (!response.ok) {
 					throw new Error('Error en la respuesta del servidor');
@@ -65,4 +65,4 @@ const useFetchCuenFidInfoMultiple = (numeroDeContrato) => {
 
 };
 
-export default useFetchCuenFidInfoMultiple;//fata generador
+export default useFetchCuenFidInfoMultiple;

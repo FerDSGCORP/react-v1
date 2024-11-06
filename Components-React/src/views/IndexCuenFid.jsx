@@ -22,8 +22,14 @@ function GridCuenFid() {
 		handleFilterChange,
 	} = useFilterTableChangeEvent();
 
-	const handleRowClick = () => {
+	const navigateURL = "/home/cuenfid-info";
+	const handleRowClick = (rowData) => {
+		const {numeroDeContrato, numeroDeSubContrato, numeroDePais, numeroDeMoneda, numeroDeCuenta, cveProductoCuenta, subProductoCuenta, cuentaVista, secuencial}=rowData;
+		localStorage.setItem('idFidSelect', numeroDeContrato);
+		window.dispatchEvent(new CustomEvent('fidSelectChange', { detail: numeroDeContrato }));
+		navigate(`${navigateURL}/${numeroDeContrato}/subcontrato/${numeroDeSubContrato}/pais/${numeroDePais}/moneda/${numeroDeMoneda}/cuenta/${numeroDeCuenta}/cta/${cveProductoCuenta}/cta/${subProductoCuenta}/vista/${cuentaVista}/secuencial/${secuencial}`);
 	};
+	
 	const numeroDeContrato = localStorage.getItem('idFidSelect');//falta generador
 	const { data: fetchData, total, loading, error }= useFetchCuenFid(numeroDeContrato,page, rowsPerPage, filters);
 

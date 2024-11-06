@@ -7,7 +7,7 @@ import FideicomisosCard from '../services/useFetchFideicomisosCard';
 import CartaInstruccion from './CartaInstruccion';
 import GridCuenFid from './IndexCuenFid';
 import cuenFidMultiple from '../services/useFetchCuenFidMultiple';
-import DetalleCuenFid from './DetalleCuenFid';
+import DetalleMultipleCuenFid from './DetalleMultipleCuenFid';
 
 function getNumContratoLocalST() {
   return localStorage.getItem('idFidSelect');
@@ -23,7 +23,7 @@ function CuenFidInfoRoute({ params }) {
 
   return data?.length > 11
     ? <GridCuenFid numeroDeContrato={numeroDeContrato} />
-    : <DetalleCuenFid numeroDeContrato={numeroDeContrato} />;
+    : <DetalleMultipleCuenFid numeroDeContrato={numeroDeContrato} />;
 }
 
 

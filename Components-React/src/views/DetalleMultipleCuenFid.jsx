@@ -1,13 +1,14 @@
 ﻿//Generado Automáticamente, Versión del generador: 5.0
 import React, { useEffect, useState } from 'react';
-import useFetchCuenFidInfo from '../services/useFetchCuenFidInfo';
+import useFetchCuenFidInfoMultiple from '../services/useFetchCuenFidMultiple';
 import ControlDocumentalModal from '../components/ControlDocumentalModal';
 import ModalComponent from '../components/ModalComponent';
 import useReplaceEmptyValue from '../hooks/ReplaceEmptyValue';
 
-function DetalleCuenFid(numeroDeContrato, numeroDeSubContrato, numeroDePais, numeroDeMoneda, numeroDeCuenta, cveProductoCuenta, subProductoCuenta, cuentaVista, secuencial) {
+function DetalleCuenFidMultiple() {
+	const numeroDeContrato = localStorage.getItem('idFidSelect');
 	const tablaNum = 17;
-	const { data, loading, error } = useFetchCuenFidInfo(numeroDeContrato, numeroDeSubContrato, numeroDePais, numeroDeMoneda, numeroDeCuenta, cveProductoCuenta, subProductoCuenta, cuentaVista, secuencial);
+	const { data, loading, error } = useFetchCuenFidInfoMultiple(numeroDeContrato);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [showControlDocumentalModal, setShowControlDocumentalModal] = useState(false);
 	const [modalContentKey, setModalContentKey] = useState('estadoInicial');
@@ -77,19 +78,20 @@ function DetalleCuenFid(numeroDeContrato, numeroDeSubContrato, numeroDePais, num
 
 	return (
 		<>
+		 {data?.map((cuenfid) => (
 			<div className="card">
-				<span className="card-enc"><b>Información de la cuenta {data?.numeroDeCuenta}</b></span>
+				<span className="card-enc"><b>Información de la cuenta {cuenfid?.numeroDeCuenta}</b></span>
 				<svg viewBox="0 0 1093 2" fill="none">
 					<path d="M0 1H1093" stroke="#007AFF" strokeWidth="2" />
 				</svg>
 				<div className="card-content">
 					<div className="cardHorizontal">
 						<span><b>Número de Cuenta</b></span>
-						<span>{displayData(data?.numeroDeCuenta)}</span>
+						<span>{displayData(cuenfid?.numeroDeCuenta)}</span>
 						<span><b>Nombre de Cuenta</b></span>
-						<span>{displayData(data?.nombreDeCuenta)}</span>
+						<span>{displayData(cuenfid?.nombreDeCuenta)}</span>
 						<span><b>Banco</b></span>
-						<span>{displayData(data?.nombreDeBanco)}</span>
+						<span>{displayData(cuenfid?.nombreDeBanco)}</span>
 					</div>
 					<div className="buttons_container">
 						<button onClick={openModal} id="botondetalleCuenta" value="detalleCuenta">Detalle de la cuenta</button>
@@ -99,14 +101,14 @@ function DetalleCuenFid(numeroDeContrato, numeroDeSubContrato, numeroDePais, num
 					</div>
 				</div>
 			</div>
-			{showControlDocumentalModal && (
+		 ))}
+		 {showControlDocumentalModal && (
 				<ControlDocumentalModal
 					isOpen={showControlDocumentalModal}
 					closeModal={() => setShowControlDocumentalModal(false)}
 					tablaNum={tablaNum}
 				/>
-			)}
-			{isModalOpen && (
+				)}{isModalOpen && (
 				<>
 					{modalContentData[modalContentKey] && (
 						<ModalComponent
@@ -122,4 +124,4 @@ function DetalleCuenFid(numeroDeContrato, numeroDeSubContrato, numeroDePais, num
 	);
 }
 
-export default DetalleCuenFid;
+export default DetalleCuenFidMultiple;
