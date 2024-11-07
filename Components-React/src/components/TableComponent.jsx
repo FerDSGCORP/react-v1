@@ -116,42 +116,52 @@ const TableComponent = ({ data, columns, total, page, setPage, filters, setFilte
 
             <div className='container__tbl_table'>
                 <table>
-                    <thead>
-                        <tr>
-                            {table.getHeaderGroups().map(headerGroup =>
-                                headerGroup.headers.map(header => (
-                                    <th key={header.id}>
-                                        {header.column.columnDef.header}
-                                        {header.column.columnDef.field === "text" ? (
-                                            <input
-                                                type="text"
-                                                placeholder={`Filtrar ${header.column.columnDef.header}`}
-                                                value={columnFilters[header.column.id] || ''}
-                                                onChange={(e) => handleFilterChange(header.column.id, e.target.value)}
-                                            />
-                                        ) : (
-                                            <select className='container__tbl_select'
-                                                value={columnFilters[header.column.id] || ''}
-                                                onChange={(e) => handleFilterChange(header.column.id, e.target.value)}
-                                            >
-                                                <option value="">Seleccione</option>
-                                                {data.length > 0 && [...new Set(data.map((row) => row[header.column.id]).filter(Boolean))]
-                                                    .map((uniqueValue, index) => (
-                                                        <option key={`${header.column.id}-${index}`} value={uniqueValue}>
-                                                            {uniqueValue}
-                                                        </option>
-                                                    ))}
-                                            </select>
-                                        )}
-
-                                        <div onMouseDown={header.getResizeHandler()} onTouchStart={header.getResizeHandler()} className="resizer" style={{
-                                            transform: header.column.getIsResizing() ? 'scaleX(2)' : '',
-                                        }} />
-                                    </th>
-                                ))
+                   <thead>
+                    <tr>
+                        {table.getHeaderGroups().map(headerGroup =>
+                        headerGroup.headers.map(header => (
+                            <th key={header.id}>
+                            {header.column.columnDef.header}
+                            
+                            {header.column.columnDef.field === "text" && (
+                                <input
+                                type="text"
+                                placeholder={`Filtrar ${header.column.columnDef.header}`}
+                                value={columnFilters[header.column.id] || ''}
+                                onChange={(e) => handleFilterChange(header.column.id, e.target.value)}
+                                />
                             )}
-                        </tr>
+                            
+                            {header.column.columnDef.field === "select" && (
+                                <select
+                                className='container__tbl_select'
+                                value={columnFilters[header.column.id] || ''}
+                                onChange={(e) => handleFilterChange(header.column.id, e.target.value)}
+                                >
+                                <option value="">Seleccione</option>
+                                {data.length > 0 && [...new Set(data.map((row) => row[header.column.id]).filter(Boolean))]
+                                    .map((uniqueValue, index) => (
+                                    <option key={`${header.column.id}-${index}`} value={uniqueValue}>
+                                        {uniqueValue}
+                                    </option>
+                                    ))}
+                                </select>
+                            )}
+
+                            <div
+                                onMouseDown={header.getResizeHandler()}
+                                onTouchStart={header.getResizeHandler()}
+                                className="resizer"
+                                style={{
+                                transform: header.column.getIsResizing() ? 'scaleX(2)' : '',
+                                }}
+                            />
+                            </th>
+                        ))
+                        )}
+                    </tr>
                     </thead>
+
                     <tbody>
                         {table.getRowModel().rows.map(row => (
                             <tr key={row.id} onClick={() => handleRowClick(row.original)}>

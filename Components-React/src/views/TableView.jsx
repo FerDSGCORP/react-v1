@@ -4,6 +4,7 @@ import MenuColumns from '../components/MenuColumns';
 import useFetchContrato from '../services/useFetchContrato';
 import useFilterTableChangeEvent from '../hooks/FilterTableChangeEvent';
 import { useLocation } from 'wouter';
+import { IconEye } from '../components/Icons';
 
 const MainComponent = () => {
   const [location, navigate] = useLocation();
@@ -86,6 +87,8 @@ const MainComponent = () => {
     { id: "TextoRenovacionRegPresupuestal", header: "TextoRenovacionRegPresupuestal", accessorKey: "TextoRenovacionRegPresupuestal", field: "select", visibilityCol: false },
     { id: "RenovacionRegPresupuestal", header: "RenovacionRegPresupuestal", accessorKey: "RenovacionRegPresupuestal", field: "select", visibilityCol: false },
     { id: "TextoInformativaSAT", header: "TextoInformativaSAT", accessorKey: "TextoInformativaSAT", field: "select", visibilityCol: false },
+    { id: "iconColumn", header: "", accessorKey: "iconColumn", field: "icon", visibilityCol: true, cell: () => <IconEye/>},
+
   ], []);
 
 
@@ -137,7 +140,8 @@ const MainComponent = () => {
         TextoRegistroPresupuestal: cellData[40],
         TextoRenovacionRegPresupuestal: cellData[41],
         RenovacionRegPresupuestal: cellData[42],
-        TextoInformativaSAT: cellData[43]
+        TextoInformativaSAT: cellData[43],
+        iconColumn: '',
       };
     });
   }, [fetchData]);
