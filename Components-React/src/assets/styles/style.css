@@ -1857,3 +1857,15 @@ select#selectProblema {
   align-items: center;
   gap: 1rem;
 }
+.--text-center{
+  text-align: center;
+}
+
+.--pd-05{
+  padding: 1rem;
+}
+.container__actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

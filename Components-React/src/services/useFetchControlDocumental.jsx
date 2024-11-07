@@ -33,19 +33,19 @@ const useControlDocumental = (tablaNum) => {
           'X-User-Id': `${idUser}`,
         };
 
-
         const response = await fetch(`${uriApi}/api/hojacontroldet/documentos/numeroDeTabla/${tablaNum}/liga/${numContrato}`, {
           method: 'GET',
           headers: headers,
         });
 
-        if (!response.ok) {
+        if (response.status === 204) {
+          setData([]);
+        } else if (!response.ok) {
           throw new Error('Error en la respuesta del servidor');
+        } else {
+          const jsonData = await response.json();
+          setData(Array.isArray(jsonData.documentos) ? jsonData.documentos : []);
         }
-
-        const jsonData = await response.json();
-
-        setData(Array.isArray(jsonData.documentos) ? jsonData.documentos : []);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -54,7 +54,7 @@ const useControlDocumental = (tablaNum) => {
     };
 
     fetchData();
-  }, [tablaNum,config]);
+  }, [tablaNum, config]);
 
   return { data, loading, error };
 };

@@ -26,18 +26,32 @@ function ControlDocumentalModal({ isOpen, closeModal, tablaNum }) {
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 7;
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     if (isOpen) {
       setCurrentPage(1);
+      setSearchTerm('');
     }
   }, [isOpen]);
 
-  const totalPages = Math.ceil((data && data.length ? data.length : 0) / itemsPerPage);
+  const filteredData = (data || []).filter((documento) =>
+    documento.nombreDeDocumento.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    documento.nombreDeElemento.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+
+  const totalPages = Math.max(1, Math.ceil(filteredData.length / itemsPerPage));
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [totalPages, currentPage]);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = data && data.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
   const iconExtension = {
     IconPDF,
@@ -61,7 +75,7 @@ function ControlDocumentalModal({ isOpen, closeModal, tablaNum }) {
       <div className="modal">
         <div className="modal-content">
           <div className="modal-content-head">
-            <h2>Loading...</h2>
+            <h2>Cargando...</h2>
           </div>
         </div>
       </div>
@@ -101,51 +115,70 @@ function ControlDocumentalModal({ isOpen, closeModal, tablaNum }) {
           </button>
         </div>
         <div className="modal_body">
-          <div className="container__actions">
-            <div className="searchopt">
-            </div>
-            <div className="pagination">
-              <div className="container__Buttons__paginations">
-                <button
-                  id='first-Page'
-                  onClick={() => setCurrentPage(1)}
-                  disabled={currentPage === 1}
-                >
-                  <PaginacionPrimera />
-                </button>
-                <button
-                  id='prev-Page'
-                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                  disabled={currentPage === 1}
-                >
-                  <PaginacionPrev />
-                </button>
+          {filteredData.length > 0 && (
+            <div className="container__actions">
+              <div className="searchopt">
+                {/* Campo de búsqueda */}
+                <input
+                  type="text"
+                  placeholder="Buscar documentos..."
+                  value={searchTerm}
+                  onChange={(e) => {
+                    setSearchTerm(e.target.value);
+                    setCurrentPage(1);
+                  }}
+                />
               </div>
+              <div className="pagination">
+                <div className="container__Buttons__paginations">
+                  <button
+                    id='first-Page'
+                    onClick={() => setCurrentPage(1)}
+                    disabled={currentPage === 1}
+                  >
+                    <PaginacionPrimera />
+                  </button>
+                  <button
+                    id='prev-Page'
+                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                    disabled={currentPage === 1}
+                  >
+                    <PaginacionPrev />
+                  </button>
+                </div>
 
-              <span>Página <b>{currentPage}</b> de <b>{totalPages}</b></span>
+                <span>Página <b>{currentPage}</b> de <b>{totalPages}</b></span>
 
-              <div className="container__Buttons__paginations">
-                <button
-                  id='next-Page'
-                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                  disabled={currentPage === totalPages}
-                >
-                  <PaginacionNext />
-                </button>
-                <button
-                  id='last-Page'
-                  onClick={() => setCurrentPage(totalPages)}
-                  disabled={currentPage === totalPages}
-                >
-                  <PaginacionUltima />
-                </button>
+                <div className="container__Buttons__paginations">
+                  <button
+                    id='next-Page'
+                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                    disabled={currentPage === totalPages || totalPages === 1}
+                  >
+                    <PaginacionNext />
+                  </button>
+                  <button
+                    id='last-Page'
+                    onClick={() => setCurrentPage(totalPages)}
+                    disabled={currentPage === totalPages || totalPages === 1}
+                  >
+                    <PaginacionUltima />
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="container_list">
-            <ul>
-              {Array.isArray(currentItems) && currentItems.length > 0 ? (
-                currentItems.map((documento, index) => {
+          )}
+
+          {filteredData.length === 0 && (
+            <div className="--text-center --pd-05">
+              <p>No hay documentos cargados</p>
+            </div>
+          )}
+
+          {filteredData.length > 0 && (
+            <div className="container_list">
+              <ul>
+                {currentItems.map((documento, index) => {
                   const extension = documento.extension.toUpperCase();
                   const iconName = `Icon${extension}`;
                   const ExtensionIcon = iconExtension[iconName] || IconFILEGEN;
@@ -172,12 +205,10 @@ function ControlDocumentalModal({ isOpen, closeModal, tablaNum }) {
                       </a>
                     </li>
                   );
-                })
-              ) : (
-                <li>No documents found.</li>
-              )}
-            </ul>
-          </div>
+                })}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </div>
