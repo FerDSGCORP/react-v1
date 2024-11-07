@@ -123,6 +123,13 @@ function RenderView() {
             <Route path="/home/cinterfid-info/:idFidSelect">
               {params => <GridCInterFid idFidSelect={idFidSelect} />}
             </Route>
+            <Route path="/home/cuenfid-detalle/:numeroDeContrato/subcontrato/:numeroDeSubContrato/pais/:numeroDePais/moneda/:numeroDeMoneda/cuenta/:numeroDeCuenta/cta/:cveProductoCuenta/cta/:subProductoCuenta/vista/:cuentaVista/secuencial/:secuencial">
+              {params => {
+                return <DetalleCuenFid {...params} />;
+              }}
+            </Route>
+
+
           </Switch>
         </div>
         <div className="container__notifications">

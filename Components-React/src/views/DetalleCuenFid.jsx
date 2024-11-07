@@ -5,7 +5,7 @@ import ControlDocumentalModal from '../components/ControlDocumentalModal';
 import ModalComponent from '../components/ModalComponent';
 import useReplaceEmptyValue from '../hooks/ReplaceEmptyValue';
 
-function DetalleCuenFid(numeroDeContrato, numeroDeSubContrato, numeroDePais, numeroDeMoneda, numeroDeCuenta, cveProductoCuenta, subProductoCuenta, cuentaVista, secuencial) {
+function DetalleCuenFid({numeroDeContrato, numeroDeSubContrato, numeroDePais, numeroDeMoneda, numeroDeCuenta, cveProductoCuenta, subProductoCuenta, cuentaVista, secuencial}) {
 	const tablaNum = 17;
 	const { data, loading, error } = useFetchCuenFidInfo(numeroDeContrato, numeroDeSubContrato, numeroDePais, numeroDeMoneda, numeroDeCuenta, cveProductoCuenta, subProductoCuenta, cuentaVista, secuencial);
 	const [isModalOpen, setIsModalOpen] = useState(false);

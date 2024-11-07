@@ -8,7 +8,7 @@ import CartaInstruccion from './CartaInstruccion';
 import GridCuenFid from './IndexCuenFid';
 import cuenFidMultiple from '../services/useFetchCuenFidMultiple';
 import DetalleMultipleCuenFid from './DetalleMultipleCuenFid';
-
+import DetalleCuenFid from './DetalleCuenFid'
 function getNumContratoLocalST() {
   return localStorage.getItem('idFidSelect');
 }
@@ -34,7 +34,7 @@ function ContentRenderView() {
   const { numeroDeUsuario } = userData ? JSON.parse(userData) : {};
 
   const { records, loading, error } = FideicomisosCard(numeroDeUsuario);
- 
+
   useEffect(() => {
     const token = sessionStorage.getItem('token');
     if (!token) {
@@ -66,12 +66,19 @@ function ContentRenderView() {
           {params => <DetalleFideicomiso idFid={params.idFid} />}
         </Route>
         <Route path="/home/instruccionpagoconcilia-envio/:idFid">
-            {params => <CartaInstruccion idFid={params.idFid}/>}
+          {params => <CartaInstruccion idFid={params.idFid} />}
         </Route>
         <Route path="/home/cuenfid-info/:numeroDeContrato" component={CuenFidInfoRoute} />
+        <Route path="/home/cuenfid-detalle/:numeroDeContrato/subcontrato/:numeroDeSubContrato/pais/:numeroDePais/moneda/:numeroDeMoneda/cuenta/:numeroDeCuenta/cta/:cveProductoCuenta/cta/:subProductoCuenta/vista/:cuentaVista/secuencial/:secuencial">
+          {params => {
+            return <DetalleCuenFid {...params} />;
+          }}
+        </Route>
+
+
 
         <Route path="/home/cinterfid-info/:numeroDeContrato">
-          {params => <GridCInterFid numeroDeContrato={params.idFid}/>}
+          {params => <GridCInterFid numeroDeContrato={params.idFid} />}
         </Route>
       </Switch>
     </div>

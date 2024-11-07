@@ -26,7 +26,7 @@ const MainComponent = () => {
   const navigateURL = "/home/contrato-info";
 
   const handleRowClick = (rowData) => {
-    const { NumeroDeContrato } = rowData; //PASAR PARAMETROS TAL Y COMO ESTA EN EL SERVICIO 
+    const { NumeroDeContrato } = rowData;
     localStorage.setItem('idFidSelect', NumeroDeContrato);
     window.dispatchEvent(new CustomEvent('fidSelectChange', { detail: NumeroDeContrato }));
     const url = `${navigateURL}/${NumeroDeContrato}`;

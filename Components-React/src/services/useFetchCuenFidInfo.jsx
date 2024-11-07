@@ -7,10 +7,10 @@ const useFetchCuenFidInfo = (numeroDeContrato, numeroDeSubContrato, numeroDePais
 	const [error, setError] = useState(null);
 	const { config } = useFetchConfig();
 	useEffect(() => {
-		if(!numeroDeContrato&&!numeroDeSubContrato&&!numeroDePais&&!numeroDeMoneda&&!numeroDeCuenta&&!cveProductoCuenta&&!subProductoCuenta&&!cuentaVista&&!secuencial||!config){
+		if (!config) {
 			setLoading(true);
 			return;
-		}
+		  }
 		const fetchData = async () => {
 			setLoading(true);
 			try {

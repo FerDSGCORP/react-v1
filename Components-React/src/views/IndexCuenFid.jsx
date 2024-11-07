@@ -22,14 +22,26 @@ function GridCuenFid() {
 		handleFilterChange,
 	} = useFilterTableChangeEvent();
 
-	const navigateURL = "/home/cuenfid-info";
+	const navigateURL = "/home/cuenfid-detalle";
 	const handleRowClick = (rowData) => {
-		const {numeroDeContrato, numeroDeSubContrato, numeroDePais, numeroDeMoneda, numeroDeCuenta, cveProductoCuenta, subProductoCuenta, cuentaVista, secuencial}=rowData;
+		// pasar los parametros de TransformaData y pasarlos a minusculas
+		const {
+			NumeroDeContrato: numeroDeContrato,
+			NumeroDeSubContrato: numeroDeSubContrato,
+			NumeroDePais: numeroDePais,
+			NumeroDeMoneda: numeroDeMoneda,
+			NumeroDeCuenta: numeroDeCuenta,
+			CveProductoCuenta: cveProductoCuenta,
+			SubProductoCuenta: subProductoCuenta,
+			CuentaVista: cuentaVista,
+			Secuencial: secuencial,
+		  } = rowData;
 		localStorage.setItem('idFidSelect', numeroDeContrato);
 		window.dispatchEvent(new CustomEvent('fidSelectChange', { detail: numeroDeContrato }));
-		navigate(`${navigateURL}/${numeroDeContrato}/subcontrato/${numeroDeSubContrato}/pais/${numeroDePais}/moneda/${numeroDeMoneda}/cuenta/${numeroDeCuenta}/cta/${cveProductoCuenta}/cta/${subProductoCuenta}/vista/${cuentaVista}/secuencial/${secuencial}`);
+		const url = `${navigateURL}/${numeroDeContrato}/subcontrato/${numeroDeSubContrato}/pais/${numeroDePais}/moneda/${numeroDeMoneda}/cuenta/${numeroDeCuenta}/cta/${cveProductoCuenta}/cta/${subProductoCuenta}/vista/${cuentaVista}/secuencial/${secuencial}`;
+		navigate(url);
 	};
-	
+
 	const numeroDeContrato = localStorage.getItem('idFidSelect');//falta generador
 	const { data: fetchData, total, loading, error }= useFetchCuenFid(numeroDeContrato,page, rowsPerPage, filters);
 
