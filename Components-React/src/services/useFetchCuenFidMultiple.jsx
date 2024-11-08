@@ -41,6 +41,7 @@ const useFetchCuenFidInfoMultiple = (numeroDeContrato) => {
 				});
 
 				if (response.status === 204) {
+					setData([]);
 					return;
 				}
 

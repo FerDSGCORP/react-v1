@@ -19,6 +19,7 @@ function DetalleCuenFidMultiple() {
 
   if (loading) return <p>Cargando datos...</p>;
   if (error) return <p>Error al cargar los datos: {error}</p>;
+  if (!data || data.length === 0) return <p>No hay datos</p>;
 
   //para ahcer dinamico modalContentData y los cards se mete en un .map todo el bloque que sera dinamico, esto hara que cada modalContentData se enlace con cada card
   return (
