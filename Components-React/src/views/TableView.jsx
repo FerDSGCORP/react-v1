@@ -25,7 +25,7 @@ const MainComponent = () => {
 
 
   const navigateURL = "/home/contrato-info";
-
+  const ligaServer = "contrato";	
   const handleRowClick = (rowData) => {
     const { NumeroDeContrato } = rowData;
     localStorage.setItem('idFidSelect', NumeroDeContrato);
@@ -185,6 +185,7 @@ const MainComponent = () => {
         onTableReady={setTableState}
         handleRowClick={handleRowClick}
         reloadTable = {handleReloadTable}
+        ligaServer={ligaServer}
       />
 
     </div>

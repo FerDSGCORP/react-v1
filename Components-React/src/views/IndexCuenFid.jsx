@@ -22,6 +22,7 @@ function GridCuenFid() {
 		handleFilterChange,
 	} = useFilterTableChangeEvent();
 
+	const ligaServer = "cuenfid";	
 	const navigateURL = "/home/cuenfid-detalle";
 	const handleRowClick = (rowData) => {
 		// pasar los parametros de TransformaData y pasarlos a minusculas
@@ -170,6 +171,7 @@ function GridCuenFid() {
 			handleFilterChange={handleFilterChange}
 			onTableReady={setTableState}
 			handleRowClick={handleRowClick}
+			ligaServer = {ligaServer}
 		/>
 		</div>
 	);

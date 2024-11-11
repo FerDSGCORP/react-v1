@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useFetchConfig } from './useFetchConfig';
 
-const useExportarDatosTable = (payload) => {
+const useExportarDatosTable = (payload, ligaServer) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { config } = useFetchConfig();
@@ -20,7 +20,6 @@ const useExportarDatosTable = (payload) => {
         const uriApi = config.apiUri;
         const token = sessionStorage.getItem('token');
         const userDataStr = localStorage.getItem('userData');
-        const ligaServer = "contrato";
         if (!token) {
           throw new Error('Token no encontrado en sessionStorage. Por favor, inicia sesión nuevamente.');
         }

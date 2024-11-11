@@ -12,7 +12,7 @@ import {
 } from '@tanstack/react-table';
 import { IconActualizarTabla, IconBtnExportar, IconColumnsSelect, IconFiltersCom, IconTableCLose, IconTableNext, IconTablePrevious,IconReload } from './Icons.jsx';
 
-const TableComponent = ({ data, columns, total, page, setPage, filters, setFilters, columnFilters, handleFilterChange, onTableReady,handleRowClick,reloadTable }) => {
+const TableComponent = ({ data, columns, total, page, setPage, filters, setFilters, columnFilters, handleFilterChange, onTableReady,handleRowClick,reloadTable, ligaServer }) => {
     const [location, navigate] = useLocation();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModalExportarOpen, setModalExportarOpen] = useState(false);
@@ -87,7 +87,7 @@ const TableComponent = ({ data, columns, total, page, setPage, filters, setFilte
         setExportPayload(payload);
     };
 
-    const { data: exportData, loading: exportLoading, error: exportError } = useExportarDatosTable(exportPayload);
+    const { data: exportData, loading: exportLoading, error: exportError } = useExportarDatosTable(exportPayload, ligaServer);
 
     useEffect(() => {
         if (onTableReady && data.length > 0) {
