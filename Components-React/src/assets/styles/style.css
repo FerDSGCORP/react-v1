@@ -9,6 +9,7 @@
   --primary-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   --secondary-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.25);
   --primary-border: 1px solid #E4E7EB;
+  --primary-color-icon:#007AFF;
 }
 
 .hide,
@@ -22,6 +23,7 @@
 ul.aside_list.hide {
   display: none;
 }
+
 
 .resizer {
   display: inline-block;

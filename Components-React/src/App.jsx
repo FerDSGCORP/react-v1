@@ -3,6 +3,7 @@ import { Route, Switch, useLocation, Redirect } from 'wouter';
 import RenderView from './views/Renderview';
 import LogIn from './views/LogIn';
 import useFetchObtenFechaActual from './services/useFetchObtenFechaActual';
+import { ThemeProvider } from './context/theme';
 
 function App() {
   const [location, navigate] = useLocation();
@@ -55,12 +56,15 @@ function App() {
   }
 
   return (
-    <Switch>
-      <Route path="/">
-        {isSessionValid ? <Redirect to="/home/" /> : <LogIn />}
-      </Route>
-      <Route path="/home/*" component={RenderView} />
-    </Switch>
+    <ThemeProvider>
+      <Switch>
+        <Route path="/">
+          {isSessionValid ? <Redirect to="/home/" /> : <LogIn />}
+        </Route>
+        <Route path="/home/*" component={RenderView} />
+      </Switch>
+    </ThemeProvider>
+
   );
 }
 

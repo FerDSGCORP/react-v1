@@ -1,43 +1,93 @@
+// ModalOpcionesTema.js
+import React, { useContext } from 'react';
+import { ThemeContext } from '../context/theme'
 
+function ModalOpcionesTema({ isOpen, closeModal }) {
+  const {
+    primaryColor,
+    setPrimaryColor,
+    secondaryColor,
+    setSecondaryColor,
+    textColor,
+    setTextColor,
+    iconColor,
+    setIconColor,
+    saveColorsToCookies,
+    resetColors,
+  } = useContext(ThemeContext);
 
-const ModalOpcionesTema = () => {
-    return (
+  const saveAndClose = () =>{
+    saveColorsToCookies();
+    closeModal();
+  } 
+  const resetValues = () => {
+    resetColors();
+    closeModal();
+  }
+  return (
+    <>
+      {isOpen && (
         <div className="modal">
-        <div className="modal-content">
-            <div className='modal-content-head'>
-                <h2>Selección de colores</h2>
-                <button type='button' className="close-button" onClick={closeModal}>&times;</button>
+          <div className="modal-content">
+            <div className="modal-content-head">
+              <h2>Selección de colores</h2>
+              <button type="button" className="close-button" onClick={closeModal}>
+                &times;
+              </button>
             </div>
             <div className="card-content">
-                <div className="cardHorizontal __cardColor">
-                    <div className="card-form">
-                        <span>Color Primario</span>
-                        <input type="color" value="#007AFF" oninput="colorhex1.value=value"></input>
-                        <output id="colorhex1">#007AFF</output>
-                    </div>
-                    <div className="card-form">
-                        <span>Color Secundario</span>
-                        <input type="color" value="#062C62" oninput="colorhex2.value=value"></input>
-                        <output id="colorhex2">#062C62</output>
-                    </div>
+              <div className="cardHorizontal __cardColor">
+                <div className="card-form">
+                  <span>Color Primario</span>
+                  <input
+                    type="color"
+                    value={primaryColor}
+                    onChange={(e) => setPrimaryColor(e.target.value)}
+                  />
+                  <output>{primaryColor}</output>
                 </div>
-                <div className="cardHorizontal __cardColor">
-                    <div className="card-form">
-                        <span>Color Texto</span>
-                        <input type="color" value="#000000" oninput="colorhex3.value=value"></input>
-                        <output id="colorhex3">#000000</output>
-                    </div>
-                    <div className="card-form">
-                        <span>Color Iconos</span>
-                        <input type="color" value="#007AFF" oninput="colorhex4.value=value"></input>
-                        <output id="colorhex4">#007AFF</output>
-                    </div>
+                <div className="card-form">
+                  <span>Color Secundario</span>
+                  <input
+                    type="color"
+                    value={secondaryColor}
+                    onChange={(e) => setSecondaryColor(e.target.value)}
+                  />
+                  <output>{secondaryColor}</output>
                 </div>
+              </div>
+              <div className="cardHorizontal __cardColor">
+                <div className="card-form">
+                  <span>Color Texto</span>
+                  <input
+                    type="color"
+                    value={textColor}
+                    onChange={(e) => setTextColor(e.target.value)}
+                  />
+                  <output>{textColor}</output>
+                </div>
+                <div className="card-form">
+                  <span>Color Iconos</span>
+                  <input
+                    type="color"
+                    value={iconColor}
+                    onChange={(e) => setIconColor(e.target.value)}
+                  />
+                  <output>{iconColor}</output>
+                </div>
+              </div>
             </div>
-            <button className="btn">Guardar y aplicar</button>
+            <button className="btn" onClick={saveAndClose}>
+              Guardar y aplicar
+            </button>
+            <button className="btn" onClick={resetValues}>
+              Reestablecer
+            </button>
+          </div>
         </div>
-    </div>
-    );
+      )}
+    </>
+  );
 }
 
-export default ModalOpcionesTema
+export default ModalOpcionesTema;
