@@ -191,7 +191,7 @@ const TableComponent = ({ data, columns, total, page, setPage, filters, setFilte
                     <div className="modal-content">
                         <div className='modal-content-head'>
                             <h2>Configurar Columnas</h2>
-                            <button onClick={() => setIsModalOpen(false)}><IconTableCLose /></button>
+                            <button onClick={() => setIsModalOpen(false)}>X</button>
                         </div>
                         <MenuColumns
                             columns={columns}
