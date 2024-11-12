@@ -542,6 +542,8 @@ aside.collapse .aside_list_link.dropdown .aside_list_link_content i:last-child {
 }
 
 .modal-content-head button {
+  width: 28px;
+  height: 28px;
   padding: 5px;
   background-color: var(--tertiary-color);
   color: var(--white);
@@ -550,6 +552,12 @@ aside.collapse .aside_list_link.dropdown .aside_list_link_content i:last-child {
   border-radius: 20px;
   float: right;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-content-head button svg > path{
+  stroke: #fff;
 }
 
 .containerFilterdiv {

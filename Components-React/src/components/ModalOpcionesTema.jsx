@@ -1,6 +1,7 @@
 // ModalOpcionesTema.js
 import React, { useContext } from 'react';
 import { ThemeContext } from '../context/theme'
+import { IconTableCLose } from './Icons';
 
 function ModalOpcionesTema({ isOpen, closeModal }) {
   const {
@@ -32,7 +33,7 @@ function ModalOpcionesTema({ isOpen, closeModal }) {
             <div className="modal-content-head">
               <h2>Selección de colores</h2>
               <button type="button" className="close-button" onClick={closeModal}>
-                &times;
+                <IconTableCLose/>
               </button>
             </div>
             <div className="card-content">
