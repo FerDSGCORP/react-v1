@@ -377,7 +377,7 @@ aside.collapse .aside_list_link.dropdown .aside_list_link_content i:last-child {
 }
 
 .--menuActive {
-  background: #007AFF20;
+  background: var(--primary-color-hover);
 }
 
 .collapse .aside_container_list .aside_list_link i:hover>.tooltip {
@@ -624,7 +624,7 @@ th>input[type="text"] {
 }
 
 .pagination span b:first-child {
-  background-color: #007AFF35;
+  background-color: var(--primary-color-hover);
   padding: 1px 4px;
   border: solid .5px var(--primary-color);
   border-radius: 4px;
@@ -823,7 +823,7 @@ th>input[type="text"] {
 }
 
 #userName {
-  color: #007AFF;
+  color: var(--primary-color);
 }
 
 .container__notificationExpand {
@@ -873,7 +873,7 @@ th>input[type="text"] {
 }
 
 .rbc-toolbar button:hover {
-  background-color: #007AFF25;
+  background-color: var(--primary-color-hover);
   color: var(--primary-color);
   border-color: var(--primary-color);
 }
@@ -1376,7 +1376,7 @@ button.react-calendar__tile--now:enabled:hover,
 }
 
 .btn:hover {
-  background: #007bff50;
+  background: var(--primary-color-hover);
 }
 
 .--btn-sm {
@@ -1532,7 +1532,7 @@ button.react-calendar__tile--now:enabled:hover,
 }
 
 .buttons_container button:hover {
-  background-color: #007AFF25;
+  background-color: var(--primary-color-hover);
 }
 
 div#frm_infoFideicomiso {
