@@ -1,4 +1,4 @@
-// ModalOpcionesTema.js
+
 import React, { useContext } from 'react';
 import { ThemeContext } from '../context/theme'
 import { IconTableCLose } from './Icons';

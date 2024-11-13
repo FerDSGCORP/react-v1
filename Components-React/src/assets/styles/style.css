@@ -1888,3 +1888,6 @@ select#selectProblema {
   justify-content: space-between;
   align-items: center;
 }
+.errorlbl{
+  border: 1px solid #ff4545 !important;
+}

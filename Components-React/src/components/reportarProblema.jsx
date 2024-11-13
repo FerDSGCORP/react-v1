@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import { IconPicture, IconPictureDelete } from "./Icons";
+import useReportarProblema from "../services/useFetchReportarProblema";
 
 function ReportarProblema() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [selectError, setSelectError] = useState(false);
+  const [textareaError, setTextareaError] = useState(false);
+  const [selectValue, setSelectValue] = useState("");
+  const [textareaValue, setTextareaValue] = useState("");
+
+  const { sendFile, data, records, loading, error } = useReportarProblema();
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -11,6 +18,11 @@ function ReportarProblema() {
 
   const closeModal = () => {
     setIsModalOpen(false);
+    setSelectValue("");
+    setTextareaValue("");
+    setUploadedFiles([]);
+    setSelectError(false);
+    setTextareaError(false);
   };
 
   const handleFileChange = (event) => {
@@ -27,6 +39,44 @@ function ReportarProblema() {
 
   const truncateFileName = (name) => {
     return name.length > 8 ? name.substring(0, 8) + "..." : name;
+  };
+
+  const handleSelectChange = (event) => {
+    setSelectValue(event.target.value);
+    if (event.target.value) {
+      setSelectError(false);
+    }
+  };
+
+  const handleTextareaChange = (event) => {
+    setTextareaValue(event.target.value);
+    if (event.target.value.trim()) {
+      setTextareaError(false);
+    }
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    let hasError = false;
+
+    if (!selectValue) {
+      setSelectError(true);
+      hasError = true;
+    }
+    if (!textareaValue.trim()) {
+      setTextareaError(true);
+      hasError = true;
+    }
+
+    if (!hasError) {
+      try {
+        await sendFile(uploadedFiles, selectValue, textareaValue);
+        alert("Reporte enviado exitosamente.");
+        closeModal();
+      } catch (err) {
+        alert(`Error al enviar el reporte: ${err.message}`);
+      }
+    }
   };
 
   return (
@@ -63,13 +113,17 @@ function ReportarProblema() {
               </p>
             </div>
             <div className="container__content">
-              <form className="frm_reportar" action="">
+              <form className="frm_reportar" onSubmit={handleSubmit}>
                 <div className="container__field">
                   <span>Reporte del problema:</span>
-                  <select name="selectProblema" id="selectProblema">
-                    <option value="" selected>
-                      Selecciona una opción
-                    </option>
+                  <select
+                    name="selectProblema"
+                    id="selectProblema"
+                    value={selectValue}
+                    onChange={handleSelectChange}
+                    className={selectError ? "errorlbl" : ""}
+                  >
+                    <option value="">Selecciona una opción</option>
                     <option value="Conexion">Conexión</option>
                     <option value="Subida de archivo">Subida de archivo</option>
                     <option value="Pantalla no visible">Pantalla no visible</option>
@@ -80,7 +134,12 @@ function ReportarProblema() {
                 </div>
                 <div className="container__field">
                   <span>Descripción del problema:</span>
-                  <textarea name="" id="" rows="5"></textarea>
+                  <textarea
+                    rows="5"
+                    value={textareaValue}
+                    onChange={handleTextareaChange}
+                    className={textareaError ? "errorlbl" : ""}
+                  ></textarea>
                 </div>
                 <div className="container__field">
                   <input
@@ -109,8 +168,11 @@ function ReportarProblema() {
                   <span>En caso de no tener imagen del error dejar este campo vacío</span>
                 </div>
                 <div className="container__field container__btn">
-                  <button className="btn --btn-azul">Enviar</button>
+                  <button className="btn --btn-azul" type="submit" disabled={loading}>
+                    {loading ? 'Enviando...' : 'Enviar'}
+                  </button>
                 </div>
+                {error && <div className="error-message">{error}</div>}
               </form>
             </div>
           </div>
