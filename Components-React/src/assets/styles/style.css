@@ -1469,7 +1469,10 @@ button.react-calendar__tile--now:enabled:hover,
 .__checkbox {
   justify-content: flex-start;
 }
-
+.card-form > input[type="password"]{
+  border: solid 2px var(--primary-color);
+  border-radius: 10px;
+}
 .container__field p {
   width: 40%;
   font-weight: 600;
