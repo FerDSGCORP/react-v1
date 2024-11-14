@@ -472,7 +472,7 @@ aside.collapse .aside_list_link.dropdown .aside_list_link_content i:last-child {
 }
 
 .dropdown.dropdown-Active .dropdown__container__menu {
-  max-height: 80px;
+  max-height: 120px;
 }
 
 .dropdown .aside_list_link_content>.arrow {
