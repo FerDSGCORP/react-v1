@@ -9,7 +9,7 @@
   --primary-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   --secondary-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.25);
   --primary-border: 1px solid #E4E7EB;
-  --primary-color-icon:#007AFF;
+  --primary-color-icon: #007AFF;
   --primary-color-hover: #007AFF50;
 }
 
@@ -25,11 +25,11 @@ ul.aside_list.hide {
   display: none;
 }
 
-svg > g > path {
+svg>g>path {
   fill: var(--primary-color-icon);
 }
 
-svg > path {
+svg>path {
   stroke: var(--primary-color-icon);
 }
 
@@ -303,7 +303,7 @@ aside,
 .container__menuSmall {
   margin-top: 30px;
   z-index: 1;
-    position: relative;
+  position: relative;
 }
 
 aside.collapse {
@@ -363,7 +363,8 @@ aside.collapse .aside_list_link.dropdown .aside_list_link_content i:last-child {
 }
 
 .aside_list_link,
-.aside_list_link>div, .aside_list_link a {
+.aside_list_link>div,
+.aside_list_link a {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -556,7 +557,8 @@ aside.collapse .aside_list_link.dropdown .aside_list_link_content i:last-child {
   align-items: center;
   justify-content: center;
 }
-.modal-content-head button svg > path{
+
+.modal-content-head button svg>path {
   stroke: #fff;
 }
 
@@ -1062,9 +1064,9 @@ th>input[type="text"] {
 .bodyView {
   display: flex;
   padding: 25px 0px;
-  flex-direction: column;
+  flex-wrap: wrap;
   align-items: flex-start;
-  gap: 10px;
+  gap: 50px 30px;
 }
 
 .bodyCard {
@@ -1084,7 +1086,9 @@ th>input[type="text"] {
   border: 1px solid var(--gris);
   gap: 10px;
 }
-
+.card.--short{
+  flex: 1 0 auto;
+}
 .card-enc {
   font-size: 16px;
 }
@@ -1171,7 +1175,7 @@ input[type="datetime-local" i] {
 
 
 .--short {
-  width: 50%;
+  width: 45%;
   height: 350px;
   overflow: auto;
 }
@@ -1469,10 +1473,12 @@ button.react-calendar__tile--now:enabled:hover,
 .__checkbox {
   justify-content: flex-start;
 }
-.card-form > input[type="password"]{
+
+.card-form>input[type="password"] {
   border: solid 2px var(--primary-color);
   border-radius: 10px;
 }
+
 .container__field p {
   width: 40%;
   font-weight: 600;
@@ -1848,7 +1854,7 @@ select#selectProblema {
   position: absolute;
 }
 
-.rbc-day-bg + .rbc-day-bg {
+.rbc-day-bg+.rbc-day-bg {
   border-left: 0px;
   z-index: 3;
 }
@@ -1856,6 +1862,7 @@ select#selectProblema {
 .rbc-day-bg:hover {
   border: solid 2px var(--primary-color);
 }
+
 .fileCharge span {
   width: 100%;
 }
@@ -1872,25 +1879,28 @@ select#selectProblema {
   display: flex;
   align-items: center;
   gap: 15px;
-}   
+}
 
 .container__Buttons__paginations {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
-.--text-center{
+
+.--text-center {
   text-align: center;
 }
 
-.--pd-05{
+.--pd-05 {
   padding: 1rem;
 }
+
 .container__actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.errorlbl{
+
+.errorlbl {
   border: 1px solid #ff4545 !important;
 }
