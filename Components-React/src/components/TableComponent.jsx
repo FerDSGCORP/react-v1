@@ -55,12 +55,30 @@ const TableComponent = ({ data, columns, total, page, setPage, filters, setFilte
             filtrosVal = 1;
             busquedaJQgrid = '';
         } else if (filtro === 'tableFiltersHeader') {
+            let busquedaJQgridObj = {
+                groupOp: 'AND',
+                rules: [],
+            };
+    
             const filtroAvanzado = localStorage.getItem('filtroAvanzado');
             if (filtroAvanzado) {
-                busquedaJQgrid = filtroAvanzado;
-            } else {
-                busquedaJQgrid = '';
+                const filtroAvanzadoObj = JSON.parse(filtroAvanzado);
+                busquedaJQgridObj.rules = busquedaJQgridObj.rules.concat(filtroAvanzadoObj.rules || []);
             }
+    
+            if (columnFilters) {
+                Object.entries(columnFilters).forEach(([columnId, value]) => {
+                    if (value) {
+                        busquedaJQgridObj.rules.push({
+                            field: columnId,
+                            op: 'cn',
+                            data: value,
+                        });
+                    }
+                });
+            }
+    
+            busquedaJQgrid = JSON.stringify(busquedaJQgridObj);
             filtrosVal = 2;
         }
     
@@ -86,6 +104,7 @@ const TableComponent = ({ data, columns, total, page, setPage, filters, setFilte
     
         setExportPayload(payload);
     };
+    
 
     const { data: exportData, loading: exportLoading, error: exportError } = useExportarDatosTable(exportPayload, ligaServer);
 

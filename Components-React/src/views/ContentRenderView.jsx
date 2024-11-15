@@ -34,7 +34,9 @@ function ContentRenderView() {
   const { numeroDeUsuario } = userData ? JSON.parse(userData) : {};
 
   const { records, loading, error } = FideicomisosCard(numeroDeUsuario);
-
+  useEffect(() => {
+    localStorage.removeItem('filtroAvanzado');
+  }, [location]);
   useEffect(() => {
     const token = sessionStorage.getItem('token');
     if (!token) {

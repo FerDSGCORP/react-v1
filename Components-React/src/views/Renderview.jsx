@@ -25,7 +25,10 @@ function RenderView() {
   const { data: fideicomisos, loading, error } = useFideicomisosCard();
   const [location, setLocation] = useLocation();
   const [idFidSelect, setIdFidSelect] = useState(() => localStorage.getItem('idFidSelect') || '');
-
+  
+  useEffect(() => {
+    localStorage.removeItem('filtroAvanzado');
+  }, [location]);
 
   useEffect(() => {
     const storedIdFidSelect = localStorage.getItem('idFidSelect');
