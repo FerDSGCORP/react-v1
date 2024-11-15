@@ -1,4 +1,4 @@
-//Generado Automáticamente, Versión del generador: 5.0
+//Generado Automáticamente, Versión del generador: 5.2
 import { useState, useEffect } from 'react';
 import {useFetchConfig} from './useFetchConfig';
 const useFetchCuenFidInfo = (numeroDeContrato, numeroDeSubContrato, numeroDePais, numeroDeMoneda, numeroDeCuenta, cveProductoCuenta, subProductoCuenta, cuentaVista, secuencial) => {
@@ -7,10 +7,10 @@ const useFetchCuenFidInfo = (numeroDeContrato, numeroDeSubContrato, numeroDePais
 	const [error, setError] = useState(null);
 	const { config } = useFetchConfig();
 	useEffect(() => {
-		if (!config) {
+		if(!numeroDeContrato&&!numeroDeSubContrato&&!numeroDePais&&!numeroDeMoneda&&!numeroDeCuenta&&!cveProductoCuenta&&!subProductoCuenta&&!cuentaVista&&!secuencial||!config){
 			setLoading(true);
 			return;
-		  }
+		}
 		const fetchData = async () => {
 			setLoading(true);
 			try {

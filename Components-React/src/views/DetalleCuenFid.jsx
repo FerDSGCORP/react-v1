@@ -1,4 +1,4 @@
-﻿//Generado Automáticamente, Versión del generador: 5.0
+﻿//Generado Automáticamente, Versión del generador: 5.2
 import React, { useEffect, useState } from 'react';
 import useFetchCuenFidInfo from '../services/useFetchCuenFidInfo';
 import ControlDocumentalModal from '../components/ControlDocumentalModal';

@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import {useFetchConfig} from './useFetchConfig';
 
-const useFetchCInterFid = (numeroDeContrato, page = 1, rows = 80, filters = null) => {
+const useFetchTerceroP = (numeroDeContrato, page = 1, rows = 80, filters = null) => {
 	const [data, setData] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -44,7 +44,7 @@ const useFetchCInterFid = (numeroDeContrato, page = 1, rows = 80, filters = null
 				}
 
 				const response = await fetch(
-					`${uriApi}/api/cinterfid/sidx/NumeroDeContrato/sord/asc/page/${page}/rows/${rows}/${numeroDeContrato}`,
+					`${uriApi}/api/tercerop/sidx/NumeroDeContrato/sord/asc/page/${page}/rows/${rows}/${numeroDeContrato}`,
 					{
 						method: 'GET',
 						 headers: headers,
@@ -75,4 +75,4 @@ const useFetchCInterFid = (numeroDeContrato, page = 1, rows = 80, filters = null
 	}, [config, numeroDeContrato, page, rows, filters]);
 	return { data, total, records, loading, error };
 };
-export default useFetchCInterFid;
+export default useFetchTerceroP;

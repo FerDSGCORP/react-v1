@@ -1,4 +1,4 @@
-﻿//Generado Automáticamente, Versión del generador: 5.0
+﻿//Generado Automáticamente, Versión del generador: 5.2
 import { useState, useEffect } from 'react';
 import {useFetchConfig} from './useFetchConfig';
 const useFetchCInterFidInfo = (numeroDeContrato, numeroDeSubContrato, numeroDeIntermediario, numeroDeMoneda, contratoIntermediacion) => {
@@ -35,7 +35,7 @@ const useFetchCInterFidInfo = (numeroDeContrato, numeroDeSubContrato, numeroDeIn
 					'X-User-Id': numeroDeUsuario,
 				};
 				// Hacer la petición GET al servidor con los headers y la URL adecuada
-				const response = await fetch(`${uriApi}/api/CInterFid/info/${numeroDeContrato}/subcontrato/${numeroDeSubContrato}/intermediario/${numeroDeIntermediario}/moneda/${numeroDeMoneda}/cintermediacion/${contratoIntermediacion}`, {
+				const response = await fetch(`${uriApi}/api/cinterfid/info/${numeroDeContrato}/subcontrato/${numeroDeSubContrato}/intermediario/${numeroDeIntermediario}/moneda/${numeroDeMoneda}/cintermediacion/${contratoIntermediacion}`, {
 					method: 'GET',
 					headers: headers,
 				});

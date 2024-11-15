@@ -13,13 +13,15 @@ import PerfilUserInfo from './PerfilUsuario';
 import '../assets/styles/style.css';
 import useFideicomisosCard from "../services/useFetchFideicomisosCard";
 import { IconFIdeicomisoSelect } from '../components/Icons';
-import GridCuenFid from './IndexCuenFid';
-import GridCInterFid from './IndexCInterFid';
 import DetalleCuenFid from './DetalleCuenFid';
-import cuenFidMultiple from '../services/useFetchCuenFidMultiple';
-import { CuenFidInfoRoute } from './ContentRenderView';
-
-
+import { CuenFidInfoRoute,CInterFidInfoRoute,FideicomitentePInfoRoute,FideicomisarioPInfoRoute,TerceroPInfoRoute,BienFideInfoRoute } from './ContentRenderView';
+import DetalleCInterFid from './DetalleCInterFid';
+import DetalleFideicomitenteP from './DetalleFideicomitenteP';
+import DetalleFideicomisarioP from './DetalleFideicomisarioP';
+import DetalleTerceroP  from './DetalleTerceroP'
+import DetalleBienFide  from './DetalleBienFide'
+import GridInstruccionPagoConcilia from './IndexInstruccionPagoConcilia';
+import DetalleInstruccionPagoConcilia   from './DetalleInstruccionPagoConcilia'
 
 function RenderView() {
   const { data: fideicomisos, loading, error } = useFideicomisosCard();
@@ -123,12 +125,47 @@ function RenderView() {
               {params => <PerfilUserInfo />}
             </Route>
             <Route path="/home/cuenfid-info/:numeroDeContrato" component={CuenFidInfoRoute} />
-            <Route path="/home/cinterfid-info/:idFidSelect">
-              {params => <GridCInterFid idFidSelect={idFidSelect} />}
-            </Route>
             <Route path="/home/cuenfid-detalle/:numeroDeContrato/subcontrato/:numeroDeSubContrato/pais/:numeroDePais/moneda/:numeroDeMoneda/cuenta/:numeroDeCuenta/cta/:cveProductoCuenta/cta/:subProductoCuenta/vista/:cuentaVista/secuencial/:secuencial">
               {params => {
                 return <DetalleCuenFid {...params} />;
+              }}
+            </Route>
+            <Route path="/home/cinterfid-info/:numeroDeContrato" component={CInterFidInfoRoute} />
+            <Route path="/home/cinterfid-detalle/:numeroDeContrato/subcontrato/:numeroDeSubContrato/intermediario/:numeroDeIntermediario/moneda/:numeroDeMoneda/cintermediacion/:contratoIntermediacion">
+              {params => {
+                return <DetalleCInterFid {...params} />;
+              }}
+            </Route>
+            <Route path="/home/fideicomitentep-info/:numeroDeContrato" component={FideicomitentePInfoRoute} />
+            <Route path="/home/fideicomitentep-detalle/:numeroDeContrato/fideicom/:numeroDeFideicomitente">
+              {params => {
+                return <DetalleFideicomitenteP {...params} />;
+              }}
+            </Route>
+            <Route path="/home/fideicomisariop-info/:numeroDeContrato" component={FideicomisarioPInfoRoute} />
+            <Route path="/home/fideicomisariop-detalle/:numeroDeContrato/fidsario/:numeroDeFideicomisario">
+              {params => {
+                return <DetalleFideicomisarioP {...params} />;
+              }}
+            </Route>
+            <Route path="/home/tercerop-info/:numeroDeContrato" component={TerceroPInfoRoute} />
+            <Route path="/home/tercerop-detalle/:numeroDeContrato/tercero/:numeroDeTercero">
+              {params => {
+                return <DetalleTerceroP {...params} />;
+              }}
+            </Route>
+            <Route path="/home/bienfide-info/:numeroDeContrato" component={BienFideInfoRoute} />
+            <Route path="/home/bienfide-detalle/:idBien/contrato/:numeroDeContrato/subcontrato/:numeroDeSubcontrato">
+              {params => {
+                return <DetalleBienFide {...params} />;
+              }}
+            </Route>
+            <Route path="/home/instruccionpagoconcilia-index/:idFidSelect">
+               {params => <GridInstruccionPagoConcilia idFidSelect={idFidSelect} />}
+            </Route> 
+            <Route path="/home/instruccionpagoconcilia-detalle/:folioInstruccionDePago/archivo/:secuencialArchivo/layout/:secuencialLayout">
+              {params => {
+                return <DetalleInstruccionPagoConcilia {...params} />;
               }}
             </Route>
 

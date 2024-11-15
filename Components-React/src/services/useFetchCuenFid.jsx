@@ -1,4 +1,4 @@
-//Generado Automáticamente, Versión del generador: 5.0
+//Generado Automáticamente, Versión del generador: 5.2
 import { useState, useEffect } from 'react';
 import {useFetchConfig} from './useFetchConfig';
 
