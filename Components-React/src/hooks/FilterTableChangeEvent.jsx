@@ -42,6 +42,7 @@ const useFilterTableChangeEvent = () => {
       groups: []
     });
     setColumnFilters({});
+    localStorage.removeItem('filtroAvanzado');
   };
 
   return {

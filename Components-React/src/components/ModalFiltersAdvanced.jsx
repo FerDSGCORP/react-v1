@@ -6,6 +6,20 @@ const ModalFiltersAdvanced = ({ visibleColumns, isOpen, onClose, onSave }) => {
     const [rules, setRules] = useState([{ field: '', op: '', data: '' }]); // Una regla inicial
     const [groups, setGroups] = useState([]); // Grupos adicionales de reglas
 
+    // Cargar filtros desde localStorage cuando el modal se abre
+    useEffect(() => {
+        if (isOpen) {
+            const savedFilters = localStorage.getItem("filtroAvanzado");
+            if (savedFilters) {
+                const filters = JSON.parse(savedFilters);
+                setGroupOp(filters.groupOp || 'AND');
+                setRules(filters.rules.length > 0 ? filters.rules : [{ field: '', op: '', data: '' }]);
+                setGroups(filters.groups || []);
+            }
+        }
+    }, [isOpen]);
+
+
     // Manejo del cambio en el operador del grupo (AND/OR)
     const handleGroupOpChange = (e) => {
         setGroupOp(e.target.value);
@@ -61,8 +75,7 @@ const ModalFiltersAdvanced = ({ visibleColumns, isOpen, onClose, onSave }) => {
         onClose(); // Cerrar modal después de guardar
     };
 
-    if (!isOpen) return null; // No mostrar nada si el modal está cerrado
-
+    if (!isOpen) return null;
     return (
         <div className="modal">
             <div className="modal-content">
@@ -217,7 +230,6 @@ const ModalFiltersAdvanced = ({ visibleColumns, isOpen, onClose, onSave }) => {
                 </div>
 
                 <button onClick={handleSaveFilters}>Guardar Filtros</button>
-                
             </div>
         </div>
     );
